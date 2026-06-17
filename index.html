@@ -268,6 +268,7 @@
      Page translate is computed in pixels by JS = page * (trackWidth + gap),
      so the 24px gap between cards never accumulates as drift across pages. */
   .card{
+    position:relative;
     --gap:24px;
     flex:0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
     max-width:calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
@@ -278,6 +279,8 @@
     padding:26px 24px 24px;
     transition:border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
   }
+  /* cả card click được — phủ vùng click của link ra toàn card (stretched link) */
+  .card__link::after{ content:''; position:absolute; inset:0; z-index:1; }
   .card:hover{
     border-color:var(--line-2);
     transform:translateY(-4px);
