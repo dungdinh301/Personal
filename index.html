@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rung Rinh — Dũng Đinh</title>
+<meta name="description" content="Personal project của Dũng Đinh — product & data thinking, retail banking, trail running.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#161d2e; --ink2:#2a3146; --muted:#6b7280;
+    --bg:#ffffff; --line:#ecedf2;
+    --coral:#f9566a; --coral-soft:#fff0f2;
+    --teal:#0fb6a0; --teal-soft:#e7faf6;
+    --indigo:#6f5cf6; --indigo-soft:#efecff;
+    --amber:#f59e0b; --amber-soft:#fff6e8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--ink);background:var(--bg);
+    line-height:1.55;-webkit-font-smoothing:antialiased;
+    background-image:radial-gradient(40% 30% at 85% -5%, #fff2f4 0%, transparent 60%),
+                     radial-gradient(35% 25% at 0% 5%, #eef0ff 0%, transparent 55%);
+    min-height:100vh;
+  }
+  .wrap{max-width:840px;margin:0 auto;padding:72px 24px 64px}
+  header{margin-bottom:48px}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;
+    letter-spacing:.02em;color:var(--coral);background:var(--coral-soft);
+    border-radius:999px;padding:7px 14px;margin-bottom:22px;
+  }
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--coral)}
+  h1{font-size:52px;font-weight:800;letter-spacing:-.035em;line-height:1.02;color:var(--ink);margin-bottom:16px}
+  h1 .hl{background:linear-gradient(90deg,var(--coral),#ff8a5b);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .sub{color:var(--muted);font-size:16px;max-width:560px}
+  .grid{display:grid;gap:18px;margin-top:8px}
+  .card{
+    display:flex;align-items:center;gap:20px;text-decoration:none;color:inherit;
+    background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px 24px;
+    box-shadow:0 1px 2px rgba(22,29,46,.04);
+    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(22,29,46,.10);border-color:#e2e3ea}
+  .icon{flex:none;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;font-size:24px;background:var(--c-soft)}
+  .body{flex:1;min-width:0}
+  .tag{
+    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+    color:var(--c);background:var(--c-soft);border-radius:999px;padding:4px 10px;margin-bottom:9px;
+  }
+  .card h2{font-size:19px;font-weight:700;color:var(--ink2);margin-bottom:5px;letter-spacing:-.01em}
+  .card p{color:var(--muted);font-size:14px}
+  .go{flex:none;align-self:center;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
+      color:var(--c);background:var(--c-soft);font-size:18px;transition:transform .2s ease}
+  .card:hover .go{transform:translateX(4px)}
+  .c-rust{--c:#b23a2e;--c-soft:#f6ece9}
+  footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);
+         color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
+  .hero-banner{width:100%;border-radius:20px;overflow:hidden;margin-bottom:36px;box-shadow:0 16px 40px rgba(22,29,46,.16);line-height:0}
+  .hero-banner img{width:100%;height:auto;display:block}
+  @media(max-width:560px){ h1{font-size:38px} .card{padding:18px;gap:16px} .go{display:none} }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero-banner"><img src="hero.jpeg" alt="Dũng Đinh — trail runner"></div>
+    <header>
+      <div class="eyebrow"><span class="dot"></span> Personal project</div>
+      <h1>Rung Rinh <span class="hl">.</span></h1>
+      <p class="sub">Product &amp; data thinking · retail banking · trail running. Một vài thứ tôi dựng và chia sẻ công khai.</p>
+    </header>
+
+    <div class="grid">
+      <a class="card c-rust" href="workos-showcase.html">
+        <div class="icon">🧠</div>
+        <div class="body">
+          <span class="tag">Personal WorkOS · cẩm nang</span>
+          <h2>Bộ não thứ hai — Personal WorkOS</h2>
+          <p>13 slide giải thích cách dựng một hệ tri thức dùng chung với AI: là gì, làm được gì, vì sao cần.</p>
+        </div>
+        <div class="go">→</div>
+      </a>
+      <!-- THÊM CARD MỚI Ở ĐÂY khi Dũng duyệt thêm trang lên public -->
+    </div>
+
+    <footer>
+      <span>Rung Rinh — Dũng Đinh</span>
+      <span>github.com/dungdinh301</span>
+    </footer>
+  </div>
+</body>
+</html>
