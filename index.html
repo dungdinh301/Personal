@@ -1,94 +1,792 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rung Rinh — Dũng Đinh</title>
-<meta name="description" content="Personal project của Dũng Đinh — product & data thinking, retail banking, trail running.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rung Rinh — Dung Dinh · Product Owner / Business Analyst</title>
+<meta name="description" content="Dung Dinh — Product Owner / Business Analyst trong ngân hàng bán lẻ. Tư duy hệ thống, biến dữ liệu và vận hành thành sản phẩm. Đây là những sản phẩm tôi dựng." />
+<meta name="author" content="Dung Dinh" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Rung Rinh — Dung Dinh" />
+<meta property="og:description" content="Tôi biến dữ liệu và vận hành thành sản phẩm. Product Owner / Business Analyst — ngân hàng bán lẻ." />
+<meta property="og:image" content="hero.jpeg" />
+<meta name="theme-color" content="#16130E" />
+
+<!-- Google Fonts: Fraunces (display serif, VN) + Inter (body, VN) -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500;1,9..144,600&family=Inter:wght@400;500;600;700;800&display=swap&subset=vietnamese,latin" rel="stylesheet" />
+
 <style>
+  /* ============================================================
+     DESIGN TOKENS — DARK EDITORIAL / CINEMATIC (editorial tối)
+     Than ấm (near-black) + chữ kem, trail-orange phát sáng làm accent.
+     ============================================================ */
   :root{
-    --ink:#161d2e; --ink2:#2a3146; --muted:#6b7280;
-    --bg:#ffffff; --line:#ecedf2;
-    --coral:#f9566a; --coral-soft:#fff0f2;
-    --teal:#0fb6a0; --teal-soft:#e7faf6;
-    --indigo:#6f5cf6; --indigo-soft:#efecff;
-    --amber:#f59e0b; --amber-soft:#fff6e8;
+    --bg:      #16130E;   /* warm charcoal, near-black background */
+    --bg-2:    #211C15;   /* card / panel surface — sáng hơn nền chút */
+    --ink:     #EDE6D8;   /* warm cream text */
+    --muted:   #A1978A;   /* secondary / muted text */
+    --line:    rgba(255,255,255,.10);  /* hairline rules / borders */
+    --line-2:  rgba(255,255,255,.18);  /* hover / emphasis hairline */
+    --accent:  #E2522A;   /* trail orange — glows on dark */
+    --accent-deep:#F06B3E;
+
+    --radius:  14px;
+    --radius-lg:18px;
+
+    --maxw:    1180px;
+    --ease:    cubic-bezier(.22,.61,.36,1);
+
+    --serif:'Fraunces', 'Iowan Old Style', Georgia, 'Times New Roman', serif;
+    --sans:'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   }
-  *{box-sizing:border-box;margin:0;padding:0}
+
+  *,*::before,*::after{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
   body{
-    font-family:'Be Vietnam Pro',system-ui,sans-serif;color:var(--ink);background:var(--bg);
-    line-height:1.55;-webkit-font-smoothing:antialiased;
-    background-image:radial-gradient(40% 30% at 85% -5%, #fff2f4 0%, transparent 60%),
-                     radial-gradient(35% 25% at 0% 5%, #eef0ff 0%, transparent 55%);
-    min-height:100vh;
+    margin:0;
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
   }
-  .wrap{max-width:840px;margin:0 auto;padding:72px 24px 64px}
-  header{margin-bottom:48px}
+
+  img{ max-width:100%; display:block; }
+
+  a{ color:inherit; text-decoration:none; }
+
+  .wrap{
+    width:100%;
+    max-width:var(--maxw);
+    margin-inline:auto;
+    padding-inline:24px;
+  }
+
+  /* Accessibility: visible focus ring — high-contrast cream halo on dark */
+  :focus-visible{
+    outline:2.5px solid var(--accent);
+    outline-offset:3px;
+    border-radius:4px;
+    box-shadow:0 0 0 4px rgba(22,19,14,.9);
+  }
+
+  .visually-hidden{
+    position:absolute; width:1px; height:1px;
+    padding:0; margin:-1px; overflow:hidden;
+    clip:rect(0 0 0 0); white-space:nowrap; border:0;
+  }
+
+  /* small editorial eyebrow label */
   .eyebrow{
-    display:inline-flex;align-items:center;gap:8px;font-size:12px;font-weight:600;
-    letter-spacing:.02em;color:var(--coral);background:var(--coral-soft);
-    border-radius:999px;padding:7px 14px;margin-bottom:22px;
+    font-family:var(--sans);
+    font-size:.72rem; font-weight:600;
+    letter-spacing:.18em; text-transform:uppercase;
+    color:var(--muted);
   }
-  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--coral)}
-  h1{font-size:52px;font-weight:800;letter-spacing:-.035em;line-height:1.02;color:var(--ink);margin-bottom:16px}
-  h1 .hl{background:linear-gradient(90deg,var(--coral),#ff8a5b);-webkit-background-clip:text;background-clip:text;color:transparent}
-  .sub{color:var(--muted);font-size:16px;max-width:560px}
-  .grid{display:grid;gap:18px;margin-top:8px}
+
+  /* ============================================================
+     1) NAV — slim, sticky, dark glass
+     ============================================================ */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(22,19,14,.72);
+    backdrop-filter:saturate(140%) blur(12px);
+    -webkit-backdrop-filter:saturate(140%) blur(12px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav__inner{
+    display:flex; align-items:center; justify-content:space-between;
+    height:64px;
+  }
+  .brand{
+    display:inline-flex; align-items:baseline; gap:8px;
+    font-family:var(--serif);
+    font-weight:700; font-size:1.34rem; letter-spacing:-.015em;
+    font-optical-sizing:auto;
+    color:var(--ink);
+  }
+  .brand__dot{
+    display:inline-block;
+    width:7px; height:7px; border-radius:50%;
+    background:var(--accent);
+    box-shadow:0 0 10px rgba(226,82,42,.6);
+    transform:translateY(-1px);
+  }
+  .nav__cta{
+    display:inline-flex; align-items:center; gap:7px;
+    padding:8px 18px;
+    font-family:var(--sans);
+    font-weight:600; font-size:.9rem; letter-spacing:.01em;
+    color:var(--ink);
+    border:1px solid var(--ink);
+    border-radius:9px;
+    transition:color .18s var(--ease), background .18s var(--ease), border-color .18s var(--ease);
+  }
+  .nav__cta:hover{ background:var(--ink); color:var(--bg); }
+
+  /* ============================================================
+     2) HERO — cinematic dark panel (banner cover kept at top)
+     ============================================================ */
+  .hero{ padding:36px 0 56px; }
+  .hero__panel{
+    position:relative; overflow:hidden;
+    border-radius:28px;
+    background:linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+    border:1px solid var(--line);
+    padding:clamp(24px,4.4vw,48px);
+  }
+
+  /* Hero framed B&W banner — bleeds INTO the dark for cohesion; hairline only.
+     Contained, NEVER full-bleed. Warm sepia keeps it on the orange tone. */
+  .hero__banner{ margin:0 0 clamp(26px,4vw,40px); }
+  .hero__banner img{
+    display:block; width:100%; height:auto;
+    aspect-ratio:1400 / 349;
+    object-fit:cover; object-position:center;
+    border-radius:var(--radius);
+    border:1px solid var(--line);
+    background:var(--bg);
+    /* warm B&W: ảnh tan vào nền tối, giữ tông cam — sáng nhẹ để không chìm */
+    filter:grayscale(100%) sepia(15%) brightness(.92) contrast(1.06);
+  }
+  /* soft vignette so the framed banner melts into the panel edge */
+  .hero__banner img{
+    -webkit-mask-image:radial-gradient(120% 140% at 50% 45%, #000 62%, rgba(0,0,0,.86) 100%);
+            mask-image:radial-gradient(120% 140% at 50% 45%, #000 62%, rgba(0,0,0,.86) 100%);
+  }
+
+  .hero__copy{ max-width:760px; }
+  .hero h1{
+    margin:0 0 14px;
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    font-size:clamp(2.2rem, 5.6vw, 4rem);
+    line-height:1.04;
+    font-weight:600;
+    letter-spacing:-.02em;
+  }
+  .hero h1 .accent{ color:var(--accent); font-style:italic; }
+  .hero__sub{
+    margin:0 0 26px;
+    font-family:var(--sans);
+    font-size:.82rem; font-weight:600;
+    letter-spacing:.2em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .hero__quote{
+    margin:0; max-width:480px; text-align:left;
+    padding:4px 0 4px 20px;
+    border-left:3px solid var(--accent);
+  }
+  .hero__quote p{
+    margin:0;
+    font-family:var(--serif);
+    font-style:italic; font-weight:500;
+    font-size:clamp(1.06rem,1.8vw,1.28rem); line-height:1.4;
+    color:var(--ink);
+  }
+  .hero__quote cite{
+    display:block; margin-top:8px;
+    font-family:var(--sans);
+    font-style:normal; font-size:.74rem; font-weight:600;
+    letter-spacing:.08em; text-transform:uppercase; color:var(--muted);
+  }
+
+  /* ============================================================
+     3) PROJECT SECTION — editorial index (carousel/grid adaptive)
+     ============================================================ */
+  .section{ padding:24px 0 72px; }
+  .section__head{
+    display:flex; align-items:flex-end; justify-content:space-between;
+    gap:18px; margin-bottom:34px; flex-wrap:wrap;
+    border-bottom:1px solid var(--line); padding-bottom:22px;
+  }
+  .section__title{
+    margin:8px 0 0;
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    font-size:clamp(1.9rem,3.6vw,2.7rem);
+    font-weight:600; letter-spacing:-.02em; line-height:1.05;
+  }
+  .section__title .accent{ color:var(--accent); font-style:italic; }
+  .section__lead{
+    margin:8px 0 0; color:var(--muted); font-weight:400;
+    font-size:1rem;
+  }
+
+  /* arrow controls (top-right of header on desktop) */
+  .carousel__nav{ display:flex; gap:10px; }
+  .arrow{
+    width:46px; height:46px; flex:none;
+    display:inline-flex; align-items:center; justify-content:center;
+    background:transparent; color:var(--ink);
+    border:1px solid var(--line-2); border-radius:11px;
+    cursor:pointer;
+    transition:background .18s var(--ease), color .18s var(--ease), border-color .18s var(--ease), opacity .18s var(--ease);
+  }
+  .arrow:hover:not(:disabled){ background:var(--ink); color:var(--bg); border-color:var(--ink); }
+  .arrow:disabled{ opacity:.26; cursor:not-allowed; }
+  .arrow svg{ width:19px; height:19px; }
+
+  .carousel{ position:relative; }
+  .carousel:focus-visible{ outline:2.5px solid var(--accent); outline-offset:8px; border-radius:18px; }
+
+  /* GRID MODE: hide in-carousel controls (floating arrows + dots) when there
+     is a single page. The top-header arrows live outside .carousel and are
+     hidden via the .controls-hidden class added to .section__head by JS. */
+  .carousel.is-grid .arrow--float,
+  .carousel.is-grid .carousel__dots{ display:none !important; }
+  .section__head.controls-hidden .carousel__nav--top{ display:none !important; }
+
+  .carousel__viewport{ overflow:hidden; padding:6px 4px 10px; margin:-6px -4px -10px; }
+  .carousel__track{
+    --gap:24px;
+    display:flex;
+    gap:var(--gap);
+    transition:transform .5s var(--ease);
+    will-change:transform;
+    list-style:none; margin:0; padding:0;
+  }
+
+  /* GRID MODE: when there is only one page (e.g. desktop with 3 projects),
+     JS adds .is-grid — render the cards as a static, centered flex row with
+     NO transform, NO paging. Controls (arrows + dots) are hidden in this mode. */
+  .carousel__track.is-grid{
+    transform:none !important;
+    justify-content:center;
+    flex-wrap:wrap;
+  }
+
+  /* card sizing is driven by --per (cards per view) set in JS.
+     Page translate is computed in pixels by JS = page * (trackWidth + gap),
+     so the 24px gap between cards never accumulates as drift across pages. */
   .card{
-    display:flex;align-items:center;gap:20px;text-decoration:none;color:inherit;
-    background:#fff;border:1px solid var(--line);border-radius:20px;padding:22px 24px;
-    box-shadow:0 1px 2px rgba(22,29,46,.04);
-    transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    --gap:24px;
+    flex:0 0 calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
+    max-width:calc((100% - (var(--per) - 1) * var(--gap)) / var(--per));
+    display:flex; flex-direction:column;
+    background:var(--bg-2);
+    border:1px solid var(--line);
+    border-radius:var(--radius);
+    padding:26px 24px 24px;
+    transition:border-color .25s var(--ease), transform .25s var(--ease), box-shadow .25s var(--ease);
   }
-  .card:hover{transform:translateY(-3px);box-shadow:0 14px 34px rgba(22,29,46,.10);border-color:#e2e3ea}
-  .icon{flex:none;width:52px;height:52px;border-radius:15px;display:grid;place-items:center;font-size:24px;background:var(--c-soft)}
-  .body{flex:1;min-width:0}
-  .tag{
-    display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
-    color:var(--c);background:var(--c-soft);border-radius:999px;padding:4px 10px;margin-bottom:9px;
+  .card:hover{
+    border-color:var(--line-2);
+    transform:translateY(-4px);
+    box-shadow:0 18px 40px -24px rgba(0,0,0,.8);
   }
-  .card h2{font-size:19px;font-weight:700;color:var(--ink2);margin-bottom:5px;letter-spacing:-.01em}
-  .card p{color:var(--muted);font-size:14px}
-  .go{flex:none;align-self:center;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;
-      color:var(--c);background:var(--c-soft);font-size:18px;transition:transform .2s ease}
-  .card:hover .go{transform:translateX(4px)}
-  .c-rust{--c:#b23a2e;--c-soft:#f6ece9}
-  footer{margin-top:44px;padding-top:22px;border-top:1px solid var(--line);
-         color:var(--muted);font-size:12.5px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px}
-  .hero-banner{width:100%;border-radius:20px;overflow:hidden;margin-bottom:36px;box-shadow:0 16px 40px rgba(22,29,46,.16);line-height:0}
-  .hero-banner img{width:100%;height:auto;display:block}
-  @media(max-width:560px){ h1{font-size:38px} .card{padding:18px;gap:16px} .go{display:none} }
+
+  /* editorial index head: big number + line icon side by side */
+  .card__head{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    gap:12px;
+  }
+  .card__num{
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    font-size:3.4rem; font-weight:600; line-height:.9;
+    letter-spacing:-.03em;
+    color:var(--accent);
+  }
+  .card__icon{
+    line-height:0;
+    color:var(--ink);
+    transition:color .25s var(--ease);
+    margin-top:6px;
+  }
+  .card__icon svg{ width:24px; height:24px; display:block; }
+  .card:hover .card__icon{ color:var(--accent); }
+
+  .card__body{
+    display:flex; flex-direction:column; gap:8px;
+    margin-top:18px;
+    flex:1;
+  }
+  .card__tag{
+    align-self:flex-start;
+    font-family:var(--sans);
+    font-size:.68rem; font-weight:600; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--muted);
+  }
+  .card__title{
+    margin:2px 0 0;
+    font-family:var(--serif);
+    font-optical-sizing:auto;
+    font-size:1.3rem; font-weight:600; letter-spacing:-.015em; line-height:1.2;
+    color:var(--ink);
+  }
+  .card__desc{ margin:2px 0 0; color:var(--muted); font-size:.95rem; flex:1; }
+
+  /* hairline divider above the action */
+  .card__rule{ border:0; border-top:1px solid var(--line); margin:18px 0 14px; }
+
+  .card__link{
+    align-self:flex-start;
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:var(--sans);
+    font-weight:600; font-size:.92rem; color:var(--accent);
+  }
+  .card__link svg{ width:15px; height:15px; transition:transform .2s var(--ease); }
+  .card__link:hover{ color:var(--accent-deep); }
+  .card__link:hover svg{ transform:translateX(4px); }
+  .card__soon{
+    align-self:flex-start;
+    display:inline-flex; align-items:center; gap:7px;
+    font-family:var(--sans);
+    font-weight:500; font-size:.88rem; color:var(--muted);
+    opacity:.75;
+  }
+
+  /* pagination dots */
+  .carousel__dots{
+    display:flex; align-items:center; justify-content:center;
+    gap:10px; margin-top:34px;
+  }
+  .dot{
+    width:8px; height:8px; padding:0;
+    border:1px solid var(--muted); background:transparent;
+    border-radius:999px; cursor:pointer;
+    transition:width .25s var(--ease), background .25s var(--ease), border-color .25s var(--ease);
+  }
+  .dot[aria-current="true"]{ width:26px; background:var(--accent); border-color:var(--accent); }
+  .dot:hover{ border-color:var(--ink); }
+
+  /* floating side arrows (tablet/mobile) */
+  .arrow--float{
+    position:absolute; top:50%; transform:translateY(-50%); z-index:5;
+    display:none;
+    background:var(--bg-2);
+  }
+  .arrow--float:hover:not(:disabled){ transform:translateY(-50%); }
+
+  /* ============================================================
+     5) FOOTER — deeper dark, cream-muted text, accent links
+     ============================================================ */
+  .footer{ background:#100D09; color:#C9C0B2; padding:52px 0 38px; border-top:1px solid var(--line); }
+  .footer__inner{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px; flex-wrap:wrap;
+  }
+  .footer__brand{
+    display:inline-flex; align-items:baseline; gap:8px;
+    font-family:var(--serif);
+    font-weight:700; font-size:1.34rem; letter-spacing:-.015em; color:var(--ink);
+  }
+  .footer__brand .brand__dot{ background:var(--accent); }
+  .footer__links{ display:flex; flex-wrap:wrap; gap:20px; }
+  .flink{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:var(--sans);
+    font-weight:500; font-size:.92rem;
+    color:#C9C0B2;
+    cursor:pointer;
+    transition:color .2s var(--ease);
+  }
+  .flink:hover{ color:var(--accent); }
+  .flink svg{ width:17px; height:17px; }
+  .footer__copy{
+    margin-top:30px; padding-top:22px;
+    border-top:1px solid rgba(255,255,255,.10);
+    font-size:.82rem; color:#8A8174;
+  }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width:900px){
+    .hero__sub{ max-width:none; }
+    .carousel__nav--top{ display:none; }       /* arrows move to floating overlay */
+    .arrow--float{ display:inline-flex; }
+    .arrow--prev{ left:-8px; }
+    .arrow--next{ right:-8px; }
+  }
+  @media (max-width:600px){
+    .wrap{ padding-inline:18px; }
+    .footer__inner{ flex-direction:column; align-items:flex-start; }
+    .footer__links{ gap:16px; }
+    .arrow{ width:44px; height:44px; }
+  }
+
+  /* Reduced motion: no slide transition, no transforms */
+  @media (prefers-reduced-motion:reduce){
+    html{ scroll-behavior:auto; }
+    .carousel__track{ transition:none !important; }
+    *{ transition:none !important; }
+  }
 </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="hero-banner"><img src="hero.jpeg" alt="Dũng Đinh — trail runner"></div>
-    <header>
-      <div class="eyebrow"><span class="dot"></span> Personal project</div>
-      <h1>Rung Rinh <span class="hl">.</span></h1>
-      <p class="sub">Product &amp; data thinking · retail banking · trail running. Một vài thứ tôi dựng và chia sẻ công khai.</p>
-    </header>
 
-    <div class="grid">
-      <a class="card c-rust" href="workos-showcase.html">
-        <div class="icon">🧠</div>
-        <div class="body">
-          <span class="tag">Personal WorkOS · cẩm nang</span>
-          <h2>Bộ não thứ hai — Personal WorkOS</h2>
-          <p>13 slide giải thích cách dựng một hệ tri thức dùng chung với AI: là gì, làm được gì, vì sao cần.</p>
-        </div>
-        <div class="go">→</div>
+  <!-- ============================ 1) NAV ============================ -->
+  <header class="nav">
+    <div class="wrap nav__inner">
+      <a class="brand" href="#top" aria-label="Rung Rinh — về đầu trang">
+        <span class="brand__dot" aria-hidden="true"></span>
+        Rung Rinh
       </a>
-      <!-- THÊM CARD MỚI Ở ĐÂY khi Dũng duyệt thêm trang lên public -->
+      <a class="nav__cta" href="#contact">Liên hệ</a>
     </div>
+  </header>
 
-    <footer>
-      <span>Rung Rinh — Dũng Đinh</span>
-      <span>github.com/dungdinh301</span>
-    </footer>
-  </div>
+  <main id="top">
+
+    <!-- ============================ 2) HERO ============================ -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="wrap">
+        <div class="hero__panel">
+          <figure class="hero__banner">
+            <img src="hero.jpeg" width="1400" height="349"
+                 alt="Dũng Đinh chạy trail tại UTMB — “Data science isn't just a career; it's my worldview.”" loading="eager" decoding="async" />
+          </figure>
+          <div class="hero__copy">
+            <h1 id="hero-title">I build <span class="accent">data-driven</span> digital products.</h1>
+            <p class="hero__sub">Product Manager</p>
+            <blockquote class="hero__quote">
+              <p>“Life is either a daring adventure or nothing at all.”</p>
+              <cite>— Helen Keller</cite>
+            </blockquote>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================== PROJECT CAROUSEL ====================== -->
+    <section class="section" id="projects" aria-labelledby="projects-title">
+      <div class="wrap">
+        <div class="section__head">
+          <div>
+            <span class="eyebrow">Dự án</span>
+            <h2 class="section__title" id="projects-title">Sản phẩm <span class="accent">&amp; dự án</span></h2>
+            <p class="section__lead">Những thứ tôi đã và đang dựng — từ phương pháp đến dashboard.</p>
+          </div>
+          <div class="carousel__nav carousel__nav--top">
+            <button class="arrow" type="button" id="prevTop" aria-label="Dự án trước">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="arrow" type="button" id="nextTop" aria-label="Dự án tiếp theo">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Carousel region -->
+        <div class="carousel" id="carousel" role="region" aria-roledescription="băng chuyền"
+             aria-label="Băng chuyền sản phẩm và dự án — dùng phím mũi tên trái phải để di chuyển" tabindex="0">
+
+          <!-- floating arrows for tablet/mobile -->
+          <button class="arrow arrow--float arrow--prev" type="button" id="prevFloat" aria-label="Dự án trước">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <button class="arrow arrow--float arrow--next" type="button" id="nextFloat" aria-label="Dự án tiếp theo">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+
+          <div class="carousel__viewport" id="viewport">
+            <ul class="carousel__track" id="track"><!-- cards injected by JS --></ul>
+          </div>
+
+          <div class="carousel__dots" id="dots" role="tablist" aria-label="Chọn trang sản phẩm"></div>
+        </div>
+
+        <!-- live region for screen readers -->
+        <p class="visually-hidden" id="liveStatus" aria-live="polite"></p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ============================ 5) FOOTER =========================== -->
+  <footer class="footer" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="footer__inner">
+        <a class="footer__brand" href="#top">
+          <span class="brand__dot" aria-hidden="true"></span> Rung Rinh
+        </a>
+        <nav class="footer__links" aria-label="Liên hệ">
+          <a class="flink" id="linkLinkedin" href="https://www.linkedin.com/in/dungdinh301/" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4V8zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4.03 0 4.78 2.65 4.78 6.1V24h-4v-7.1c0-1.7-.03-3.9-2.37-3.9-2.38 0-2.75 1.86-2.75 3.78V24H8V8z"/></svg>
+            LinkedIn
+          </a>
+          <a class="flink" id="linkGithub" href="https://github.com/dungdinh301" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5C5.7.5.5 5.7.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.2.8-.6v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.7.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17.3 5 18.3 5.3 18.3 5.3c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.3c0 .4.2.7.8.6 4.6-1.5 7.9-5.8 7.9-10.9C23.5 5.7 18.3.5 12 .5z"/></svg>
+            GitHub
+          </a>
+          <a class="flink" id="linkEmail" href="#">
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="2.5" y="4.5" width="19" height="15" rx="2.5" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 6.5L12 13l8.5-6.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            <span id="emailLabel">Email</span>
+          </a>
+        </nav>
+      </div>
+      <p class="footer__copy" id="contact-title">© <span id="year"></span> Dung Dinh · Rung Rinh. Tư duy hệ thống, dựng từng sản phẩm một.</p>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  'use strict';
+
+  /* ============================================================
+     DATA MODEL — render cards from this array.
+     Adding a project = push one object below the marker.
+     ============================================================ */
+  var COVERS = ['cover--a','cover--b','cover--c','cover--d','cover--e'];
+
+  var projects = [
+    { title:"Bộ não thứ hai — Personal WorkOS", cat:"Phương pháp", desc:"13 slide: dựng hệ tri thức dùng chung với AI.", href:"workos-showcase.html", icon:"method" },
+    { title:"KPI Dashboard", cat:"Dashboard", desc:"Bảng KPI Sales Force Effectiveness.", soon:true, icon:"dashboard" },
+    { title:"Data Platform — Case study", cat:"Case study", desc:"Hành trình cắt DB silo lên cloud.", soon:true, icon:"data" }
+    /* THEM DU AN O DAY */
+  ];
+
+  /* ---------- icon set: SVG line icons, tự design (render nhỏ, đơn sắc) ---------- */
+  var ICONS = {
+    method: '<svg viewBox="0 0 48 48" fill="none"><path d="M24 24L24 10M24 24L10 17M24 24L38 17M24 24L15 38M24 24L34 37" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity=".85"/><circle cx="24" cy="24" r="5" fill="currentColor"/><circle cx="24" cy="10" r="3.4" fill="currentColor"/><circle cx="10" cy="17" r="3.4" fill="currentColor"/><circle cx="38" cy="17" r="3.4" fill="currentColor"/><circle cx="15" cy="38" r="3.4" fill="currentColor"/><circle cx="34" cy="37" r="3.4" fill="currentColor"/></svg>',
+    dashboard: '<svg viewBox="0 0 48 48" fill="none"><rect x="7" y="9" width="34" height="30" rx="5" stroke="currentColor" stroke-width="2.2" opacity=".5"/><rect x="14" y="24" width="5" height="9" rx="1.6" fill="currentColor"/><rect x="21.5" y="18" width="5" height="15" rx="1.6" fill="currentColor"/><rect x="29" y="21" width="5" height="12" rx="1.6" fill="currentColor"/></svg>',
+    data: '<svg viewBox="0 0 48 48" fill="none"><path d="M12 13C12 10.5 17.4 8.5 24 8.5C30.6 8.5 36 10.5 36 13C36 15.5 30.6 17.5 24 17.5C17.4 17.5 12 15.5 12 13Z" fill="currentColor"/><path d="M12 13V35C12 37.5 17.4 39.5 24 39.5C30.6 39.5 36 37.5 36 35V13" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M12 24C12 26.5 17.4 28.5 24 28.5C30.6 28.5 36 26.5 36 24" stroke="currentColor" stroke-width="2.2" opacity=".7"/></svg>'
+  };
+
+  /* ---------- build cards — editorial index markup ---------- */
+  var track = document.getElementById('track');
+  projects.forEach(function(p, i){
+    var icon = ICONS[p.icon] || ICONS.method;
+    var num  = ('0' + (i + 1)).slice(-2);   // zero-pad: 01, 02, 03 ...
+
+    var card = document.createElement('li');
+    card.className = 'card';
+    card.setAttribute('role', 'group');
+    card.setAttribute('aria-roledescription', 'dự án');
+    card.setAttribute('aria-label', (i + 1) + ' / ' + projects.length + ': ' + p.title);
+
+    var action = p.soon
+      ? '<span class="card__soon">Sắp ra mắt</span>'
+      : '<a class="card__link" href="' + p.href + '">Xem chi tiết'
+        + '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>';
+
+    card.innerHTML =
+      '<div class="card__head">' +
+        '<span class="card__num" aria-hidden="true">' + num + '</span>' +
+        '<span class="card__icon" aria-hidden="true">' + icon + '</span>' +
+      '</div>' +
+      '<div class="card__body">' +
+        '<span class="card__tag">' + p.cat + '</span>' +
+        '<h3 class="card__title">' + p.title + '</h3>' +
+        '<p class="card__desc">' + p.desc + '</p>' +
+      '</div>' +
+      '<hr class="card__rule" aria-hidden="true" />' +
+      action;
+
+    track.appendChild(card);
+  });
+
+  /* ============================================================
+     CAROUSEL ENGINE — adaptive grid / carousel
+     - card width via CSS calc((100% - (per-1)*gap)/per) + real 24px gap
+     - page translate computed in PIXELS = page * (trackWidth + gap), so the
+       inter-card gap never accumulates as drift across pages.
+     - when pageCount <= 1 it switches to a static centered GRID: controls
+       (arrows + dots) are hidden, transform/swipe/keyboard paging are off.
+     ============================================================ */
+  var carousel = document.getElementById('carousel');
+  var viewport = document.getElementById('viewport');
+  var dotsWrap = document.getElementById('dots');
+  var live     = document.getElementById('liveStatus');
+  var sectionHead = document.querySelector('.section__head');
+  var cards    = Array.prototype.slice.call(track.children);
+  var total    = cards.length;
+
+  var prevBtns = [document.getElementById('prevTop'), document.getElementById('prevFloat')];
+  var nextBtns = [document.getElementById('nextTop'), document.getElementById('nextFloat')];
+
+  var perView   = 3;     // cards visible
+  var page      = 0;     // current page index
+  var pageCount = 1;
+  var isGrid    = false;  // true when pageCount <= 1 (static grid, no controls)
+
+  // read the real gap (px) from the track's --gap CSS variable
+  function getGap(){
+    var g = parseFloat(getComputedStyle(track).getPropertyValue('--gap'));
+    return isNaN(g) ? 24 : g;
+  }
+
+  function computePerView(){
+    var w = window.innerWidth;
+    if (w <= 600) return 1;
+    if (w <= 900) return 2;
+    return 3;
+  }
+
+  function build(){
+    perView = computePerView();
+    track.style.setProperty('--per', perView);
+    cards.forEach(function(c){ c.style.setProperty('--per', perView); });
+
+    pageCount = Math.max(1, Math.ceil(total / perView));
+    isGrid    = pageCount <= 1;
+    if (page > pageCount - 1) page = pageCount - 1;
+
+    // toggle grid vs carousel chrome
+    track.classList.toggle('is-grid', isGrid);
+    carousel.classList.toggle('is-grid', isGrid);
+    if (sectionHead) sectionHead.classList.toggle('controls-hidden', isGrid);
+
+    // hide the whole dots strip from AT in grid mode
+    dotsWrap.setAttribute('aria-hidden', isGrid ? 'true' : 'false');
+
+    // in grid mode there is no paging: a single static centered row,
+    // no transform, no dots, no active controls.
+    if (isGrid){
+      track.style.transform = 'none';
+      dotsWrap.innerHTML = '';
+      // make the carousel region a plain group (no carousel affordances)
+      carousel.removeAttribute('tabindex');
+      return;
+    }
+
+    // carousel mode — region is keyboard-focusable
+    carousel.setAttribute('tabindex', '0');
+
+    // build dots
+    dotsWrap.innerHTML = '';
+    for (var i = 0; i < pageCount; i++){
+      (function(idx){
+        var d = document.createElement('button');
+        d.className = 'dot';
+        d.type = 'button';
+        d.setAttribute('role','tab');
+        d.setAttribute('aria-label', 'Tới trang ' + (idx + 1) + ' / ' + pageCount);
+        d.addEventListener('click', function(){ goTo(idx); });
+        dotsWrap.appendChild(d);
+      })(i);
+    }
+
+    update(true);
+  }
+
+  function update(silent){
+    if (isGrid) return;   // grid mode: no paging, controls hidden
+
+    // Pixel-accurate page translate = page * (one full track width + gap).
+    // Using the real track width + the real 24px gap means the inter-card gap
+    // never accumulates as drift across pages (the old -page*100% lost 1 gap/page).
+    var step = track.clientWidth + getGap();
+    track.style.transform = 'translateX(-' + (page * step) + 'px)';
+
+    // dots
+    var dotEls = dotsWrap.children;
+    for (var i = 0; i < dotEls.length; i++){
+      dotEls[i].setAttribute('aria-current', i === page ? 'true' : 'false');
+      dotEls[i].setAttribute('aria-selected', i === page ? 'true' : 'false');
+    }
+
+    // arrow disabled states (non-looping)
+    var atStart = page <= 0;
+    var atEnd   = page >= pageCount - 1;
+    prevBtns.forEach(function(b){ if(b) b.disabled = atStart; });
+    nextBtns.forEach(function(b){ if(b) b.disabled = atEnd; });
+
+    // announce the visible item RANGE (richer than a bare page number)
+    if (!silent){
+      var first = page * perView + 1;
+      var last  = Math.min(total, first + perView - 1);
+      live.textContent = 'Đang xem dự án ' + first + (last > first ? '–' + last : '') + ' / ' + total;
+    }
+  }
+
+  function goTo(i){
+    page = Math.max(0, Math.min(i, pageCount - 1));
+    update(false);
+  }
+  function next(){ if (!isGrid && page < pageCount - 1) goTo(page + 1); }
+  function prev(){ if (!isGrid && page > 0) goTo(page - 1); }
+
+  prevBtns.forEach(function(b){ if(b) b.addEventListener('click', prev); });
+  nextBtns.forEach(function(b){ if(b) b.addEventListener('click', next); });
+
+  /* ---------- keyboard (when carousel focused) ---------- */
+  carousel.addEventListener('keydown', function(e){
+    if (isGrid) return;   // no paging in grid mode
+    if (e.key === 'ArrowRight'){ e.preventDefault(); next(); }
+    else if (e.key === 'ArrowLeft'){ e.preventDefault(); prev(); }
+  });
+
+  /* ---------- touch swipe — axis-locked, 8px deadzone ---------- */
+  var startX = 0, startY = 0, dragging = false, locked = false;
+
+  viewport.addEventListener('touchstart', function(e){
+    if (isGrid || !e.touches.length) return;   // no swipe paging in grid mode
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    dragging = true; locked = false;
+  }, { passive:true });
+
+  viewport.addEventListener('touchmove', function(e){
+    if (!dragging || !e.touches.length) return;
+    var dx = e.touches[0].clientX - startX;
+    var dy = e.touches[0].clientY - startY;
+    // commit to horizontal intent once movement clears the 8px deadzone
+    if (!locked && Math.abs(dx) > Math.abs(dy) && Math.abs(dx) > 8) locked = true;
+  }, { passive:true });
+
+  viewport.addEventListener('touchend', function(e){
+    if (!dragging) return;
+    dragging = false;
+    var endX = (e.changedTouches && e.changedTouches.length) ? e.changedTouches[0].clientX : startX;
+    var dx = endX - startX;
+    if (locked && Math.abs(dx) > 45){
+      if (dx < 0) next();
+      else prev();
+    }
+  }, { passive:true });
+
+  /* ---------- responsive rebuild (preserve visible card) ----------
+     perView change → recompute pageCount → toggle grid/carousel + dots.
+     Same width but different px (e.g. zoom / scrollbar) → re-apply the
+     pixel translate so the active page stays aligned (carousel mode only). */
+  var resizeTimer;
+  window.addEventListener('resize', function(){
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function(){
+      var prevPer = perView;
+      var newPer  = computePerView();
+      if (newPer !== prevPer){
+        var firstCard = page * prevPer;     // index of first visible card
+        build();                            // recomputes pageCount + grid/carousel
+        if (!isGrid){
+          page = Math.min(Math.floor(firstCard / newPer), pageCount - 1);
+        }
+        update(true);
+      } else if (!isGrid){
+        // width tier unchanged but pixel width may have changed → re-align
+        update(true);
+      }
+    }, 120);
+  });
+
+  build();
+
+  /* ============================================================
+     EMAIL — obfuscated (assembled at runtime, no raw string)
+     ============================================================ */
+  (function(){
+    var user   = ['dung','dinh','301'].join('');   // dungdinh301
+    var domain = ['gmail','com'].join('.');         // gmail.com
+    var addr   = user + '@' + domain;
+    var a = document.getElementById('linkEmail');
+    a.setAttribute('href', 'mailto:' + addr);
+    a.setAttribute('aria-label', 'Gửi email tới Dung Dinh');
+  })();
+
+  /* footer year */
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+})();
+</script>
 </body>
 </html>
