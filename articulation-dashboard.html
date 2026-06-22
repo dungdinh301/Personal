@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articulation Cockpit — Luyện diễn đạt nói</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<!-- Chart.js qua CDN (mirror fitness) — offline thì chart không render nhưng chrome/section vẫn hiện -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<!-- Architecture B (mirror fitness): data tách rời, nạp qua <script src> (file:// cho phép, khác fetch).
+     build_selfcontained thay dòng dưới bằng <script>window.DASH=...</script> inline.
+     ⛔ PRIVACY: DASH chỉ chứa điểm/metric/adherence — KHÔNG bao giờ nhúng nội dung buổi nói (xem contract §0.1). -->
+<script>window.DASH={"meta": {"as_of": "2026-06-20", "program_start": "2026-06-22", "week_target": 4, "generated_at": "2026-06-21T19:51:57"}, "cockpit": {"days_since_last": 0, "last_date": "2026-06-20", "week_count": 3, "week_target": 4, "week_done": false, "week_streak": 0, "total_sessions": 5}, "calendar": [{"date": "2026-05-22", "practiced": false, "count": 0}, {"date": "2026-05-23", "practiced": false, "count": 0}, {"date": "2026-05-24", "practiced": false, "count": 0}, {"date": "2026-05-25", "practiced": false, "count": 0}, {"date": "2026-05-26", "practiced": false, "count": 0}, {"date": "2026-05-27", "practiced": false, "count": 0}, {"date": "2026-05-28", "practiced": false, "count": 0}, {"date": "2026-05-29", "practiced": false, "count": 0}, {"date": "2026-05-30", "practiced": false, "count": 0}, {"date": "2026-05-31", "practiced": false, "count": 0}, {"date": "2026-06-01", "practiced": false, "count": 0}, {"date": "2026-06-02", "practiced": false, "count": 0}, {"date": "2026-06-03", "practiced": false, "count": 0}, {"date": "2026-06-04", "practiced": false, "count": 0}, {"date": "2026-06-05", "practiced": false, "count": 0}, {"date": "2026-06-06", "practiced": false, "count": 0}, {"date": "2026-06-07", "practiced": false, "count": 0}, {"date": "2026-06-08", "practiced": false, "count": 0}, {"date": "2026-06-09", "practiced": true, "count": 1}, {"date": "2026-06-10", "practiced": false, "count": 0}, {"date": "2026-06-11", "practiced": false, "count": 0}, {"date": "2026-06-12", "practiced": false, "count": 0}, {"date": "2026-06-13", "practiced": true, "count": 1}, {"date": "2026-06-14", "practiced": false, "count": 0}, {"date": "2026-06-15", "practiced": false, "count": 0}, {"date": "2026-06-16", "practiced": true, "count": 1}, {"date": "2026-06-17", "practiced": false, "count": 0}, {"date": "2026-06-18", "practiced": true, "count": 1}, {"date": "2026-06-19", "practiced": false, "count": 0}, {"date": "2026-06-20", "practiced": true, "count": 1}], "sessions": [{"date": "2026-06-20", "topic": "KPI SFE tính thế nào", "tier": "quen", "clarity": 3.2, "verdict": "ON", "drill": "x"}, {"date": "2026-06-18", "topic": "Tóm tắt 60 giây", "tier": "la", "clarity": 4.1, "verdict": "TOT", "drill": "x"}, {"date": "2026-06-16", "topic": "Thuyết phục hoãn scope", "tier": "can", "clarity": 2.6, "verdict": "SIET", "drill": "x"}, {"date": "2026-06-13", "topic": "P&L cho kỹ sư", "tier": "la", "clarity": 3.0, "verdict": "ON", "drill": "x"}, {"date": "2026-06-09", "topic": "Adoption khó hơn KT", "tier": "can", "clarity": 1.8, "verdict": "YEU", "drill": "x"}], "trend": {"dates": ["2026-06-09", "2026-06-13", "2026-06-16", "2026-06-18", "2026-06-20"], "clarity_roll": [1.8, 2.4, 2.466666666666667, 2.875, 3.2249999999999996], "depth_roll": [1.8, 2.4, 2.466666666666667, 2.875, 3.2249999999999996], "structure_roll": [1.8, 2.4, 2.466666666666667, 2.875, 3.2249999999999996]}, "radar": {"dims": ["Cấu trúc", "Độ sâu", "Chốt hạ", "Cô đọng", "Tín hiệu/nhiễu"], "scores": [3.2, 3.2, 3.2, 3.2, 3.2], "date": "2026-06-20"}, "stats": {"today": {"sessions": 1, "words": 160, "minutes": 2, "wpm_avg": 120.0, "probes": 0, "issues_flagged": 1}, "week": {"sessions": 3, "words": 480, "minutes": 6, "wpm_avg": 120.0, "probes": 0, "issues_flagged": 3}, "all_time": {"sessions": 5, "words": 800, "minutes": 10, "wpm_avg": 120.0, "probes": 0, "issues_flagged": 5}}, "daily": [{"date": "2026-06-09", "sessions": 1, "words": 160, "minutes": 2, "audio_words": 160, "wpm_wsum": 19200.0, "clarity": 1.8, "probes": 0, "issues": 1}, {"date": "2026-06-10", "sessions": 0, "words": 0, "minutes": 0, "audio_words": 0, "wpm_wsum": 0.0, "clarity": null, "probes": 0, "issues": 0}, {"date": "2026-06-11", "sessions": 0, "words": 0, "minutes": 0, "audio_words": 0, "wpm_wsum": 0.0, "clarity": null, "probes": 0, "issues": 0}, {"date": "2026-06-12", "sessions": 0, "words": 0, "minutes": 0, "audio_words": 0, "wpm_wsum": 0.0, "clarity": null, "probes": 0, "issues": 0}, {"date": "2026-06-13", "sessions": 1, "words": 160, "minutes": 2, "audio_words": 160, "wpm_wsum": 19200.0, "clarity": 3.0, "probes": 0, "issues": 1}, {"date": "2026-06-14", "sessions": 0, "words": 0, "minutes": 0, "audio_words": 0, "wpm_wsum": 0.0, "clarity": null, "probes": 0, "issues": 0}, {"date": "2026-06-15", "sessions": 0, "words": 0, "minutes": 0, "audio_words": 0, "wpm_wsum": 0.0, "clarity": null, "probes": 0, "issues": 0}, {"date": "2026-06-16", "sessions": 1, "words": 160, "minutes": 2, "audio_words": 160, "wpm_wsum": 19200.0, "clarity": 2.6, "probes": 0, "issues": 1}, {"date": "2026-06-17", "sessions": 0, "words": 0, "minutes": 0, "audio_words": 0, "wpm_wsum": 0.0, "clarity": null, "probes": 0, "issues": 0}, {"date": "2026-06-18", "sessions": 1, "words": 160, "minutes": 2, "audio_words": 160, "wpm_wsum": 19200.0, "clarity": 4.1, "probes": 0, "issues": 1}, {"date": "2026-06-19", "sessions": 0, "words": 0, "minutes": 0, "audio_words": 0, "wpm_wsum": 0.0, "clarity": null, "probes": 0, "issues": 0}, {"date": "2026-06-20", "sessions": 1, "words": 160, "minutes": 2, "audio_words": 160, "wpm_wsum": 19200.0, "clarity": 3.2, "probes": 0, "issues": 1}]};</script>
+<style>
+  :root{
+    /* ---- Bold modern (tím) · nền SÁNG · Be Vietnam Pro ---- */
+    --bg:#ffffff; --surf:#ffffff; --surf2:#f7f7fb;
+    --line:#ededf4; --line2:#e7e3ff;
+    --txt:#1a1a2e; --mut:#5b6472; --dim:#8089a0;   /* text phụ vẫn AA trên nền sáng */
+    --green:#15803d; --amber:#b45309; --red:#dc2626; --orange:#ea580c;
+    --indigo:#6366f1; --violet:#a855f7; --primary:#4f46e5;
+    --accent:#4f46e5; --accent2:#6366f1; --teal:#0d9488; --pink:#db2777;
+    --r:14px;
+    --fs-xs:.66rem; --fs-cap:.72rem; --fs-sm:.78rem; --fs-base:.85rem; --fs-md:.92rem; --fs-lg:1.05rem; --fs-xl:1.15rem;
+    --r-sm:8px; --r-md:12px; --r-lg:14px; --r-pill:99px;
+    --sp1:4px; --sp2:8px; --sp3:12px; --sp4:16px; --sp5:24px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#eef1f5;
+    color:var(--txt);font-family:'Be Vietnam Pro',system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased;padding:clamp(16px,3vw,40px)}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .wrap{max-width:1160px;margin:0 auto;display:flex;flex-direction:column;gap:clamp(14px,2vw,22px)}
+  a{color:inherit}
+
+  /* ---- HERO (adherence-first; KHÔNG dẫn bằng clarity) ---- */
+  .hero{border:1px solid var(--line2);border-radius:var(--r);background:linear-gradient(135deg,#eef0ff 0%,#f6edff 100%);
+    padding:clamp(16px,2.4vw,26px);position:relative;overflow:hidden;display:flex;align-items:stretch;gap:clamp(20px,4vw,48px);
+    box-shadow:0 10px 30px rgba(99,102,241,.10)}
+  .hero::after{content:"";position:absolute;right:-60px;top:-60px;width:260px;height:260px;background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%);pointer-events:none}
+  .hero-main{flex:1;min-width:0;position:relative;z-index:1}
+  .hero-side{flex:none;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+  .herotop{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap}
+  .tag{font-size:var(--fs-sm);letter-spacing:.16em;text-transform:uppercase;font-weight:800;
+    background:linear-gradient(90deg,#6366f1,#a855f7);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+  .updated{display:inline-flex;align-items:center;gap:7px;font-size:var(--fs-cap);letter-spacing:.03em;font-weight:600;
+    color:var(--mut);background:#fff;border:1px solid var(--line2);padding:5px 12px;border-radius:var(--r-pill);white-space:nowrap}
+  .updated .dot{width:7px;height:7px;border-radius:50%;background:var(--indigo);box-shadow:0 0 0 3px rgba(99,102,241,.18);flex:none}
+  .updated b{color:var(--txt);font-weight:700;font-family:'JetBrains Mono',monospace}
+  /* QUOTE-SIGNATURE = dòng HERO chính (câu cố định, gradient tím, nghiêng nhẹ) */
+  .quote{font-size:clamp(1.7rem,5vw,3rem);font-weight:800;line-height:1.1;letter-spacing:-.01em;
+    font-style:italic;margin:.34em 0 .2em;position:relative;
+    background:linear-gradient(100deg,#4338ca 0%,#6366f1 42%,#a855f7 100%);
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:#4338ca}
+  .quote .qm{font-style:normal;-webkit-text-fill-color:rgba(168,85,247,.45);color:rgba(168,85,247,.45);
+    font-family:Georgia,'Be Vietnam Pro',serif;font-weight:800}
+  /* adherence (đã tập hôm nay / N ngày chưa tập) = SUB, tô warn/cold theo dsl */
+  .adh{font-size:clamp(1rem,2.4vw,1.22rem);font-weight:700;line-height:1.3;margin-top:2px;color:#4338ca}
+  .adh .n{font-family:'JetBrains Mono',monospace;color:var(--primary)}
+  .adh .hot{color:var(--primary)}
+  .adh.warn{color:var(--amber)} .adh.warn .n{color:var(--amber)}
+  .adh.cold{color:var(--red)} .adh.cold .n{color:var(--red)}
+  .hero .sub{color:var(--mut);max-width:60ch;font-size:clamp(.92rem,2vw,1.05rem)}
+  .herometa{display:flex;flex-wrap:wrap;gap:clamp(14px,3vw,38px);margin-top:18px}
+  .herometa b{display:block;font-family:'JetBrains Mono',monospace;font-size:clamp(1.3rem,3.5vw,2rem);font-weight:800;color:#312e81}
+  .herometa span{font-size:var(--fs-sm);color:var(--mut);text-transform:uppercase;letter-spacing:.08em}
+  .herometa .hl{color:var(--primary)}
+  /* ring X/4 — SVG, conic-gradient indigo→ track */
+  .wkrings{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;width:clamp(160px,16vw,196px)}
+  .wkrings svg{transform:rotate(-90deg);display:block;width:100%;height:auto}
+  .wk-center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1}
+  .wk-center b{font-family:'JetBrains Mono',monospace;font-size:clamp(2rem,5vw,2.8rem);font-weight:800;color:#312e81}
+  .wk-center b .of{font-size:.42em;color:var(--mut);font-weight:600}
+  .wk-center span{font-size:var(--fs-cap);color:var(--mut);text-transform:uppercase;letter-spacing:.1em;margin-top:4px}
+  .wk-done b{color:var(--primary)}
+  /* streak chip tím */
+  .streakchip{display:inline-flex;align-items:center;gap:6px;margin-top:14px;font-size:var(--fs-sm);font-weight:700;
+    padding:5px 12px;border-radius:var(--r-pill);background:#ede9fe;color:#7c3aed}
+  @media(max-width:720px){.hero{flex-direction:column;gap:18px}.hero-side{align-self:center}}
+
+  /* ---- GRID + CARD ---- */
+  .grid{display:grid;gap:clamp(14px,2vw,22px)}
+  .grid-2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:860px){.grid-2{grid-template-columns:1fr}}
+  .card{border:1px solid var(--line);border-radius:var(--r);background:var(--surf);padding:clamp(16px,2.2vw,24px);
+    box-shadow:0 6px 20px rgba(20,30,50,.05)}
+  .card h3{font-size:var(--fs-md);font-weight:800;letter-spacing:.01em;display:flex;align-items:center;gap:9px;margin-bottom:14px;color:var(--txt)}
+  .card h3 .ico{width:18px;height:18px;color:var(--indigo);flex:none}
+  .card .hint{font-size:var(--fs-cap);color:var(--dim);line-height:1.4;margin-top:12px;border-top:1px solid var(--line);padding-top:10px}
+  .chartbox{position:relative}
+  .empty{color:var(--dim);font-size:var(--fs-base);text-align:center;padding:26px 8px;line-height:1.5}
+
+  /* ---- THỐNG KÊ (3 cột today/week/all-time) ---- */
+  .statcols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,18px)}
+  @media(max-width:760px){.statcols{grid-template-columns:1fr}}
+  .statcol{background:var(--surf2);border:1px solid var(--line);border-radius:var(--r-md);padding:16px 16px 12px}
+  .statcol .ctitle{font-size:var(--fs-sm);font-weight:800;letter-spacing:.04em;text-transform:uppercase;margin-bottom:12px;
+    display:flex;align-items:center;gap:7px}
+  .statcol.c0 .ctitle{color:var(--primary)} .statcol.c1 .ctitle{color:var(--teal)} .statcol.c2 .ctitle{color:var(--pink)}
+  .statcol .ctitle i{width:8px;height:8px;border-radius:50%;background:currentColor;display:inline-block}
+  .statrow{display:flex;align-items:baseline;justify-content:space-between;gap:10px;padding:7px 0;border-bottom:1px solid var(--line)}
+  .statrow:last-child{border-bottom:none}
+  .statrow .lbl{font-size:var(--fs-sm);color:var(--mut)}
+  .statrow .val{font-family:'JetBrains Mono',monospace;font-size:clamp(1.05rem,2.2vw,1.35rem);font-weight:800;color:var(--txt);white-space:nowrap}
+  .statcol.c0 .val{color:#312e81} .statcol.c1 .val{color:#0f766e} .statcol.c2 .val{color:#9d174d}
+  .statrow .val .u{font-size:.6em;font-weight:600;color:var(--dim);margin-left:2px}
+
+  /* ---- FILTER TABS (client-side range) ---- */
+  .ftabs{display:inline-flex;gap:4px;padding:4px;background:var(--surf2);border:1px solid var(--line);border-radius:var(--r-pill);flex-wrap:wrap}
+  .ftab{font-family:inherit;font-size:var(--fs-sm);font-weight:700;letter-spacing:.01em;cursor:pointer;
+    border:none;background:transparent;color:var(--mut);padding:7px 16px;border-radius:var(--r-pill);transition:.15s}
+  .ftab:hover{color:var(--primary)}
+  .ftab.active{background:linear-gradient(95deg,#6366f1,#a855f7);color:#fff;box-shadow:0 3px 10px rgba(99,102,241,.32)}
+  .filterhead{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:16px}
+  /* hàng SỐ TỔNG theo range (6 ô) */
+  .rstats{display:grid;grid-template-columns:repeat(6,1fr);gap:clamp(8px,1.4vw,14px);margin-bottom:18px}
+  @media(max-width:760px){.rstats{grid-template-columns:repeat(3,1fr)}}
+  @media(max-width:430px){.rstats{grid-template-columns:repeat(2,1fr)}}
+  .rstat{background:var(--surf2);border:1px solid var(--line);border-radius:var(--r-md);padding:12px 12px 10px;text-align:center}
+  .rstat b{display:block;font-family:'JetBrains Mono',monospace;font-size:clamp(1.15rem,2.6vw,1.55rem);font-weight:800;color:#312e81;line-height:1.1}
+  .rstat b .u{font-size:.52em;font-weight:600;color:var(--dim);margin-left:1px}
+  .rstat span{display:block;font-size:var(--fs-cap);color:var(--mut);margin-top:5px;letter-spacing:.02em}
+  /* 2 chart per-day */
+  .rcharts{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,2vw,20px)}
+  @media(max-width:860px){.rcharts{grid-template-columns:1fr}}
+  .rchart{display:flex;flex-direction:column}
+  .rchart .ct{font-size:var(--fs-sm);font-weight:800;color:var(--mut);margin-bottom:10px;letter-spacing:.01em}
+
+  /* ---- HEATMAP / calendar 30 ngày ---- */
+  .calwrap{display:flex;flex-direction:column;gap:8px}
+  .calgrid{display:grid;grid-template-columns:repeat(15,1fr);gap:5px}
+  @media(max-width:520px){.calgrid{grid-template-columns:repeat(10,1fr)}}
+  .calcell{position:relative;aspect-ratio:1;border-radius:5px;background:#eeeef4;border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-size:9px;color:var(--dim);font-family:'JetBrains Mono',monospace}
+  .calcell.p1{background:#c7c5f9;border-color:#c7c5f9;color:#312e81;font-weight:800}
+  .calcell.p2{background:#6366f1;border-color:#6366f1;color:#fff;font-weight:700}
+  .calcell.today{box-shadow:0 0 0 2px #4f46e5}
+  .callegend{display:flex;align-items:center;gap:14px;font-size:var(--fs-cap);color:var(--mut);flex-wrap:wrap}
+  .callegend i{display:inline-block;width:12px;height:12px;border-radius:3px;vertical-align:-2px;margin-right:5px;border:1px solid var(--line)}
+  .callegend .l0{background:#eeeef4} .callegend .l1{background:#a5a2f5} .callegend .l2{background:#6366f1}
+
+  /* ---- DANH SÁCH buổi (KHÔNG cột transcript) ---- */
+  table.sess{width:100%;border-collapse:collapse;font-size:var(--fs-base)}
+  table.sess th{text-align:left;font-size:var(--fs-cap);text-transform:uppercase;letter-spacing:.06em;color:var(--dim);font-weight:700;padding:0 10px 9px;border-bottom:1px solid var(--line)}
+  table.sess td{padding:10px;border-bottom:1px solid var(--line);vertical-align:middle}
+  table.sess tr:last-child td{border-bottom:none}
+  table.sess .d{font-family:'JetBrains Mono',monospace;color:var(--mut);white-space:nowrap}
+  table.sess .topic{color:var(--txt);font-weight:600}
+  .pill{display:inline-block;font-size:var(--fs-xs);font-weight:700;padding:3px 8px;border-radius:var(--r-pill);letter-spacing:.04em;white-space:nowrap}
+  .pill.tier{background:#eef0ff;color:var(--primary);border:1px solid var(--line2)}
+  /* verdict chip: TOT xanh · ON xám trung tính · SIET & YEU đỏ (YEU tệ nhất) */
+  .vrd{display:inline-block;font-size:var(--fs-xs);font-weight:800;padding:3px 9px;border-radius:var(--r-pill);letter-spacing:.03em;white-space:nowrap}
+  .vrd-good{background:#dcfce7;color:#15803d} .vrd-ok{background:#f1f1f5;color:#5b6472} .vrd-tight{background:#fee2e2;color:#dc2626}
+  .clr{font-family:'JetBrains Mono',monospace;font-weight:800;color:#312e81}
+  .drill{color:var(--dim);font-size:var(--fs-sm)}
+
+  /* ---- footer ---- */
+  .foot{text-align:center;color:var(--dim);font-size:var(--fs-cap);padding:6px 0 2px;line-height:1.6}
+  .foot b{color:var(--mut)}
+  :focus-visible{outline:2px solid var(--primary);outline-offset:2px;border-radius:4px}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <!-- render JS dựng nội dung; nếu DASH thiếu → thông báo gọn -->
+  <noscript><p style="color:#dc2626">Cần bật JavaScript để xem dashboard.</p></noscript>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  const D = window.DASH || null;
+  const app = document.getElementById('app');
+  if(!D){ app.innerHTML = '<p style="color:#dc2626;font-family:\'Be Vietnam Pro\',system-ui,sans-serif">Không nạp được dashboard-data.js — chạy <code>cli dashboard</code> để build.</p>'; return; }
+
+  // ---- COL dict (Bold modern · nền sáng): indigo=composite · violet=depth · teal=structure ----
+  const COL = { green:'#15803d', amber:'#b45309', red:'#dc2626', orange:'#0d9488',
+                accent:'#a855f7', accent2:'#6366f1', primary:'#4f46e5',
+                mut:'#5b6472', dim:'#8089a0', line:'#e7e7ef', surf2:'#f7f7fb' };
+  const charts = {};
+
+  // ---- Chart.js factory (mirror fitness; an toàn — destroy trước khi vẽ lại) ----
+  function chart(id, cfg){
+    try{
+      if(charts[id]) charts[id].destroy();
+      const el = document.getElementById(id);
+      if(el && window.Chart) charts[id] = new Chart(el, cfg);
+    }catch(e){ console.warn(id, e); }
+  }
+
+  // ---- helpers ----
+  const esc = s => String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const dash = v => (v==null || v==='') ? '—' : v;
+  // Nhãn hiển thị tiếng Anh cho tier + verdict (Dũng: "để tiếng Anh hết") — giữ vrdClass cho màu
+  const TIER_EN = {quen:'Familiar', can:'Near', la:'Novel'};
+  const VRD_EN  = {TOT:'Good', ON:'OK', SIET:'Tighten', YEU:'Weak'};
+  const tierLabel = t => TIER_EN[String(t||'').toLowerCase()] || dash(t);
+  const vrdLabel  = v => VRD_EN[String(v||'').toUpperCase().trim()] || dash(v);
+  const short = d => d ? String(d).slice(5) : '';           // 'MM-DD'
+  const fmt1 = v => v==null ? '—' : (Math.round(v*10)/10).toFixed(1);
+  // lucide-ish inline icon (đường tối giản, mirror style fitness .ico)
+  const ICONS = {
+    flame:"<path d='M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 0 0 2.5 2.5z'/>",
+    grid:"<rect width='7' height='7' x='3' y='3' rx='1'/><rect width='7' height='7' x='14' y='3' rx='1'/><rect width='7' height='7' x='14' y='14' rx='1'/><rect width='7' height='7' x='3' y='14' rx='1'/>",
+    list:"<path d='M8 6h13'/><path d='M8 12h13'/><path d='M8 18h13'/><path d='M3 6h.01'/><path d='M3 12h.01'/><path d='M3 18h.01'/>",
+    radar:"<path d='M12 2 2 7l10 5 10-5-10-5Z'/><path d='m2 17 10 5 10-5'/><path d='m2 12 10 5 10-5'/>",
+    trend:"<path d='M16 7h6v6'/><path d='m22 7-8.5 8.5-5-5L2 17'/>",
+    bars:"<path d='M3 3v18h18'/><rect x='7' y='12' width='3' height='6' rx='.5'/><rect x='12' y='8' width='3' height='10' rx='.5'/><rect x='17' y='5' width='3' height='13' rx='.5'/>"
+  };
+  const ico = name => `<svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">${ICONS[name]||''}</svg>`;
+
+  // verdict → class màu. Map theo BAND KEY engine (TOT/ON/SIET/YEU) — bền hơn regex mờ.
+  // đỏ = cần chú ý: CẢ SIET (≥2) LẪN YEU (<2, tệ nhất) → vrd-tight (KHÔNG để YEU lọt thành vàng).
+  function vrdClass(v){
+    const s = String(v||'').toUpperCase().trim();
+    if(s==='TOT' || s.includes('TỐT') || s.includes('GOOD')) return 'vrd-good';
+    if(s==='ON' || s.includes('ỔN')) return 'vrd-ok';
+    if(s==='SIET' || s==='YEU' || s.includes('SIẾT') || s.includes('YẾU')
+       || s.includes('CẦN') || s.includes('TIGHT') || s.includes('WEAK')) return 'vrd-tight';
+    return 'vrd-ok';
+  }
+
+  const meta = D.meta || {};
+  const C    = D.cockpit || {};
+
+  // tổng số buổi: ưu tiên stats.all_time.sessions; fallback Σ daily.sessions; cuối cùng cockpit.
+  function totalSessions(){
+    const at = (D.stats && D.stats.all_time) ? D.stats.all_time.sessions : null;
+    if(at != null) return at;
+    const dl = Array.isArray(D.daily) ? D.daily : [];
+    if(dl.length) return dl.reduce((a,d)=>a+(d.sessions||0),0);
+    return C.total_sessions ?? 0;
+  }
+
+  // ===================================================================
+  // SECTION 1 — COCKPIT HERO (quote-signature HERO; adherence = SUB)
+  //   Hero KHÔNG dẫn bằng clarity: câu cố định là hero, adherence là phụ.
+  // ===================================================================
+  function heroHTML(){
+    const dsl   = C.days_since_last;          // int | null
+    const wc    = C.week_count ?? 0;
+    const wt    = C.week_target ?? meta.week_target ?? 4;
+    const wdone = !!C.week_done;
+    const streak= C.week_streak ?? 0;
+    const total = totalSessions();
+
+    // ── ADHERENCE giờ là SUB (giữ động lực + tô warn/cold theo dsl) ──
+    // "buổi thứ N" = tổng số buổi đã tập (total).
+    let adhLine, adhCls='', sub;
+    if(dsl == null){
+      adhLine = 'Chưa có buổi nào — bắt đầu hôm nay';
+      sub = 'Mỗi buổi 2–3 phút. Mục tiêu nhịp đều: <b style="color:var(--accent)">'+wt+' buổi/tuần</b>.';
+    }else if(dsl === 0){
+      adhLine = 'Đã tập <span class="hot">hôm nay</span> ✓ · buổi thứ <span class="n">'+total+'</span>';
+      sub = 'Buổi gần nhất: <b class="mono">'+esc(C.last_date||'')+'</b>. Mục tiêu '+wt+' buổi/tuần.';
+    }else{
+      adhCls = dsl >= 4 ? 'cold' : (dsl >= 2 ? 'warn' : '');
+      adhLine = 'Đã <span class="n">'+dsl+'</span> ngày chưa tập';
+      // taper-framing: KHÔNG bao giờ "mất chuỗi"
+      const nudge = dsl >= 4 ? 'Lâu rồi — một buổi ngắn hôm nay là đủ kéo nhịp lại.'
+                  : 'Một buổi 2–3 phút hôm nay giữ nhịp tuần.';
+      sub = nudge + ' Buổi gần nhất: <b class="mono">'+esc(C.last_date||'')+'</b>.';
+    }
+
+    // ring X/4 — SVG (giống fitness rings, 1 vòng tiến độ tuần)
+    const R=78, CIRC=2*Math.PI*R, frac=Math.max(0,Math.min(1, wt? wc/wt : 0));
+    const ringCol = wdone ? COL.accent : (wc>0 ? COL.accent2 : COL.line);
+    const ringSvg =
+      `<div class="wkrings ${wdone?'wk-done':''}">
+         <svg viewBox="0 0 180 180" role="img" aria-label="Tuần này ${wc} trên ${wt} buổi">
+           <circle cx="90" cy="90" r="${R}" fill="none" stroke="${COL.surf2}" stroke-width="13"/>
+           <circle cx="90" cy="90" r="${R}" fill="none" stroke="${ringCol}" stroke-width="13"
+                   stroke-linecap="round" stroke-dasharray="${CIRC}"
+                   stroke-dashoffset="${CIRC*(1-frac)}"/>
+         </svg>
+         <div class="wk-center">
+           <b>${wc}<span class="of">/${wt}</span></b>
+           <span>Tuần này</span>
+         </div>
+       </div>`;
+
+    return `<section class="hero">
+      <div class="hero-main">
+        <div class="herotop">
+          <span class="tag">Articulation · luyện nói</span>
+          <span class="updated"><span class="dot"></span>As of <b>${esc(meta.as_of||'')}</b></span>
+        </div>
+        <h2 class="quote"><span class="qm">&ldquo;</span>You're only as good as you can say it.<span class="qm">&rdquo;</span></h2>
+        <p class="adh ${adhCls}">${adhLine}</p>
+        <p class="sub">${sub}</p>
+        ${streak>0 ? `<span class="streakchip">⚡ ${streak} tuần đạt liên tiếp</span>` : ''}
+        <div class="herometa">
+          <div><b class="${wdone?'hl':''}">${wc}/${wt}</b><span>Buổi tuần này</span></div>
+          <div><b class="hl">${streak}</b><span>Tuần đạt liên tiếp ≥${wt}</span></div>
+          <div><b>${total}</b><span>Tổng buổi đã tập</span></div>
+        </div>
+      </div>
+      <div class="hero-side">${ringSvg}</div>
+    </section>`;
+  }
+
+  // ===================================================================
+  // SECTION 1b — 📊 FILTER + CHARTS per-day (client-side, không reload)
+  //   Nguồn: window.DASH.daily = chuỗi per-day liên tục (mọi ngày kể cả 0).
+  //   FE tự Σ theo range chọn → hàng SỐ TỔNG + 2 chart kiểu Garmin
+  //   (1 chart GỘP dual-axis Từ/WPM · 1 chart line Clarity). Đổi range =
+  //   cập nhật số + destroy/redraw 2 chart. ⛔ CHỈ con số — KHÔNG transcript.
+  // ===================================================================
+  const RANGES = [
+    {key:'today', label:'Hôm nay', days:1},
+    {key:'week',  label:'Tuần này', days:7},
+    {key:'m30',   label:'30 ngày', days:30},
+    {key:'all',   label:'All-time', days:null},
+  ];
+  let activeRange = 'm30';   // mặc định 30 ngày (Garmin-style)
+  const grp = v => String(v).replace(/\B(?=(\d{3})+(?!\d))/g, '.');  // 1.350 kiểu VN
+
+  // Lát chuỗi daily theo range (đuôi N ngày tính tới as_of; all = toàn bộ).
+  function sliceDaily(key){
+    const dl = Array.isArray(D.daily) ? D.daily.slice() : [];
+    if(!dl.length) return [];
+    const r = RANGES.find(x=>x.key===key) || RANGES[2];
+    if(r.days == null) return dl;            // all-time
+    return dl.slice(-r.days);                // N ngày cuối
+  }
+
+  // Σ các metric trong range; wpm_avg = Σ wpm_wsum / Σ audio_words.
+  function aggDaily(arr){
+    const s = {sessions:0, words:0, minutes:0, probes:0, issues:0, audio_words:0, wpm_wsum:0};
+    for(const d of arr){
+      s.sessions += d.sessions||0; s.words += d.words||0; s.minutes += d.minutes||0;
+      s.probes += d.probes||0; s.issues += d.issues||0;
+      s.audio_words += d.audio_words||0; s.wpm_wsum += d.wpm_wsum||0;
+    }
+    s.wpm_avg = s.audio_words > 0 ? Math.round(s.wpm_wsum / s.audio_words) : null;
+    return s;
+  }
+
+  function filterHTML(){
+    const tabs = RANGES.map(r=>
+      `<button type="button" class="ftab${r.key===activeRange?' active':''}" data-range="${r.key}">${r.label}</button>`
+    ).join('');
+    const hasDaily = Array.isArray(D.daily) && D.daily.length;
+    const body = hasDaily ? `
+      <div class="rstats" id="rstats"></div>
+      <div class="rcharts">
+        <div class="rchart">
+          <div class="ct">Từ đã nói / ngày · WPM / ngày</div>
+          <div class="chartbox" style="height:260px"><canvas id="cWords"></canvas></div>
+        </div>
+        <div class="rchart">
+          <div class="ct">Clarity / ngày</div>
+          <div class="chartbox" style="height:260px"><canvas id="cClarity"></canvas></div>
+        </div>
+      </div>` : `<div class="empty">Chưa có dữ liệu buổi nào — bắt đầu buổi đầu tiên hôm nay.</div>`;
+    return `<div class="card">
+      <div class="filterhead">
+        <h3 style="margin:0">${ico('bars')} Thống kê theo khoảng</h3>
+        <div class="ftabs" id="ftabs">${tabs}</div>
+      </div>
+      ${body}
+      <div class="hint">Số tổng hợp client-side từ chuỗi per-day (⛔ KHÔNG transcript). Từ/ngày = bar (trục trái); WPM/ngày = line (trục phải, CHỈ ngày ghi âm); WPM trung bình range = Σ(wpm×từ audio)/Σ từ audio. Clarity = trung bình điểm buổi/ngày (ngày trống bỏ qua). Điểm cải thiện = Σ cờ + drill.</div>
+    </div>`;
+  }
+
+  // hàng SỐ TỔNG (6 ô) theo range
+  function renderRangeStats(){
+    const el = document.getElementById('rstats'); if(!el) return;
+    const a = aggDaily(sliceDaily(activeRange));
+    const cells = [
+      ['Buổi',        grp(a.sessions)],
+      ['Từ đã nói',   grp(a.words)],
+      ['Phút',        grp(a.minutes)+'<span class="u">ph</span>'],
+      ['WPM',         a.wpm_avg==null?'—':grp(a.wpm_avg)],
+      ['Câu hỏi',     grp(a.probes)],
+      ['Điểm chỉ ra', grp(a.issues)],
+    ];
+    el.innerHTML = cells.map(([l,v])=>`<div class="rstat"><b>${v}</b><span>${l}</span></div>`).join('');
+  }
+
+  // 2 chart per-day theo range (destroy+redraw qua factory chart())
+  function drawRangeCharts(){
+    if(!(Array.isArray(D.daily) && D.daily.length)) return;
+    const arr = sliceDaily(activeRange);
+    const labels = arr.map(d=>short(d.date));
+    const words  = arr.map(d=>d.words||0);
+    // WPM/ngày: chỉ ngày có audio (audio_words>0) → Σwpm_wsum/Σaudio; ngày khác = null (gap)
+    const wpmDay = arr.map(d=> (d.audio_words>0) ? Math.round((d.wpm_wsum||0)/d.audio_words) : null);
+    const clar   = arr.map(d=> d.clarity==null ? null : d.clarity);
+    const ptN = arr.length;   // 0–1 điểm vẫn vẽ an toàn
+
+    // CHART GỘP dual-axis: bar Từ (trái) + line WPM (phải, spanGaps)
+    chart('cWords', {
+      type:'bar',
+      data:{ labels, datasets:[
+        { type:'bar', label:'Từ đã nói', data:words, yAxisID:'y',
+          backgroundColor:'rgba(99,102,241,.55)', borderColor:COL.accent2,
+          borderWidth:1, borderRadius:4, maxBarThickness:26, order:2 },
+        { type:'line', label:'WPM', data:wpmDay, yAxisID:'y1', spanGaps:true,
+          borderColor:COL.accent, backgroundColor:COL.accent,
+          borderWidth:2, tension:.3, pointRadius:ptN<=31?3:0, order:1 },
+      ]},
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{ legend:{ labels:{ color:COL.mut, usePointStyle:true, boxWidth:8, font:{size:11} } },
+          tooltip:{ callbacks:{ label:c=> `${c.dataset.label}: ${c.raw==null?'—':c.raw}` } } },
+        scales:{
+          x:{ grid:{ display:false }, ticks:{ color:COL.dim, font:{size:9}, maxRotation:0, autoSkip:true, maxTicksLimit:12 } },
+          y:{ position:'left', beginAtZero:true, grid:{ color:COL.line },
+              ticks:{ color:COL.dim, font:{size:10} },
+              title:{ display:true, text:'Từ', color:COL.dim, font:{size:10} } },
+          y1:{ position:'right', beginAtZero:true, grid:{ display:false },
+              ticks:{ color:COL.accent, font:{size:10} },
+              title:{ display:true, text:'WPM', color:COL.accent, font:{size:10} } },
+        }
+      }
+    });
+
+    // CHART line Clarity/ngày (0–5, gap khi ngày trống)
+    chart('cClarity', {
+      type:'line',
+      data:{ labels, datasets:[
+        { label:'Clarity', data:clar, spanGaps:true,
+          borderColor:COL.primary, backgroundColor:'rgba(79,70,229,.10)', fill:true,
+          borderWidth:2, tension:.3, pointRadius:ptN<=31?3:0 },
+      ]},
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{ legend:{ display:false },
+          tooltip:{ callbacks:{ label:c=> `Clarity: ${c.raw==null?'—':(Math.round(c.raw*100)/100)}` } } },
+        scales:{
+          x:{ grid:{ display:false }, ticks:{ color:COL.dim, font:{size:9}, maxRotation:0, autoSkip:true, maxTicksLimit:12 } },
+          y:{ min:0, max:5, grid:{ color:COL.line }, ticks:{ color:COL.dim, stepSize:1, font:{size:10} } }
+        }
+      }
+    });
+  }
+
+  // wire tab clicks (client-side: đổi range → cập nhật số + 2 chart, KHÔNG reload)
+  function wireFilter(){
+    const tabs = document.getElementById('ftabs'); if(!tabs) return;
+    tabs.addEventListener('click', e=>{
+      const btn = e.target.closest('.ftab'); if(!btn) return;
+      const key = btn.dataset.range; if(key===activeRange) return;
+      activeRange = key;
+      tabs.querySelectorAll('.ftab').forEach(b=>b.classList.toggle('active', b.dataset.range===key));
+      renderRangeStats();
+      if(window.Chart) drawRangeCharts();
+    });
+  }
+
+  // ===================================================================
+  // SECTION 2 — HEATMAP / calendar ~30 ngày
+  // ===================================================================
+  function calHTML(){
+    const cal = Array.isArray(D.calendar) ? D.calendar : [];
+    const today = meta.as_of;
+    let cells = '';
+    if(!cal.length){
+      cells = '<div class="empty" style="grid-column:1/-1">Chưa có dữ liệu lịch.</div>';
+    }else{
+      cells = cal.map(c=>{
+        const cnt = c.count||0;
+        const lvl = cnt>=2 ? 'p2' : (cnt>=1 ? 'p1' : '');
+        const isToday = c.date===today ? ' today' : '';
+        const dd = String(c.date||'').slice(8);   // 'DD'
+        return `<div class="calcell ${lvl}${isToday}" title="${esc(c.date)} · ${cnt} buổi">${dd}</div>`;
+      }).join('');
+    }
+    return `<div class="card">
+      <h3>${ico('grid')} 30 ngày gần đây · nhịp tập</h3>
+      <div class="calwrap">
+        <div class="calgrid">${cells}</div>
+        <div class="callegend">
+          <span><i class="l0"></i>trống</span>
+          <span><i class="l1"></i>1 buổi</span>
+          <span><i class="l2"></i>≥2 buổi</span>
+          <span style="margin-left:auto">ô viền xanh = hôm nay (as_of)</span>
+        </div>
+      </div>
+      <div class="hint">Credit nhị phân: mọi rep trong 1 ngày = 1 buổi-trong-ngày. Khoảng trống = gap nhìn thấy được, KHÔNG phải "mất chuỗi".</div>
+    </div>`;
+  }
+
+  // ===================================================================
+  // SECTION 3 — DANH SÁCH buổi gần đây (⛔ KHÔNG cột transcript)
+  // ===================================================================
+  function sessHTML(){
+    const ss = Array.isArray(D.sessions) ? D.sessions : [];
+    let body;
+    if(!ss.length){
+      body = `<div class="empty">Chưa có buổi nào — bắt đầu buổi đầu tiên hôm nay.</div>`;
+    }else{
+      const rows = ss.map(s=>{
+        return `<tr>
+          <td class="d">${esc(s.date)}</td>
+          <td class="topic">${esc(dash(s.topic))}</td>
+          <td><span class="pill tier">${esc(tierLabel(s.tier))}</span></td>
+          <td class="clr">${s.clarity==null?'—':fmt1(s.clarity)}</td>
+          <td><span class="vrd ${vrdClass(s.verdict)}">${esc(vrdLabel(s.verdict))}</span></td>
+          <td class="drill">${esc(dash(s.drill))}</td>
+        </tr>`;
+      }).join('');
+      body = `<table class="sess">
+        <thead><tr><th>Ngày</th><th>Chủ đề</th><th>Tier</th><th>Clarity</th><th>Verdict</th><th>Drill</th></tr></thead>
+        <tbody>${rows}</tbody></table>`;
+    }
+    return `<div class="card">
+      <h3>${ico('list')} Buổi gần đây</h3>
+      ${body}
+      <div class="hint">⛔ Privacy: bảng KHÔNG hiển thị transcript. clarity = Σ(điểm×trọng số) · band Good≥4 / OK≥3 / Tighten≥2.</div>
+    </div>`;
+  }
+
+  // ===================================================================
+  // SECTION 4 — RADAR 5 chiều (buổi mới nhất)
+  // ===================================================================
+  function radarHTML(){
+    return `<div class="card">
+      <h3>${ico('radar')} Radar 5 chiều ${D.radar && D.radar.date ? '· '+esc(D.radar.date) : ''}</h3>
+      <div class="chartbox" style="height:300px"><canvas id="cRadar"></canvas></div>
+      <div class="hint">5 chiều theo trọng số engine: Cấu trúc·Độ sâu (.30) · Chốt hạ (.20) · Cô đọng·Tín hiệu (.10). Buổi mới nhất.</div>
+    </div>`;
+  }
+  function drawRadar(){
+    const r = D.radar || {};
+    const dims = Array.isArray(r.dims) && r.dims.length ? r.dims : ['Cấu trúc','Độ sâu','Chốt hạ','Cô đọng','Tín hiệu/nhiễu'];
+    const sc   = Array.isArray(r.scores) ? r.scores : [null,null,null,null,null];
+    const hasData = sc.some(v=>v!=null);
+    chart('cRadar', {
+      type:'radar',
+      data:{ labels:dims, datasets:[{
+        label: r.date || 'Buổi mới nhất',
+        data: sc.map(v=>v==null?null:v),
+        fill:true,
+        backgroundColor:'rgba(99,102,241,.16)',
+        borderColor:COL.primary, pointBackgroundColor:COL.primary,
+        borderWidth:2, pointRadius:hasData?3:0
+      }]},
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        plugins:{ legend:{display:false},
+          tooltip:{ callbacks:{ label:c=> `${c.label}: ${c.raw==null?'—':(Math.round(c.raw*10)/10)}` } } },
+        scales:{ r:{
+          min:0, max:5, ticks:{ stepSize:1, color:COL.dim, backdropColor:'transparent', font:{size:10} },
+          grid:{ color:COL.line }, angleLines:{ color:COL.line },
+          pointLabels:{ color:COL.mut, font:{size:11} }
+        }}
+      }
+    });
+  }
+
+  // ===================================================================
+  // SECTION 5 — TREND (clarity roll + Depth & Structure 2 ĐƯỜNG RIÊNG)
+  // ===================================================================
+  function trendHTML(){
+    return `<div class="card">
+      <h3>${ico('trend')} Xu hướng · rolling-mean</h3>
+      <div class="chartbox" style="height:300px"><canvas id="cTrend"></canvas></div>
+      <div class="hint">3 đường TÁCH RIÊNG (chống Goodhart): Clarity (composite) · Độ sâu · Cấu trúc. Cửa sổ rolling 4 buổi.
+        <b>Composite lên mà Độ sâu phẳng = chưa chạm gốc.</b></div>
+    </div>`;
+  }
+  function drawTrend(){
+    const t = D.trend || {};
+    const labels = (t.dates||[]).map(short);
+    const mk = (data,col,label,dash)=>({
+      label, data:(data||[]).map(v=>v==null?null:v),
+      borderColor:col, backgroundColor:col,
+      borderWidth:2, tension:.3, pointRadius:2, spanGaps:true,
+      borderDash:dash||[]
+    });
+    chart('cTrend', {
+      type:'line',
+      data:{ labels, datasets:[
+        mk(t.clarity_roll,   COL.accent2, 'Clarity (composite)'),
+        mk(t.depth_roll,     COL.accent,  'Độ sâu', [6,4]),
+        mk(t.structure_roll, COL.orange,  'Cấu trúc', [2,3]),
+      ]},
+      options:{
+        responsive:true, maintainAspectRatio:false,
+        interaction:{mode:'index',intersect:false},
+        plugins:{ legend:{ labels:{ color:COL.mut, usePointStyle:true, boxWidth:8, font:{size:11} } },
+          tooltip:{ callbacks:{ label:c=> `${c.dataset.label}: ${c.raw==null?'—':(Math.round(c.raw*100)/100)}` } } },
+        scales:{
+          x:{ grid:{ color:COL.line }, ticks:{ color:COL.dim, font:{size:10}, maxRotation:0 } },
+          y:{ min:0, max:5, grid:{ color:COL.line }, ticks:{ color:COL.dim, stepSize:1, font:{size:10} } }
+        }
+      }
+    });
+  }
+
+  // ===================================================================
+  // BOOT — dựng chrome rồi vẽ chart (an toàn 0–1 buổi)
+  // ===================================================================
+  app.innerHTML =
+      heroHTML()
+    + filterHTML()
+    + calHTML()
+    + `<div class="grid grid-2">${radarHTML()}${trendHTML()}</div>`
+    + sessHTML()
+    + `<div class="foot">Articulation Coach · local-only · <b>KHÔNG deploy</b> · data: điểm/metric/adherence (KHÔNG transcript)
+        <br>generated <b class="mono">${esc(meta.generated_at||'')}</b></div>`;
+
+  // filter client-side: số tổng theo range (luôn chạy) + wire tab clicks
+  renderRangeStats();
+  wireFilter();
+
+  // chart cần DOM đã có canvas + Chart.js đã load
+  if(window.Chart){ drawRangeCharts(); drawRadar(); drawTrend(); }
+  else{ console.warn('Chart.js chưa load — chart bỏ qua, chrome vẫn hiển thị.'); }
+})();
+</script>
+</body>
+</html>

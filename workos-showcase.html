@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Personal WorkOS — Cẩm nang về bộ não thứ hai</title>
+<title>Personal WorkOS — Cẩm nang bộ não thứ hai</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,800;1,9..144,500;1,9..144,800&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -259,6 +259,129 @@
   .colo .big{font-family:var(--display);font-style:italic;font-size:clamp(22px,3.6vmin,34px);color:var(--ink);text-transform:none;letter-spacing:normal;margin:16px 0 18px;line-height:1.25}
   .colo .invite{font-family:var(--display);font-size:clamp(16px,2.2vmin,21px);color:var(--accent);text-transform:none;letter-spacing:normal;margin-top:18px}
 
+  /* ---------- memory: cache vs source-of-truth (slide PHẦN 02) ---------- */
+  .memcmp{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,34px);align-items:stretch}
+  .memcard{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:clamp(18px,2.6vmin,28px);display:flex;flex-direction:column}
+  .memcard.truth{border-color:var(--accent2)}
+  .memcard .tag{font-family:var(--mono);font-size:clamp(11px,1.5vmin,13px);letter-spacing:.12em;text-transform:uppercase;font-weight:500;margin-bottom:7px}
+  .memcard.cache .tag{color:var(--muted)} .memcard.truth .tag{color:var(--accent2)}
+  .memcard h3{font-size:clamp(17px,2.4vmin,23px);margin-bottom:13px}
+  .memcard ul{list-style:none;margin:0;padding:0}
+  .memcard li{font-size:clamp(13.5px,1.85vmin,16px);color:var(--ink-2);padding:7px 0 7px 24px;position:relative;line-height:1.42}
+  .memcard li b{color:var(--ink)}
+  .memcard.cache li::before{content:"–";position:absolute;left:2px;color:var(--accent);font-weight:700}
+  .memcard.truth li::before{content:"✓";position:absolute;left:0;color:var(--accent2);font-weight:700}
+  .memcard .foot{margin-top:auto;padding-top:15px;font-family:var(--mono);font-size:clamp(10.5px,1.45vmin,12.5px);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .memcard.truth .foot{color:var(--accent2)}
+  .memline{text-align:center;margin-top:clamp(14px,2.4vmin,26px);font-size:clamp(13.5px,1.85vmin,17px);color:var(--ink-1)}
+  .memline b{color:var(--accent);font-weight:600}
+  .memline .mono{font-family:var(--mono);font-size:.84em;color:var(--accent2);letter-spacing:.04em}
+
+  /* ---------- pipeline data (S14 Garmin = dự án data) ---------- */
+  .pipe-eyebrow{font-family:var(--mono);font-size:clamp(11px,1.5vmin,13px);letter-spacing:.18em;text-transform:uppercase;color:var(--accent)}
+  .pipe-lead{font-family:var(--display);font-size:clamp(15px,2vmin,20px);color:var(--ink);margin:9px 0 0;max-width:74ch;line-height:1.3}
+  #pipe{width:100%;height:auto;max-height:34vh;overflow:visible;display:block}
+  #pipe .node rect{fill:var(--surface);stroke:var(--ink);stroke-width:1.4}
+  #pipe .node .core{fill:var(--accent);stroke:var(--accent)}
+  #pipe .node text{font-family:var(--mono);font-size:12.5px;fill:var(--ink);font-weight:500;letter-spacing:.02em}
+  #pipe .node .sub{font-size:10px;fill:var(--muted);font-weight:400;letter-spacing:0}
+  #pipe .node.coren text,#pipe .node.coren .sub{fill:#fff}
+  .pipe-ends{display:flex;justify-content:space-between;gap:18px;font-family:var(--mono);font-size:clamp(10.5px,1.45vmin,12px);color:var(--muted);margin-top:8px;letter-spacing:.04em}
+  .pipe-ends b{color:var(--accent2)}
+  .proofstrip{display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(20px,3vw,40px);align-items:center;border-top:1px solid var(--line);margin-top:clamp(14px,2.4vmin,26px);padding-top:clamp(14px,2.4vmin,24px)}
+  .proofstrip .nums{display:flex;gap:clamp(16px,2.4vw,30px);margin-bottom:12px}
+  .proofstrip .nums .n{border-top:2px solid var(--accent2);padding-top:8px}
+  .proofstrip .nums .v{font-family:var(--display);font-weight:600;font-size:clamp(24px,3.6vmin,40px);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .proofstrip .nums .l{font-family:var(--mono);font-size:clamp(9.5px,1.3vmin,11px);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+  .proofstrip .cap{font-family:var(--mono);font-size:clamp(10px,1.4vmin,11.5px);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:9px}
+  .proofstrip .aside{border-left:2px solid var(--accent);padding-left:18px}
+  .proofstrip .aside .big{font-family:var(--display);font-weight:600;font-size:clamp(22px,3.2vmin,38px);color:var(--accent2);line-height:1;letter-spacing:-.02em}
+  .proofstrip .aside .kick{font-family:var(--mono);font-size:clamp(9.5px,1.3vmin,11px);letter-spacing:.1em;text-transform:uppercase;color:var(--accent2);margin:8px 0 9px}
+  .proofstrip .aside h3{font-size:clamp(14px,1.9vmin,17px);margin-bottom:5px}
+  .proofstrip .aside p{font-size:clamp(12.5px,1.65vmin,14px);color:var(--ink-2);margin:0;line-height:1.4}
+  .proofstrip .aside .ba{font-family:var(--mono);font-size:clamp(11px,1.5vmin,12.5px);color:var(--muted);margin-top:9px}
+  .proofstrip .aside .ba b{color:var(--ink)}
+
+  /* ---------- copy-prompt button (S11 starter) ---------- */
+  .copybtn{font-family:var(--mono);font-size:clamp(12px,1.6vmin,14px);letter-spacing:.04em;padding:13px 20px;border-radius:3px;border:1px solid var(--ink);
+    background:var(--ink);color:var(--bg);cursor:pointer;transition:.18s;display:inline-flex;align-items:center;gap:10px;text-align:left;line-height:1.3}
+  .copybtn:hover{background:var(--accent);border-color:var(--accent)}
+  .copybtn.copied{background:var(--accent2);border-color:var(--accent2)}
+  .copybtn .ic{font-size:1.05em}
+  .promptbox{border:1px solid var(--line);background:var(--surface);border-radius:5px;padding:clamp(13px,1.9vmin,18px);font-family:var(--mono);
+    font-size:clamp(11px,1.45vmin,12.5px);line-height:1.5;color:var(--ink-2);max-height:30vh;overflow:auto;white-space:pre-wrap}
+
+  /* ---------- chat mockup (S8 trước/sau) ---------- */
+  .chatq{display:flex;justify-content:center;margin-bottom:clamp(16px,2.8vmin,30px)}
+  .chatm{display:grid;grid-template-columns:1fr 1fr;gap:clamp(18px,3vw,34px);align-items:stretch}
+  .chatcol{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:clamp(14px,2vmin,20px);display:flex;flex-direction:column;gap:11px}
+  .chatcol.brain{border-color:var(--accent2)}
+  .chatcol .who{font-family:var(--mono);font-size:clamp(10.5px,1.45vmin,12.5px);letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+  .chatcol.brain .who{color:var(--accent2)}
+  .bub{border:1px solid var(--line);border-radius:14px 14px 14px 4px;background:var(--bg);padding:12px 16px;font-size:clamp(13px,1.75vmin,15.5px);line-height:1.5;color:var(--ink-1)}
+  .chatcol.brain .bub{border-color:var(--accent2)}
+  .bub b{color:var(--ink)} .chatcol.brain .bub b{color:var(--accent2)}
+  .chatcol .foot{margin-top:auto;font-family:var(--mono);font-size:clamp(10px,1.35vmin,11.5px);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding-top:4px}
+  .chatcol.brain .foot{color:var(--accent2)}
+
+  /* ---------- agent loop (S5) ---------- */
+  #loop{width:100%;height:auto;max-height:40vh;display:block;overflow:visible}
+  #loop .node circle{fill:var(--surface);stroke:var(--accent2);stroke-width:1.6}
+  #loop .node .core{fill:var(--accent2);stroke:var(--accent2)}
+  #loop .node text{font-family:var(--mono);font-size:12.5px;fill:var(--ink);font-weight:500}
+  #loop .node.coren text{fill:#fff;font-size:11px;letter-spacing:.08em}
+  #loop .looplbl{font-family:var(--mono);font-size:12.5px;fill:var(--ink);font-weight:500}
+  .loopcap{text-align:center;font-family:var(--mono);font-size:clamp(10.5px,1.45vmin,12px);letter-spacing:.08em;text-transform:uppercase;color:var(--accent2);margin-top:6px}
+  .cando{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:clamp(14px,2.4vmin,26px)}
+  .cando .lbl{width:100%;text-align:center;font-family:var(--mono);font-size:clamp(10.5px,1.4vmin,12px);letter-spacing:.06em;text-transform:uppercase;color:var(--accent2);margin-bottom:3px}
+  .cando .ch{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 15px;font-size:clamp(12.5px,1.65vmin,14.5px);color:var(--ink-1)}
+
+  /* ---------- mini-mockups (S6 làm được gì) ---------- */
+  .mmk{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(18px,2.6vw,34px)}
+  .mmkc h3{margin:14px 0 6px;font-size:clamp(15px,2vmin,18px)}
+  .mmkc p{font-size:clamp(12.5px,1.6vmin,14.5px);color:var(--ink-2);margin:0;line-height:1.45}
+  .mmkc p b{color:var(--accent2)}
+  .viz{border:1px solid var(--line);background:var(--surface);border-radius:6px;height:clamp(104px,16vmin,148px);display:flex;align-items:center;justify-content:center;gap:clamp(8px,1.4vw,18px);padding:14px}
+  .viz .arr{color:var(--accent2);font-family:var(--mono);font-size:18px}
+  .vfiles{display:flex;flex-direction:column;gap:5px}
+  .vfile{width:36px;height:9px;background:var(--bg);border:1px solid var(--hair);border-radius:2px}
+  .vsum{width:56px;height:50px;background:var(--bg);border:1px solid var(--accent2);border-radius:3px;display:flex;flex-direction:column;gap:5px;padding:8px}
+  .vsum span{height:4px;background:var(--line);border-radius:2px}
+  .vsum span:first-child{background:var(--accent2);width:72%}
+  .vtable{width:100%;max-width:174px;border:1px solid var(--line);border-radius:3px;overflow:hidden;background:var(--bg)}
+  .vrow{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;padding:6px 9px;border-top:1px solid var(--line)}
+  .vrow:first-child{border-top:none;background:var(--surface)}
+  .vrow.flag{background:rgba(178,58,46,.12)}
+  .vrow span{height:6px;background:var(--hair);opacity:.55;border-radius:2px}
+  .vrow:first-child span{background:var(--ink);opacity:.45}
+  .vrow.flag span{background:var(--accent);opacity:.85}
+  .vmcp{display:flex;align-items:center}
+  .vagent{font-family:var(--mono);font-size:10px;padding:8px 12px;border:1px solid var(--ink);border-radius:4px;background:var(--ink);color:var(--bg)}
+  .vplug{width:34px;height:2px;background:var(--accent2);position:relative}
+  .vplug::after{content:"";position:absolute;right:-3px;top:-3px;width:8px;height:8px;border-radius:50%;background:var(--accent2)}
+  .vapps{display:flex;flex-direction:column;gap:6px}
+  .vapp{font-family:var(--mono);font-size:9.5px;padding:4px 9px;border:1px solid var(--line);border-radius:3px;background:var(--bg);color:var(--ink-2)}
+
+  /* ---------- before/after prompt (S4) ---------- */
+  .prompts{display:flex;flex-direction:column;gap:clamp(14px,2.2vmin,22px)}
+  .pcard{border:1px solid var(--line);background:var(--surface);border-radius:6px;padding:clamp(14px,2vmin,20px) clamp(16px,2.2vmin,24px);display:grid;grid-template-columns:clamp(100px,12vw,134px) 1fr auto;align-items:center;gap:clamp(14px,2.4vw,28px)}
+  .pcard.good{border-color:var(--accent2)}
+  .pcard .ptag{font-family:var(--mono);font-size:clamp(10.5px,1.45vmin,12.5px);letter-spacing:.1em;text-transform:uppercase}
+  .pcard.bad .ptag{color:var(--accent)} .pcard.good .ptag{color:var(--accent2)}
+  .pcard .pcode{font-family:var(--mono);font-size:clamp(12.5px,1.7vmin,15px);line-height:1.5}
+  .pcard.bad .pcode{color:var(--ink-3)} .pcard.good .pcode{color:var(--ink-1)}
+  .pcard .pcode b{color:var(--accent2);font-weight:600}
+  .pcard .presult{font-family:var(--mono);font-size:clamp(11px,1.5vmin,13px);white-space:nowrap}
+  .pcard.bad .presult{color:var(--muted)} .pcard.good .presult{color:var(--accent2);font-weight:500}
+
+  /* ---------- S8 chat: bỏ khung thẻ → đọc như luồng nhắn (phá lặp "2 thẻ") ---------- */
+  .chatm .chatcol{border:none;background:none;padding:0;gap:9px}
+  .chatm .chatcol .bub{background:var(--surface)}
+  .chatm .chatcol.brain .bub{background:var(--surface)}
+
+  /* ---------- typography máy chiếu: bump plate-tag (dùng mọi slide) ---------- */
+  .plate-tag{font-size:clamp(12px,1.6vmin,14px)}
+
   /* ---------- responsive ---------- */
   @media(max-width:880px){
     body{overflow:auto}
@@ -272,6 +395,14 @@
   }
   @media(max-width:700px){.brand .sub2{display:none}}
   @media(max-width:520px){.numbers{grid-template-columns:1fr}}
+  /* máy chiếu chiều cao thấp (vd 1366×768): tighten slide proof Garmin (đậm nhất) */
+  @media(min-width:881px) and (max-height:830px){
+    #pipe{max-height:24vh}
+    .pipe-lead{margin-top:5px}
+    .proofstrip{margin-top:clamp(8px,1.4vmin,14px);padding-top:clamp(8px,1.4vmin,14px)}
+    .proofstrip .nums{margin-bottom:7px}
+    .proofstrip img{max-width:320px!important}
+  }
   @media(prefers-reduced-motion:reduce){
     .reveal{opacity:1!important;transform:none!important;transition:none}
     .dot{animation:none}.deck{scroll-behavior:auto}svg .pulse{display:none}
@@ -311,35 +442,36 @@
   <div class="brand">PERSONAL <b>WORKOS</b> <span class="sub2">· VOL. 01 — CẨM NANG VỀ BỘ NÃO THỨ HAI</span></div>
   <div class="status"><span class="dot"></span> HỆ ĐANG CHẠY · v2026.6</div>
 </div>
-<div class="progress" id="progress" role="progressbar" aria-valuemin="1" aria-valuemax="13" aria-valuenow="1" aria-label="Tiến trình slide"></div>
+<div class="progress" id="progress" role="progressbar" aria-valuemin="1" aria-valuemax="14" aria-valuenow="1" aria-label="Tiến trình slide"></div>
 <div class="dots" id="dots" role="tablist" aria-label="Điều hướng slide"></div>
 <div class="botbar">
-  <div class="counter"><b id="cur">01</b> / <span id="total">13</span></div>
+  <div class="counter"><b id="cur">01</b> / <span id="total">14</span></div>
   <div class="hint">← → hoặc cuộn để chuyển · phím 1–9 để nhảy slide</div>
   <div class="navbtns"><button id="prev" aria-label="Slide trước">↑</button><button id="next" aria-label="Slide sau">↓</button></div>
 </div>
 
 <main class="deck" id="deck" role="region" aria-roledescription="carousel" aria-label="Cẩm nang Personal WorkOS">
-
   <!-- 0 HERO -->
   <section class="slide" data-label="Mở đầu" aria-roledescription="slide">
     <div class="inner hero-grid">
       <div>
-        <h1 class="hero-title reveal">Một bộ não thứ hai, được dựng theo <em>đúng cách bạn sống</em>.</h1>
-        <p class="hero-sub reveal d1">Lưu lại mọi điều bạn biết, từng việc bạn làm, từng quyết định bạn đã chọn — để bạn và AI có thể <b>dùng lại lâu dài</b>.</p>
-        <p class="hero-sub reveal d2" style="font-size:clamp(14px,1.7vmin,16.5px);color:var(--ink-2);margin-top:14px">Không phải thêm một app quản lý note. Đây là cách biến trí nhớ, dự án, mục tiêu và kinh nghiệm của bạn thành một hệ thống <b>tra cứu, kết nối và tiếp tục phát triển</b>.</p>
+        <h1 class="hero-title reveal">Một bộ não thứ hai, dựng theo <em>đúng cách bạn làm việc</em>.</h1>
+        <p class="reveal d1" style="font-family:var(--display);font-style:italic;font-size:clamp(22px,3.2vmin,33px);color:var(--ink);margin-top:18px;line-height:1.16">Không phải <s style="text-decoration-color:var(--hair)">AI thông minh hơn</s> — là AI <b style="font-style:normal;color:var(--accent)">biết bạn</b>.</p>
+        <p class="hero-sub reveal d2">Lưu lại bạn là ai, đang làm gì, đã quyết gì — để bạn và AI <b>dùng lại lâu dài</b>, không kể lại từ đầu mỗi lần.</p>
+        <p class="hero-sub reveal d2" style="font-size:clamp(13px,1.6vmin,15px);color:var(--ink-3);margin-top:14px"><b style="color:var(--accent2)">Hết 45 phút:</b> bạn phân biệt được AI thật sự làm gì · một agent làm được gì · và tự dựng bộ não thứ hai — bắt đầu <b>ngay tối nay</b>.</p>
+        <p class="reveal d2" style="font-size:clamp(13px,1.7vmin,15.5px);color:var(--ink-1);margin-top:12px;max-width:46ch">Tôi đã chạy hệ này cho việc thật của mình — buổi nay tôi muốn <b>mỗi người tự dựng bản của riêng mình</b>, để cả phòng làm việc với AI theo cùng một cách.</p>
         <div class="hero-cta reveal d2">
           <button class="btn primary" onclick="go(1)">Bắt đầu →</button>
-          <button class="btn" onclick="go(11)">Cách tự dựng</button>
+          <button class="btn" onclick="go(8)">Làm ngay tối nay</button>
         </div>
       </div>
       <div class="reveal d2">
         <div class="graph-frame">
-          <div class="cap"><span>FIG. 0 — BỘ NÃO ĐANG VẬN HÀNH</span><span>LIVE</span></div>
-          <svg id="brain" viewBox="0 0 460 280" width="100%" role="img" aria-label="Sơ đồ: các mảng trong cuộc sống nối về một lõi chung">
+          <div class="cap"><span>BỘ NÃO ĐANG VẬN HÀNH</span><span>LIVE</span></div>
+          <svg id="brain" viewBox="0 0 460 280" width="100%" role="img" aria-label="Sơ đồ: các mảng trong công việc nối về một lõi chung">
             <g id="b-edges"></g><g id="b-pulses"></g><g id="b-nodes"></g>
           </svg>
-          <div class="graph-note">Mỗi nút là một mảng trong cuộc sống của bạn. Khi chúng được nối lại, AI không chỉ nhớ dữ liệu — <b>nó hiểu được bối cảnh</b>.</div>
+          <div class="graph-note">Mỗi nút là một mảng trong công việc của bạn. Khi nối lại, AI không chỉ nhớ dữ liệu — <b>nó hiểu được bối cảnh</b>.</div>
         </div>
       </div>
     </div>
@@ -348,41 +480,127 @@
   <!-- 1 PROBLEM -->
   <section class="slide" data-label="Vấn đề" aria-roledescription="slide">
     <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 01</span> Vấn đề</div>
+      <div class="plate-tag reveal"><span class="num">PHẦN 01</span> Vì sao cách cũ chưa hiệu quả</div>
       <div class="sec-head reveal">
-        <h2>Tri thức của bạn đang <em>rò rỉ</em> — và bạn không nhận ra.</h2>
-        <p class="lead">Nếu ba điều dưới đây nghe quen, bạn đang mất tri thức mỗi ngày mà không hay.</p>
+        <h2>Bạn đã thử AI rồi — nhưng nó <em>chưa thật sự giúp</em>.</h2>
+        <p class="lead">Không phải vì AI dở — mà vì <b>AI không biết bạn</b>. Ba điều này nghe quen chứ?</p>
       </div>
       <div class="leaks">
-        <div class="leak reveal d1"><span class="icn" data-i="chat"></span><h3>Tri thức tan vào chat</h3><p>Câu trả lời hay nhất, phân tích sâu nhất — tan biến khi đóng cửa sổ. Tuần sau cần lại, không tìm thấy.</p><span class="tag">Insight bốc hơi</span></div>
-        <div class="leak reveal d2"><span class="icn" data-i="files"></span><h3>File nằm lung tung</h3><p>Nhiều bản sao của cùng một thứ, mỗi nơi một con số. Không ai biết đâu là bản đúng — kể cả bạn.</p><span class="tag">Không có sự thật gốc</span></div>
-        <div class="leak reveal d3"><span class="icn" data-i="cpu"></span><h3>AI quên sạch mỗi phiên</h3><p>Mỗi sáng là tờ giấy trắng. Bạn lại kể từ đầu mình là ai, đang làm gì. AI không tích lũy được gì.</p><span class="tag">Không có trí nhớ</span></div>
+        <div class="leak reveal d1"><span class="icn" data-i="redo"></span><h3>Mỗi lần kể lại từ đầu</h3><p>Mở phiên mới là tờ giấy trắng: bạn lại khai mình là ai, đang làm gì. AI không tích lũy được gì về bạn.</p><span class="tag">Không có trí nhớ</span></div>
+        <div class="leak reveal d2"><span class="icn" data-i="chat"></span><h3>Trả lời chung chung</h3><p>Không biết bối cảnh của bạn nên AI đưa bản nháp "ai cũng đúng" — bạn sửa còn lâu hơn tự làm.</p><span class="tag">Sửa hơn tự làm</span></div>
+        <div class="leak reveal d3"><span class="icn" data-i="files"></span><h3>Tri thức tan biến</h3><p>Câu trả lời hay nhất, file quan trọng nhất — tan khi đóng cửa sổ, mỗi nơi một bản. Tuần sau cần lại: mất.</p><span class="tag">Không có nhà gốc</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 2 WHAT IS IT -->
-  <section class="slide" data-label="Là gì" aria-roledescription="slide">
+  <!-- 2 CONTEXT MEMORY: cache vs source-of-truth -->
+  <section class="slide" data-label="Trí nhớ AI" aria-roledescription="slide">
     <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 02</span> Bộ não thứ hai · định nghĩa</div>
-      <div class="sec-head reveal"><h2>Vậy “bộ não thứ hai” <em>là gì</em>?</h2></div>
-      <div class="def">
-        <div class="reveal d1">
-          <div class="big">Một nơi <b>bên ngoài đầu bạn</b> để chứa tri thức, ngữ cảnh và trí nhớ — nơi <b>bạn và AI cùng đọc, cùng ghi</b>.</div>
-          <p class="notline"><s>Không phải app ghi chú.</s> &nbsp; <s>Không phải Google Drive.</s><br><b>→ Mà là nơi bạn và AI cùng nghĩ.</b></p>
+      <div class="plate-tag reveal"><span class="num">PHẦN 02</span> Nền tảng · vì sao cần file</div>
+      <div class="sec-head reveal"><h2>AI <em>có</em> trí nhớ — nhưng đó là <em>cache</em>, không phải kho gốc.</h2>
+        <p class="lead">"ChatGPT giờ nhớ được mà?" — đúng. Nhưng nhớ kiểu đó <b>giới hạn</b> và <b>rơi rụng</b>: chat tới một lúc là quên dần. Mọi trí tuệ đều có trí nhớ ngắn hạn.</p>
+      </div>
+      <div class="memcmp">
+        <div class="memcard cache reveal d1">
+          <div class="tag">Trí nhớ trong AI · ngắn hạn</div>
+          <h3>Như một <b style="color:var(--accent)">cache</b></h3>
+          <ul>
+            <li><b>Giới hạn</b> — chỉ chứa được ngần ấy</li>
+            <li><b>Rơi rụng</b> — chat lâu là tự tóm tắt, mất chi tiết</li>
+            <li><b>Mờ</b> — bạn không thấy / không kiểm soát nó giữ gì</li>
+            <li><b>Không phải của bạn</b> — khoá trong một công cụ</li>
+          </ul>
+          <div class="foot">nhanh · tự động · nhưng không đáng tin lâu dài</div>
         </div>
-        <div class="analogy reveal d2">
-          <div class="k">Nói cách khác</div>
-          <p>Não thật giỏi <i>nghĩ</i>, dở <i>lưu</i>. Bộ não thứ hai lo phần lưu — để bạn rảnh trí mà nghĩ. Khác một kho lưu trữ chết ở chỗ: nó <b>sống</b>, và AI dùng được nó để nghĩ <i>cùng</i> bạn.</p>
+        <div class="memcard truth reveal d2">
+          <div class="tag">File của bạn · dài hạn</div>
+          <h3>Là <b style="color:var(--accent2)">source of truth</b></h3>
+          <ul>
+            <li><b>Đầy đủ</b> — giữ nguyên, không tự cắt</li>
+            <li><b>Chính xác</b> — đọc lại y như đã ghi</li>
+            <li><b>Bạn kiểm soát</b> — thấy &amp; sửa được mọi thứ</li>
+            <li><b>Mang đi đâu cũng chạy</b> — không khoá công cụ</li>
+          </ul>
+          <div class="foot">bộ não thứ hai = trí nhớ dài hạn</div>
         </div>
       </div>
+      <p class="memline reveal d2">Bạn đâu chạy KPI trên <b>cache</b> — bạn chạy trên <b>mart</b>. <span class="mono">RAM vs ổ cứng · session vs database</span></p>
     </div>
   </section>
 
-  <!-- 3 WHAT IT DOES -->
-  <section class="slide" data-label="Làm được gì" aria-roledescription="slide">
+  <!-- 3 PROMPT -->
+  <section class="slide" data-label="Prompt" aria-roledescription="slide">
     <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 03</span> Nó làm được gì</div>
+      <div class="plate-tag reveal"><span class="num">PHẦN 03</span> Nói với AI · đưa ngữ cảnh</div>
+      <div class="sec-head reveal"><h2>Đa số mới chỉ <em>prompt</em> — chưa đưa AI <em>dữ liệu của mình</em>.</h2>
+        <p class="lead">Cách dùng AI phổ biến = <b>prompt</b>: hỏi một câu, AI đáp. Trả lời khá hơn khi bạn <b>đưa ngữ cảnh</b> — nhưng đó vẫn là gõ tay từng lần. <b>Bối cảnh thật</b> của bạn nằm trong <b>dữ liệu &amp; file</b> của chính mình (cái kho ở slide trước); chừng nào AI chưa có nó, nó còn đoán chung chung — <b>chưa thể là second brain hiểu bạn</b>.</p>
+      </div>
+      <div class="chatq reveal d1"><div class="qchip"><span class="icn" data-i="chat"></span> Bạn: "Lấy doanh số RM tháng này giúp tôi."</div></div>
+      <div class="prompts">
+        <div class="pcard bad reveal d1">
+          <div class="ptag">AI chưa có dữ liệu</div>
+          <div class="pcode">"Doanh số nào? Lấy từ nguồn nào, kỳ nào? Bạn ở vai trò gì? Cho mình thêm thông tin."</div>
+          <div class="presult">→ hỏi lại từ đầu</div>
+        </div>
+        <div class="pcard good reveal d2">
+          <div class="ptag">AI có dữ liệu của bạn</div>
+          <div class="pcode">"Lấy từ <b>KPI_MART</b> như bạn vẫn làm, theo đúng cách chốt tháng trước → bảng + 3 nhận định. Cần chỉnh gì không?"</div>
+          <div class="presult">→ tự lấy, làm trên việc bạn đã có</div>
+        </div>
+      </div>
+      <p class="reveal d2 muted" style="margin:clamp(14px,2.4vmin,24px) 0 0;text-align:center;font-size:clamp(12.5px,1.7vmin,14.5px)">Khác ở chỗ: AI <b style="color:var(--ink)">đã có dữ liệu của bạn</b> để tự dùng, không bắt khai lại. Nhưng nó vẫn mới chỉ <b style="color:var(--ink)">trả lời</b> — chưa làm xong việc cho bạn.</p>
+    </div>
+  </section>
+
+  <!-- 4 CHAT -> AGENT (capability-focused) -->
+  <section class="slide" data-label="Chat → Agent" aria-roledescription="slide">
+    <div class="inner">
+      <div class="plate-tag reveal"><span class="num">PHẦN 04</span> Chat trả lời · agent làm việc</div>
+      <div class="sec-head reveal"><h2>Chat <em>trả lời</em>. Agent <em>làm xong việc</em>.</h2>
+        <p class="lead">Chat trả lời <b>một câu hỏi</b> rồi dừng — như ô search. <b>Agent</b> có <b>tay</b> (chạm file/app) + <b>trí nhớ</b> (ghi ra file) → nó <b>làm xong cả việc trên dữ liệu của bạn</b>:</p>
+      </div>
+      <div class="mmk">
+        <div class="mmkc reveal d1">
+          <div class="viz">
+            <div class="vfiles"><div class="vfile"></div><div class="vfile"></div><div class="vfile"></div><div class="vfile"></div></div>
+            <span class="arr">→</span>
+            <div class="vsum"><span></span><span></span><span></span><span></span></div>
+          </div>
+          <h3>Tìm &amp; tổng hợp tài liệu</h3>
+          <p>Thả cả thư mục (BRD, báo cáo, email) → AI đọc hết, tóm tắt, soạn bản nháp. <b>20 file → 1 bản tóm tắt.</b></p>
+        </div>
+        <div class="mmkc reveal d2">
+          <div class="viz">
+            <div class="vtable">
+              <div class="vrow"><span></span><span></span><span></span></div>
+              <div class="vrow"><span></span><span></span><span></span></div>
+              <div class="vrow flag"><span></span><span></span><span></span></div>
+              <div class="vrow"><span></span><span></span><span></span></div>
+            </div>
+          </div>
+          <h3>Phân tích số → soi lệch</h3>
+          <p>Gom số nhiều nguồn → 1 bảng, <b>tự flag dòng lệch</b>; dựng nhận định &amp; báo cáo. Đúng việc reconcile.</p>
+        </div>
+        <div class="mmkc reveal d3">
+          <div class="viz">
+            <div class="vmcp">
+              <div class="vagent">agent</div>
+              <div class="vplug"></div>
+              <div class="vapps"><div class="vapp">Power BI</div><div class="vapp">Notion</div><div class="vapp">Garmin</div></div>
+            </div>
+          </div>
+          <h3>Nối thẳng app bạn dùng</h3>
+          <p>Qua "cổng" MCP: đọc Power BI, Notion, Garmin… <b>không copy tay.</b></p>
+        </div>
+      </div>
+      <p class="reveal d3 muted" style="margin:clamp(14px,2.4vmin,24px) 0 0;text-align:center;font-size:clamp(12.5px,1.7vmin,14.5px)">Cùng một lời — agent tự <b style="color:var(--ink)">tìm · tổng hợp · phân tích · dựng báo cáo</b> trên dữ liệu thật của bạn.</p>
+    </div>
+  </section>
+
+  <!-- 5 WHAT IT DOES FOR YOU (6 capabilities) -->
+  <section class="slide" data-label="Làm cho bạn" aria-roledescription="slide">
+    <div class="inner">
+      <div class="plate-tag g reveal"><span class="num">PHẦN 05</span> Nó làm được gì cho bạn</div>
       <div class="sec-head reveal"><h2>Sáu thứ nó <em>làm cho bạn</em>.</h2></div>
       <div class="caps">
         <div class="capc reveal d1"><span class="ci icn" data-i="save"></span><h3>Nhớ thay bạn</h3><p>Mở phiên mới, AI đã biết bạn là ai và đang làm gì.</p><span class="ex">vd: không phải kể lại "tôi là ai" mỗi sáng</span></div>
@@ -395,168 +613,142 @@
     </div>
   </section>
 
-  <!-- 4 SPLIT-SCREEN -->
-  <section class="slide" data-label="Trước / Sau" aria-roledescription="slide">
+  <!-- 6 STRUCTURE / LIBRARIAN (what-is-it + inside, merged) -->
+  <section class="slide" data-label="Cấu trúc" aria-roledescription="slide">
     <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 04</span> Cùng một câu hỏi · hai bộ não</div>
-      <div class="sec-head reveal"><h2>Cùng một câu hỏi. <em>Hai bộ não.</em></h2></div>
-      <div class="qchip reveal d1"><span class="icn" data-i="chat"></span> “Giúp tôi chuẩn bị họp sáng mai.”</div>
-      <div class="versus">
-        <div class="vs plain reveal d1">
-          <div class="lab">AI thường</div>
-          <div class="bubble">"Bạn muốn họp về chủ đề gì? Bạn đang ở vai trò nào, làm dự án nào? Cho mình thêm thông tin nhé."</div>
-          <div class="foot">Hỏi lại từ đầu · trả lời chung chung</div>
-        </div>
-        <div class="vs brain reveal d2">
-          <div class="lab">AI + bộ não thứ hai</div>
-          <div class="bubble">"Họp 9h về dự án X. Ba việc cần chốt: ① duyệt backlog tuần này, ② KPI đang 82% — dưới mục tiêu, cần kế hoạch bù, ③ quyết định tuần trước còn treo. Mình soạn sẵn agenda nhé?"</div>
-          <div class="foot">Biết bạn là ai · dùng số liệu thật của bạn</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 5 CORE IDEA -->
-  <section class="slide" data-label="Ý tưởng lõi" aria-roledescription="slide">
-    <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 05</span> Ý tưởng cốt lõi</div>
-      <p class="lead reveal" style="margin-bottom:clamp(16px,3vmin,30px)">Cả hệ thống — mọi luật, mọi thư mục — dựng trên đúng <b>một câu</b>. Hiểu câu này là hiểu phân nửa hệ.</p>
-      <div class="bigidea reveal d1">
-        <div class="quote">"Một thông tin chỉ có <b>một bản gốc</b>. Các nơi khác chỉ <b>lấy từ bản gốc đó</b>."</div>
-        <p class="sub">Ví dụ: nếu doanh số, KPI hoặc thông tin khách hàng đã được lưu ở một nguồn chuẩn, thì dashboard, báo cáo hay file theo dõi chỉ nên lấy dữ liệu từ nguồn đó. Không copy ra nhiều bản riêng. Khi cần sửa, chỉ sửa tại nguồn gốc để mọi nơi cùng dùng một số liệu đúng, tránh lệch phiên bản và tranh cãi số liệu.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 6 LIBRARIAN METAPHOR -->
-  <section class="slide" data-label="Ẩn dụ" aria-roledescription="slide">
-    <div class="inner">
-      <div class="plate-tag g reveal"><span class="num">PLATE 06</span> Hình dung đơn giản</div>
-      <div class="sec-head reveal"><h2>Hình dung đơn giản: một <em>văn phòng có thủ thư</em>.</h2>
-        <p class="lead">Năm cái tên file ở slide sau nghe kỹ thuật — đây là phiên bản đời thường của đúng năm thứ đó.</p>
+      <div class="plate-tag g reveal"><span class="num">PHẦN 06</span> Cấu trúc · bộ não thứ hai &amp; người thủ thư</div>
+      <div class="sec-head reveal"><h2>Để AI thành <em>agent tốt hơn</em> — cho nó một <em>cấu trúc</em>.</h2>
+        <p class="lead">Agent đọc &amp; ghi file liên tục — <b>file bừa</b> thì nó ghi đè, đọc nhầm, tìm không ra. Cho nó một <b>cấu trúc</b> (quy ước nơi-cất · nơi-tìm) → agent làm đúng &amp; nhớ lâu. Cấu trúc đó = <b>bộ não thứ hai</b>: bạn và AI cùng đọc/ghi, <b>mỗi sự thật một nhà</b>; bên trong AI đóng vai <b>thủ thư</b> (data custodian) dọn dẹp ngăn nắp.</p>
       </div>
       <div class="office">
-        <div class="orow reveal d1"><div class="meta">Mỗi hồ sơ có đúng <b>một ngăn tủ</b></div><div class="arr">→</div><div class="real">một sự thật một nhà · memory/</div></div>
-        <div class="orow reveal d1"><div class="meta">Thủ thư có sổ: <b>cất ở đâu</b></div><div class="arr">→</div><div class="real">routing-map</div></div>
-        <div class="orow reveal d2"><div class="meta">…và sổ: <b>tìm ở đâu</b></div><div class="arr">→</div><div class="real">vault-map</div></div>
-        <div class="orow reveal d2"><div class="meta">Kho tài liệu gốc <b>khóa lại</b></div><div class="arr">→</div><div class="real">3 lớp RAW · WIKI · SCHEMA</div></div>
-        <div class="orow reveal d3"><div class="meta">Mỗi tối thủ thư <b>dọn bàn</b></div><div class="arr">→</div><div class="real">nhịp Bắt → Định tuyến → Rà soát</div></div>
+        <div class="orow reveal d1"><div class="meta">Mỗi hồ sơ một <b>ngăn tủ</b></div><div class="arr">→</div><div class="real">một sự thật một nhà</div></div>
+        <div class="orow reveal d1"><div class="meta">Sổ tra: <b>cất ở đâu</b></div><div class="arr">→</div><div class="real">bản đồ GHI</div></div>
+        <div class="orow reveal d2"><div class="meta">Sổ tra: <b>tìm ở đâu</b></div><div class="arr">→</div><div class="real">bản đồ ĐỌC</div></div>
+        <div class="orow reveal d2"><div class="meta">Bản gốc <b>khoá lại</b></div><div class="arr">→</div><div class="real">không bị sửa nhầm</div></div>
+        <div class="orow reveal d3"><div class="meta">Mỗi tối <b>dọn bàn</b></div><div class="arr">→</div><div class="real">nhịp bắt · cất · rà</div></div>
       </div>
+      <p class="reveal d3 muted" style="font-size:clamp(12px,1.6vmin,14px);margin-top:14px;text-align:center">Bạn <b>không cần thuộc</b> bảng này — AI tự dựng. Chi tiết (tên file · 3 lớp) → để dành <b>buổi nâng cao</b>.</p>
     </div>
   </section>
 
-  <!-- 7 STRUCTURE -->
-  <section class="slide" data-label="Các bộ phận" aria-roledescription="slide">
+  <!-- 6 TOOLKIT / PILLARS -->
+  <section class="slide" data-label="Bộ công cụ" aria-roledescription="slide">
     <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 07</span> Các bộ phận</div>
-      <div class="sec-head reveal"><h2>Nó làm được vậy nhờ <em>đúng 5 mảnh ghép</em>.</h2></div>
+      <div class="plate-tag g reveal"><span class="num">PHẦN 07</span> Bộ công cụ · mấy viên gạch chính</div>
+      <div class="sec-head reveal"><h2>Sáu viên gạch — <em>ráp dần, không cần một lúc</em>.</h2><p class="lead">Đây không phải đồ chơi của riêng tôi — mấy mảnh ai cũng ráp được. <b>Tối nay chỉ cần 1 file + ChatGPT là đủ bắt đầu;</b> viên #1+#2 (Claude Code · Obsidian) là bản đầy đủ, gỡ sâu ở buổi nâng cao.</p></div>
       <div class="pieces">
-        <div class="piece reveal d1" data-fig="01"><div class="name">CLAUDE.md</div><h3>Cửa vào của hệ</h3><div class="prob">Giải: <span>“AI quên bạn là ai &amp; cách bạn làm”</span></div><span class="ex">vd: bạn là ai + muốn AI làm việc kiểu gì — "nói thẳng, phản biện, đừng nịnh"</span></div>
-        <div class="piece reveal d1" data-fig="02"><div class="name">memory/</div><h3>Bộ nhớ bền</h3><div class="prob">Giải: <span>“insight tan + file lung tung”</span></div><span class="ex">vd: file riêng cho dự án Fitness: mục tiêu, mốc, tiến độ</span></div>
-        <div class="piece reveal d2" data-fig="03"><div class="name">routing-map</div><h3>Bản đồ GHI</h3><div class="prob">Giải: <span>“không biết lưu vào đâu”</span></div><span class="ex">vd: số cân nặng → file fitness, KHÔNG để trong chat</span></div>
-        <div class="piece reveal d2" data-fig="04"><div class="name">vault-map</div><h3>Bản đồ ĐỌC</h3><div class="prob">Giải: <span>“không biết tìm ở đâu”</span></div><span class="ex">vd: cần biết tiến độ? → đọc đúng file, khỏi lục cả hệ</span></div>
-        <div class="piece reveal d3 dark span2" data-fig="05"><div class="name">RAW · WIKI · SCHEMA</div><h3>Ba lớp: cái gì được sửa</h3><div class="prob">Giải: <span>“AI viết đè tài liệu gốc”</span></div><p><b>RAW</b> = dữ liệu đầu vào từ nguồn ngoài, chỉ-đọc. <b>WIKI</b> = sổ tay AI tự ghi. <b>SCHEMA</b> = nội quy của hệ.</p><span class="ex">Không có ranh giới này, một hôm AI "dọn dẹp" viết đè file gốc — mất bản thật.</span></div>
+        <div class="piece reveal d1" data-fig="01"><div class="name">Claude Code · CLI</div><h3>Cỗ máy điều khiển</h3><p>AI agent: đọc/ghi file, chạy tool, điều phối cả hệ.</p><span class="ex">ra lệnh bằng lời → nó tự làm</span></div>
+        <div class="piece reveal d1" data-fig="02"><div class="name">Obsidian · Markdown</div><h3>Nơi lưu = trí nhớ</h3><p>Vault file text trên máy; mỗi sự thật một nhà.</p><span class="ex">single source, đọc lại được mãi</span></div>
+        <div class="piece reveal d2" data-fig="03" style="opacity:.56"><div class="name">MCP</div><h3>Cổng nối app ngoài</h3><p>Kéo dữ liệu / đẩy thao tác sang app khác, không copy tay.</p><span class="ex">draw.io · Power BI · Notion · Garmin</span></div>
+        <div class="piece reveal d2" data-fig="04" style="opacity:.56"><div class="name">Skill · slash command</div><h3>Đóng gói việc lặp</h3><p>Một lệnh chạy cả quy trình quen thuộc.</p><span class="ex">/shutdown · /daily · kpi-dashboard</span></div>
+        <div class="piece reveal d3" data-fig="05" style="opacity:.56"><div class="name">Persona · sub-agent</div><h3>Đội ngũ trong một</h3><p>AI đóng nhiều vai để làm và phản biện.</p><span class="ex">một nhóm AI tự phản biện nhau — vd soát chính deck này</span></div>
+        <div class="piece reveal d3" data-fig="06" style="opacity:.56"><div class="name">Whisper</div><h3>Cửa vào bằng giọng</h3><p>Nói thay vì gõ, chạy ngay trên máy bạn.</p><span class="ex">đọc ý tưởng → AI ghi thành file</span></div>
       </div>
     </div>
   </section>
 
-  <!-- 7 WHY IT FITS -->
-  <section class="slide" data-label="Vì sao khớp" aria-roledescription="slide">
+  <!-- 7 START TONIGHT — copy-prompt, self-serve -->
+  <section class="slide" data-label="Starter pack" aria-roledescription="slide">
     <div class="inner">
-      <div class="plate-tag g reveal"><span class="num">PLATE 08</span> Vì sao chúng khớp</div>
-      <div class="sec-head reveal"><h2>Không phải 5 món rời. Là <em>một cỗ máy</em>.</h2></div>
-      <div class="why">
-        <ol class="chain">
-          <li class="reveal d1"><h3>Một luật làm nền</h3><p>"Mỗi sự thật một nhà" là gốc. Mọi thứ còn lại tồn tại để <b>bảo vệ</b> hoặc <b>tận dụng</b> luật này.</p></li>
-          <li class="reveal d1"><h3>Hai bản đồ làm luật chạy được</h3><p>Luật không có cách thực thi thì vô dụng. routing-map (ghi) + vault-map (đọc) biến "một nhà" thành thao tác cụ thể.</p></li>
-          <li class="reveal d2"><h3>Ba lớp bảo vệ nguồn</h3><p>"Một nhà" chỉ đúng nếu nguồn gốc không bị sửa bậy. Ba lớp dựng hàng rào quanh nó.</p></li>
-          <li class="reveal d2"><h3>Nhịp giữ tất cả đúng theo thời gian</h3><p>Hệ nào rồi cũng trôi. Vòng Bắt → Định tuyến → Rà soát là cơ chế tự sửa.</p></li>
-        </ol>
-        <aside class="why-aside reveal d3">
-          <div class="k">Chốt lại</div>
-          <p>Lưu đâu? → routing-map. Tìm đâu? → vault-map. Cái gì được sửa? → 3 lớp. AI nhớ gì? → memory + CLAUDE.md. Giữ đúng lâu dài? → nhịp.</p>
-          <div class="punch">Thiếu một mảnh là hệ rò lại.</div>
-          <div class="mnemonic"><b>1 nhà · 2 bản đồ · 3 lớp · 1 nhịp</b></div>
-        </aside>
+      <div class="plate-tag reveal"><span class="num">PHẦN 08</span> Cầm về tay — làm ngay tối nay</div>
+      <div class="sec-head reveal"><h2>Copy một prompt — <em>AI dựng hồ sơ cho bạn</em>.</h2>
+        <p class="lead">Không phải ngồi nhìn file trắng. Dán prompt này vào ChatGPT → nó phỏng vấn bạn <b>5 câu</b> → xuất ra "Hồ sơ của tôi" để dùng lại mãi.</p>
       </div>
-    </div>
-  </section>
-
-  <!-- 8 CADENCE -->
-  <section class="slide" data-label="Nhịp vận hành" aria-roledescription="slide">
-    <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 09</span> Nhịp vận hành</div>
-      <div class="sec-head reveal"><h2>Một vòng lặp giữ hệ <em>không trôi lệch</em>.</h2>
-        <p class="lead">Hệ nào cũng trôi theo thời gian — đây là 3 việc nhỏ giữ nó luôn đúng.</p>
-      </div>
-      <div class="cadence">
-        <div class="phase reveal d1"><div class="step">Bước 1 — trong lúc làm</div><h3>Bắt nhanh <span style="font-weight:400;color:var(--muted);font-size:.8em">(Capture)</span></h3><p>Ý đến là ghi liền, vứt vào một chỗ tạm.</p><ul><li>Ý thô → inbox / nhật ký ngày</li><li>Không dừng để sắp xếp — chỉ bắt</li></ul></div>
-        <div class="phase reveal d2"><div class="step">Bước 2 — cuối phiên</div><h3>Định tuyến <span style="font-weight:400;color:var(--muted);font-size:.8em">(Route)</span></h3><p>Đưa từng thứ về đúng nhà theo routing-map.</p><ul><li>Fact bền → memory/</li><li>Quyết định → sổ quyết định</li><li>File → đúng dự án</li></ul></div>
-        <div class="phase reveal d3"><div class="step">Bước 3 — định kỳ</div><h3>Rà soát <span style="font-weight:400;color:var(--muted);font-size:.8em">(Reconcile)</span></h3><p>Mỗi tuần soát con số, mốc, trạng thái.</p><ul><li>Rà bản lệch nhau</li><li>Cắt liên kết chết</li><li>Dọn file mồ côi</li></ul></div>
-      </div>
-      <div class="loop-note reveal d3">↻ &nbsp;Bắt → Định tuyến → Rà soát &nbsp;·&nbsp; lặp mỗi <b>ngày</b>, soát sâu mỗi <b>tuần</b></div>
-    </div>
-  </section>
-
-  <!-- 9 PROOF I -->
-  <section class="slide" data-label="Bằng chứng" aria-roledescription="slide">
-    <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 10</span> Bằng chứng · hệ chạy thật</div>
-      <div class="sec-head reveal"><h2>Đây không phải lý thuyết. Hệ này <em>đang chạy thật</em>.</h2>
-      <p class="lead">Cùng một bộ luật đơn giản đang gánh nhiều dự án, nhiều mảng, cả dữ liệu sức khỏe.</p></div>
-      <div class="numbers reveal d1">
-        <div class="num"><div class="v" data-count="8">0</div><div class="l">dự án trong portfolio</div></div>
-        <div class="num"><div class="v" data-count="3">0</div><div class="l">mảng song song</div></div>
-        <div class="num"><div class="v" data-count="5">0</div><div class="l">mảng ký ức tách biệt</div></div>
-        <div class="num"><div class="v" data-count="17">0</div><div class="l">công cụ &amp; kỹ năng</div></div>
-      </div>
-      <div class="worlds reveal d2">
-        <div class="world"><div class="wt">Mảng công việc</div><h3>Sản phẩm &amp; vận hành</h3><ul><li>Backlog, quyết định, slide báo cáo</li><li>Tự tính chỉ số · bảng điều hành</li></ul></div>
-        <div class="world"><div class="wt">Mảng toàn hàng</div><h3>Chuyển đổi dữ liệu</h3><ul><li>Chuyển kho dữ liệu lên cloud</li><li>Cấp số liệu cho sản phẩm</li></ul></div>
-        <div class="world"><div class="wt">Mảng cá nhân</div><h3>Tự xây, tự đo</h3><ul><li>Đọc đồng hồ → dự báo + dashboard</li><li>Email "giống người" · sổ tay học</li></ul></div>
-      </div>
-      <div class="reveal d3">
-        <div class="toollabel">17 công cụ cắm vào cùng một vault — tất cả mọc lên từ một thư mục bạn cũng tạo được</div>
-        <div class="tools mini" id="tools"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11 START -->
-  <section class="slide" data-label="Bắt đầu" aria-roledescription="slide">
-    <div class="inner">
-      <div class="plate-tag reveal"><span class="num">PLATE 11</span> Bắt đầu</div>
       <div class="start">
         <div class="reveal d1">
-          <h2 style="font-size:clamp(26px,3.8vmin,40px)">Bạn tự dựng được — <em>ngay hôm nay</em>.</h2>
-          <p class="muted" style="margin-top:16px;font-size:clamp(13px,1.8vmin,16px)">Không phải sản phẩm phải mua. Chỉ cần một thư mục trống, một prompt, và ~30 phút lần đầu. AI sẽ phỏng vấn rồi dựng khung theo đúng công việc của bạn.</p>
-          <p class="muted" style="font-size:clamp(12.5px,1.7vmin,15px)"><b>Quan trọng:</b> đừng để AI làm 100% rồi bạn không hiểu gì. Hiểu <i>vì sao</i> trước — khi đó mới thật sự dùng được.</p>
+          <button class="copybtn" id="copyPromptBtn" onclick="copyPrompt()"><span class="ic">⧉</span><span id="copyLbl">Copy prompt "Tạo hồ sơ của tôi"</span></button>
+          <div class="promptbox" id="promptText" aria-label="Nội dung prompt">Bạn là trợ lý giúp tôi tạo "HỒ SƠ CỦA TÔI" — tài liệu ngắn, tái dùng cho BẤT KỲ AI nào: tôi dán vào đầu phiên để nó hiểu tôi ngay, khỏi kể lại từ đầu. Đây là "trí nhớ dài hạn" của tôi.
+
+ĐỪNG viết ngay. Phỏng vấn tôi TRƯỚC, từng câu một (5 câu):
+• Tôi là ai — nghề/vai trò, nơi làm, nền tảng?
+• Công việc chính + dự án/đầu việc đang lo?
+• Việc lặp tốn thời gian của tôi?
+• Tôi muốn AI trả lời kiểu nào (ngắn/sâu, giọng) — và tránh gì?
+• Bối cảnh AI nên biết để khỏi hiểu sai (thuật ngữ, ràng buộc, người liên quan)?
+
+Sau đó viết "HỒ SƠ CỦA TÔI" gọn 1 trang, các mục: Tôi là ai · Công việc &amp; dự án hiện tại · Cách tôi làm việc &amp; muốn AI trả lời · Điều nên tránh · Việc lặp cần AI đỡ · Bối cảnh cần lưu ý. Cuối thêm: "→ Dán vào đầu mỗi phiên (mọi AI) để khỏi kể lại; càng dùng càng bồi đắp."
+
+QUY TẮC: chỉ dùng thông tin tôi cung cấp, KHÔNG bịa — chỗ chưa rõ ghi "[cần bổ sung]". Bắt đầu bằng câu hỏi đầu tiên.</div>
         </div>
         <ol class="steps reveal d2">
-          <li>Tạo một <b>thư mục trống</b> làm hệ</li>
-          <li>Dán <b>prompt khởi tạo</b> cho AI</li>
-          <li>Trả lời <b>6 câu phỏng vấn</b> thật kỹ</li>
-          <li>Duyệt nháp → AI dựng <b>4 file cốt lõi</b></li>
-          <li>Mỗi ngày: <b>Brief</b> sáng · <b>Shutdown</b> tối</li>
-          <li>Hệ <b>tự lớn dần</b> theo cách bạn dùng</li>
+          <li>Bấm <b>Copy</b> (nút bên cạnh)</li>
+          <li>Mở <b>ChatGPT</b>, dán vào, gửi</li>
+          <li>Trả lời <b>5 câu</b> nó hỏi — thật, ngắn</li>
+          <li>Nó xuất <b>"Hồ sơ của tôi"</b> → <b>lưu vào 1 file</b> (hoặc ghim trong ChatGPT)</li>
+          <li>Phiên sau: dán lại vào đầu → AI hiểu bạn ngay, khỏi kể lại</li>
         </ol>
+      </div>
+      <p class="reveal d2 muted" style="font-size:clamp(12.5px,1.7vmin,14.5px);margin-top:16px;text-align:center">Đây là <b>trí nhớ dài hạn</b> đầu tiên của bạn. ⚠ Đang luyện trên dữ liệu <b>không nhạy cảm</b> — data thật của bank để dành <b style="color:var(--accent2)">Kiro</b>.</p>
+    </div>
+  </section>
+
+  <!-- 10 DO IT RIGHT -->
+  <section class="slide" data-label="Làm cho đúng" aria-roledescription="slide">
+    <div class="inner">
+      <div class="plate-tag g reveal"><span class="num">PHẦN 09</span> Làm sao cho đúng</div>
+      <div class="sec-head reveal"><h2>Mạnh — nhưng <em>bạn vẫn cầm lái</em>.</h2></div>
+      <div class="bigidea reveal d1">
+        <div class="quote">AI vẫn có thể nói sai một cách <b>rất tự tin</b>.<br>Tin — nhưng <b>phải kiểm</b>.</div>
+        <p class="sub">Với số, ngày tháng, trích dẫn, quyết định quan trọng → soát lại nguồn. <b>Hiểu vì sao trước</b>; đừng giao 100% rồi không nắm gì. Coi đầu ra của AI là <b>bản nháp</b>, không phải sự thật.</p>
+        <p class="sub" style="font-size:clamp(13px,1.7vmin,15px);color:var(--ink-3);margin-top:12px">Không phải job mới phải nuôi: bồi đắp <b>2–3 dòng/ngày</b> ngay lúc đang làm việc thật, bỏ vài ngày không sao — nó là <b>bản ghi chú thông minh</b>, không phải hệ thống.</p>
       </div>
     </div>
   </section>
 
-  <!-- 12 COLOPHON -->
+  <!-- 13 PROOF — Garmin as full data project -->
+  <section class="slide" data-label="Bằng chứng" aria-roledescription="slide">
+    <div class="inner">
+      <div class="plate-tag reveal"><span class="num">PHẦN 10</span> Hệ này đang chạy thật</div>
+      <div class="sec-head reveal" style="margin-bottom:clamp(10px,1.8vmin,18px)"><h2>Không phải lý thuyết — <em>nó đang chạy thật</em>.</h2></div>
+
+      <div class="reveal d1">
+        <div class="pipe-eyebrow">Một dự án data end-to-end · dựng hoàn toàn bằng cách nói chuyện với AI</div>
+        <p class="pipe-lead">Dashboard Garmin không phải <s style="text-decoration-color:var(--hair)">"app chạy bộ"</s> — đó là một <b>dự án data đủ chuỗi</b>, chạy trên dữ liệu cá nhân của tôi.</p>
+      </div>
+
+      <div class="reveal d2" style="margin-top:clamp(10px,2vmin,22px)">
+        <svg id="pipe" viewBox="0 0 1180 150" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Pipeline dữ liệu: extract, pipeline, ETL, đặt KPI, tracking, dự báo, phân tích, dashboard">
+          <g id="p-edges"></g><g id="p-pulses"></g><g id="p-nodes"></g>
+        </svg>
+        <div class="pipe-ends"><span><b>← GARMIN</b> read-only: HRV · giấc ngủ · cân · GPS · nhịp tim · tải luyện tập</span><span><b>git push → web ↑</b></span></div>
+      </div>
+
+      <div class="proofstrip reveal d3">
+        <div>
+          <div class="nums">
+            <div class="n"><div class="v"><span data-count="10">0</span></div><div class="l">chặng · BRD → dashboard</div></div>
+            <div class="n"><div class="v">2<span style="font-size:.5em;font-weight:500"> tuần</span></div><div class="l">dựng xong · chạy thật</div></div>
+          </div>
+          <img src="assets/garmin-hero.png" alt="Dashboard thể lực Garmin" style="width:100%;max-width:440px;border-radius:8px;display:block;box-shadow:0 12px 30px -18px rgba(22,21,18,.55)">
+          <div class="cap">Dashboard tự cập nhật · deploy web bằng git push</div>
+        </div>
+        <div class="aside">
+          <div class="big">1<span style="font-size:.42em;font-weight:500"> buổi chiều</span></div>
+          <div class="kick">Việc PO thật, không phải hobby</div>
+          <h3>Backlog MVP2 — đầu bài rời rạc → backlog chuẩn</h3>
+          <p>AI đã biết dự án — bẻ đầu bài thành epic / story / ưu tiên; tôi soát lại, không gõ từ đầu.</p>
+          <div class="ba"><s style="text-decoration-color:var(--hair)">làm tay ~1 ngày</s> → <b>1 buổi chiều, soát là xong</b></div>
+        </div>
+      </div>
+
+      <p class="reveal d3" style="font-family:var(--display);font-style:italic;font-weight:500;font-size:clamp(14px,1.95vmin,19px);color:var(--ink);margin:clamp(9px,1.8vmin,17px) 0 0;max-width:94ch;line-height:1.28">Đây đúng chuỗi các bạn làm mỗi ngày — extract · pipeline · ETL · đặt KPI · tracking · dự báo · phân tích. Khác mỗi: tôi chạy trên <b style="font-style:normal;color:var(--accent)">dữ liệu chạy bộ của mình</b> (không nhạy cảm), dựng bằng cách nói chuyện với AI.</p>
+      <p class="reveal d3" style="font-family:var(--mono);font-size:clamp(10.5px,1.4vmin,12.5px);color:var(--muted);margin:8px 0 0;max-width:108ch;line-height:1.5">Garmin sạch nên 2 tuần — data bank bẩn hơn: phần khó là ETL · reconcile · <b style="color:var(--ink-2)">chốt định nghĩa KPI</b>. AI đỡ phần soạn &amp; dò, <b style="color:var(--ink-2)">không chốt thay bạn</b>. Bước tiếp: thử <b style="color:var(--accent2)">Kiro</b> (đã duyệt trong bank) trên 1 mart nhỏ.</p>
+    </div>
+  </section>
+
+  <!-- 13 COLOPHON -->
   <section class="slide" data-label="Kết" aria-roledescription="slide">
     <div class="inner colo-slide">
       <div class="seal reveal">WORK<br>OS</div>
       <div class="colo reveal d1">
         PERSONAL WORKOS · VOL. 01
-        <div class="big">Một bộ não thứ hai, được thiết kế chứ không chỉ ghi chép.</div>
+        <div class="big">Không phải <s style="text-decoration-color:var(--hair)">AI thông minh hơn</s> — là AI <i style="color:var(--accent)">biết bạn</i>.</div>
         <span class="pillars">Một nhà · Hai bản đồ · Ba lớp · Một nhịp.</span>
-        <div class="invite">Bạn không cần app. Bạn cần một thư mục trống và 30 phút.</div>
+        <div class="invite">Tối nay: một file + 5 phút. Mai: dán vào ChatGPT, giao việc thật.</div>
       </div>
       <div class="hero-cta reveal d2" style="justify-content:center;margin-top:28px">
-        <button class="btn primary" onclick="go(0)">↑ Về đầu</button>
-        <button class="btn" onclick="go(11)">Cách bắt đầu</button>
+        <button class="btn primary" onclick="go(8)">Cách bắt đầu →</button>
+        <button class="btn" onclick="go(0)">↑ Về đầu</button>
       </div>
     </div>
   </section>
@@ -618,6 +810,17 @@ window.addEventListener('keydown',(e)=>{
 /* ---- count ---- */
 function runCounts(slide){slide.querySelectorAll('[data-count]').forEach(el=>{if(el.dataset.done)return;el.dataset.done='1';const target=+el.dataset.count;if(RM){el.textContent=target;return;}const dur=1100,t0=performance.now();function tick(t){const p=Math.min(1,(t-t0)/dur);el.textContent=Math.round(target*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick);else el.textContent=target;}requestAnimationFrame(tick);});}
 
+/* ---- copy starter prompt (S11) ---- */
+function copyPrompt(){
+  const t=document.getElementById('promptText'); if(!t) return;
+  const done=()=>{const b=document.getElementById('copyPromptBtn'),l=document.getElementById('copyLbl');
+    b.classList.add('copied');l.textContent='✓ Đã copy — dán vào ChatGPT';
+    setTimeout(()=>{b.classList.remove('copied');l.textContent='Copy prompt "Tạo hồ sơ của tôi"';},2400);};
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(t.innerText).then(done).catch(sel);}
+  else sel();
+  function sel(){const r=document.createRange();r.selectNodeContents(t);const s=getSelection();s.removeAllRanges();s.addRange(r);try{document.execCommand('copy');done();}catch(e){}}
+}
+
 /* ---- tool chips ---- */
 const TOOLS=[
   ['🗄️','Obsidian','Nơi lưu','Vault Markdown trên máy — single source của cả hệ.'],
@@ -639,7 +842,7 @@ const TOOLS=[
   ['🖥️','frontend-slides','Kỹ năng','Dựng slide HTML hoặc chuyển từ PowerPoint.'],
 ];
 const tg=document.getElementById('tools');
-TOOLS.forEach(([ic,n,c,r])=>{const d=document.createElement('div');d.className='chip';d.tabIndex=0;d.title=r;d.setAttribute('aria-label',`${n} — ${c}: ${r}`);
+if(tg) TOOLS.forEach(([ic,n,c,r])=>{const d=document.createElement('div');d.className='chip';d.tabIndex=0;d.title=r;d.setAttribute('aria-label',`${n} — ${c}: ${r}`);
   d.innerHTML=`<span class="ti">${ic}</span><span class="cn">${n}</span><span class="cc">${c}</span>`;tg.appendChild(d);});
 
 /* ---- graph builder ---- */
@@ -677,11 +880,11 @@ function buildGraph(cfg){
 (function(){
   const nodes=[
     {id:'core',x:230,y:140,r:8,core:true},
-    {id:'mem',x:86,y:60,r:6,label:'Memory',ly:46},
-    {id:'proj',x:374,y:66,r:6,label:'Projects',ly:52},
-    {id:'kpi',x:398,y:206,r:6,label:'KPI',ly:226},
-    {id:'dec',x:218,y:248,r:6,label:'Decisions',ly:268},
-    {id:'fit',x:64,y:206,r:6,label:'Fitness',ly:226},
+    {id:'mem',x:86,y:60,r:6,label:'Trí nhớ',ly:46},
+    {id:'proj',x:374,y:66,r:6,label:'Công việc',ly:52},
+    {id:'kpi',x:398,y:206,r:6,label:'Mục tiêu',ly:226},
+    {id:'dec',x:218,y:248,r:6,label:'Quyết định',ly:268},
+    {id:'fit',x:64,y:206,r:6,label:'Sức khỏe',ly:226},
   ];
   const edges=['mem','proj','kpi','dec','fit'].map(t=>({from:'core',to:t}));
   edges.push({from:'mem',to:'dec'},{from:'proj',to:'kpi'});
@@ -690,6 +893,54 @@ function buildGraph(cfg){
     svg.addEventListener('mousemove',ev=>{const pt=svg.getBoundingClientRect();const vx=(ev.clientX-pt.left)/pt.width*460,vy=(ev.clientY-pt.top)/pt.height*280;
       gN.querySelectorAll('.node').forEach(g=>{const n=map[g.dataset.id];g.classList.toggle('hot',Math.hypot(n.x-vx,n.y-vy)<44&&!n.core);});});
     svg.addEventListener('mouseleave',()=>gN.querySelectorAll('.node').forEach(g=>g.classList.remove('hot')));}
+})();
+
+/* pipeline data graph (S14 — Garmin dự án data, reuse buildGraph) */
+(function(){
+  const svg=document.getElementById('pipe'); if(!svg) return;
+  const stages=[
+    ['brd','BRD','viết yêu cầu'],
+    ['extract','EXTRACT','kéo Garmin'],
+    ['pipeline','PIPELINE','nạp vào DB'],
+    ['etl','ETL','làm sạch'],
+    ['kpi','ĐẶT KPI','ACWR'],
+    ['track','TRACKING','cảnh báo'],
+    ['fore','DỰ BÁO','race-time'],
+    ['ana','PHÂN TÍCH','hiệu suất chạy'],
+    ['qc','QC','kiểm thử'],
+    ['dash','DASHBOARD','tự cập nhật'],
+  ];
+  const n=stages.length, W=1180, w=106, h=66, y=78, gap=(W-n*w)/(n+1);
+  const nodes=stages.map((s,i)=>{const x=gap*(i+1)+w*i+w/2;const core=(i===0||i===n-1);
+    return {id:s[0],rect:true,x,y,w,h,label:s[1],ly:y-2,sub:s[2],sy:y+16,core,white:core};});
+  const edges=[];for(let i=0;i<n-1;i++)edges.push({from:stages[i][0],to:stages[i+1][0],bow:0,bowY:0});
+  buildGraph({gEdges:document.getElementById('p-edges'),gPulses:document.getElementById('p-pulses'),gNodes:document.getElementById('p-nodes'),nodes,edges,delayBase:200});
+  document.querySelectorAll('#p-nodes .node').forEach(g=>{if(g.dataset.id==='brd'||g.dataset.id==='dash')g.classList.add('coren');});
+})();
+
+/* agent loop graph (S5 — reuse buildGraph, ring around core) */
+(function(){
+  const svg=document.getElementById('loop'); if(!svg) return;
+  const cx=230, cy=150;
+  const nodes=[
+    {id:'read', x:cx,  y:46,  r:7},
+    {id:'run',  x:352, y:cy,  r:7},
+    {id:'write',x:cx,  y:254, r:7},
+    {id:'mem',  x:108, y:cy,  r:7},
+    {id:'core', x:cx,  y:cy, rect:true,w:96,h:44,core:true,label:'AGENT',ly:cy+5,white:true},
+  ];
+  const edges=[
+    {from:'read', to:'run',  bow:36,bowY:-36},
+    {from:'run',  to:'write',bow:36,bowY:36},
+    {from:'write',to:'mem',  bow:-36,bowY:36},
+    {from:'mem',  to:'read', bow:-36,bowY:-36},
+  ];
+  buildGraph({gEdges:document.getElementById('l-edges'),gPulses:document.getElementById('l-pulses'),gNodes:document.getElementById('l-nodes'),nodes,edges,delayBase:200});
+  const core=document.querySelector('#l-nodes .node[data-id="core"]'); if(core) core.classList.add('coren');
+  // nhãn 4 nút đặt ở vùng SẠCH (ngoài vòng), tránh đường cong cắt chữ
+  const NS='http://www.w3.org/2000/svg', g=document.getElementById('l-nodes');
+  [['ĐỌC file',cx,26,'middle'],['CHẠY tool',372,cy+5,'start'],['GHI file',cx,288,'middle'],['NHỚ',88,cy+5,'end']]
+    .forEach(([t,x,y,a])=>{const e=document.createElementNS(NS,'text');e.setAttribute('x',x);e.setAttribute('y',y);e.setAttribute('text-anchor',a);e.setAttribute('class','looplbl');e.textContent=t;g.appendChild(e);});
 })();
 
 setActive(0);
