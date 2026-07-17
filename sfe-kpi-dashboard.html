@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SFE — KPI Dashboard · PVcomBank</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#F6F7FB; --ink:#0F172A; --ink-2:#334155; --muted:#64748B; --faint:#94A3B8;
+  --card:#FFFFFF; --hair:#EBEEF4; --hair-2:#F1F3F8;
+  --indigo:#4F46E5; --indigo-soft:#EEF0FE;
+  --red:#EF4444; --red-soft:#FEF2F2; --amber:#F59E0B; --amber-soft:#FEF7EC;
+  --green:#10B981; --green-soft:#ECFDF5; --blue:#3B82F6; --blue-soft:#EFF6FF; --teal:#06B6D4; --violet:#A855F7;
+  --shadow:0 1px 3px rgba(15,23,42,.06), 0 10px 30px -16px rgba(15,23,42,.18);
+  --shadow-h:0 4px 8px rgba(15,23,42,.08), 0 16px 40px -16px rgba(15,23,42,.24);
+}
+body{font-family:"Be Vietnam Pro",system-ui,sans-serif; background:
+  radial-gradient(60vw 40vh at 100% 0%, #EEF1FB, transparent 60%),
+  radial-gradient(50vw 40vh at 0% 100%, #F0FBF6, transparent 55%), var(--bg);
+  color:var(--ink); font-size:13.5px; line-height:1.5; -webkit-font-smoothing:antialiased; padding-bottom:48px; min-height:100vh;}
+.num{font-family:"Space Grotesk","Be Vietnam Pro",sans-serif; font-feature-settings:"tnum";}
+.wrap{max-width:1320px; margin:0 auto; padding:0 clamp(14px,2.5vw,30px);}
+
+header{position:sticky; top:0; z-index:30; background:#fff; border-bottom:1px solid var(--hair); box-shadow:0 1px 6px rgba(15,23,42,.07);}
+.hbar{max-width:1320px; margin:0 auto; padding:13px clamp(14px,2.5vw,30px); display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+.brand{display:flex; align-items:center; gap:12px;}
+.logo{width:38px; height:38px; border-radius:11px; background:linear-gradient(135deg,var(--indigo),#7C73FF); display:grid; place-items:center; color:#fff; font-weight:800; font-size:.95rem; box-shadow:0 6px 16px -6px var(--indigo);}
+.brand h1{font-size:clamp(.95rem,2vw,1.25rem); font-weight:800; letter-spacing:-.02em; line-height:1.1;}
+.brand .sub{font-size:.7rem; color:var(--muted); margin-top:1px;}
+.spacer{flex:1;}
+.tabs{display:inline-flex; background:#EAEDF5; border-radius:12px; padding:4px; gap:2px; flex-wrap:wrap;}
+.tab{font-family:inherit; cursor:pointer; border:0; background:transparent; color:var(--muted); font-size:.8rem; font-weight:600; padding:7px 14px; border-radius:9px; transition:all .18s;}
+.tab.active{background:#fff; color:var(--indigo); box-shadow:0 1px 3px rgba(15,23,42,.12);}
+.tab:not(.active):hover{color:var(--ink-2);}
+
+.view{display:none; animation:fade .35s ease;}
+.view.active{display:block;}
+@keyframes fade{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:none;}}
+
+.eyebrow{display:flex; align-items:center; gap:9px; margin:24px 0 13px;}
+.eyebrow .dot{width:7px; height:7px; border-radius:50%; background:var(--indigo);}
+.eyebrow h2{font-size:.92rem; font-weight:800; letter-spacing:-.01em;}
+.eyebrow .hint{font-size:.72rem; color:var(--faint); margin-left:auto; font-weight:400;}
+.crumb{font-size:.74rem; color:var(--muted); margin:18px 0 0; display:flex; align-items:center; gap:8px; flex-wrap:wrap;}
+.crumb b{color:var(--indigo);}
+.badge-sample{display:inline-block; font-size:.64rem; font-weight:700; color:var(--amber); background:var(--amber-soft); border:1px solid #FACC8B; border-radius:999px; padding:2px 9px;}
+.seg-note{font-size:.76rem; color:var(--ink-2); background:var(--card); border:1px solid var(--hair); border-left:3px solid var(--indigo); border-radius:12px; padding:11px 15px; margin:6px 0 4px; box-shadow:var(--shadow);}
+.seg-note.relax{border-left-color:var(--green);} .seg-note b{color:var(--indigo);} .seg-note.relax b{color:#047857;}
+
+.kgrid{display:grid; grid-template-columns:repeat(6,1fr); gap:14px;}
+@media(max-width:1080px){.kgrid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:600px){.kgrid{grid-template-columns:repeat(2,1fr);}}
+.kcard{background:var(--card); border:1px solid var(--hair); border-radius:16px; padding:15px 16px 14px; box-shadow:var(--shadow); transition:transform .2s, box-shadow .2s; position:relative; overflow:hidden;}
+.kcard:hover{transform:translateY(-3px); box-shadow:var(--shadow-h);}
+.kcard .top{display:flex; align-items:center; gap:7px; margin-bottom:9px;}
+.kcard .pin{width:9px; height:9px; border-radius:3px;}
+.kcard .cat{font-size:.62rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--faint);}
+.kcard .v{font-size:clamp(1.55rem,2.5vw,2.05rem); font-weight:700; line-height:1; letter-spacing:-.02em;}
+.kcard .lab{font-size:.73rem; color:var(--ink-2); margin-top:8px; line-height:1.35; min-height:2.5em;}
+.kcard .delta{display:inline-flex; align-items:center; gap:4px; font-size:.67rem; font-weight:700; border-radius:999px; padding:3px 9px; margin-top:8px;}
+.spark{display:flex; align-items:flex-end; gap:2.5px; height:22px; margin-top:10px;}
+.spark i{flex:1; border-radius:2px; opacity:.85;}
+.t-red .v{color:var(--red);} .t-red .pin{background:var(--red);} .t-red .delta{color:var(--red); background:var(--red-soft);} .t-red .spark i{background:var(--red);}
+.t-amber .v{color:#D97706;} .t-amber .pin{background:var(--amber);} .t-amber .delta{color:#B45309; background:var(--amber-soft);} .t-amber .spark i{background:var(--amber);}
+.t-green .v{color:var(--green);} .t-green .pin{background:var(--green);} .t-green .delta{color:#047857; background:var(--green-soft);} .t-green .spark i{background:var(--green);}
+.t-indigo .v{color:var(--indigo);} .t-indigo .pin{background:var(--indigo);} .t-indigo .delta{color:var(--indigo); background:var(--indigo-soft);} .t-indigo .spark i{background:var(--indigo);}
+.t-blue .v{color:var(--blue);} .t-blue .pin{background:var(--blue);} .t-blue .delta{color:var(--blue); background:var(--blue-soft);}
+
+.g3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px;}
+.g2{display:grid; grid-template-columns:1.5fr 1fr; gap:14px;}
+.g2b{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+@media(max-width:900px){.g3,.g2,.g2b{grid-template-columns:1fr;}}
+.panel{background:var(--card); border:1px solid var(--hair); border-radius:16px; box-shadow:var(--shadow); overflow:hidden;}
+.panel-h{padding:13px 17px; border-bottom:1px solid var(--hair-2); display:flex; align-items:center; gap:9px;}
+.panel-h .t{font-size:.82rem; font-weight:700;}
+.panel-h .mini{font-size:.68rem; color:var(--faint); margin-left:auto; font-weight:400;}
+.tier{font-size:.62rem; font-weight:700; padding:3px 9px; border-radius:999px; margin-left:auto;}
+.tier.s{background:var(--indigo-soft); color:var(--indigo);}
+.tier.t{background:var(--blue-soft); color:var(--blue);}
+.tier.o{background:var(--green-soft); color:#047857;}
+.panel-b{padding:14px 17px; overflow-x:auto;}
+.aud{font-size:.7rem; color:var(--muted); margin-bottom:9px;}
+.klist{list-style:none; display:flex; flex-direction:column; gap:8px;}
+.klist li{font-size:.78rem; color:var(--ink-2); display:flex; gap:9px; align-items:baseline;}
+.klist li::before{content:''; width:6px; height:6px; border-radius:50%; background:var(--indigo); flex-shrink:0; margin-top:7px;}
+.klist li b{color:var(--ink); font-weight:600;}
+
+/* charts */
+.chart-wrap{display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
+.donut{width:124px; height:124px; flex-shrink:0;}
+.dt-num{font-family:"Space Grotesk"; font-weight:700; font-size:19px; fill:var(--ink);}
+.dt-sub{font-size:8px; fill:var(--muted); letter-spacing:.05em;}
+.chart-legend{display:flex; flex-direction:column; gap:7px; font-size:.75rem; color:var(--ink-2); flex:1; min-width:130px;}
+.chart-legend .lg{display:flex; align-items:center; gap:8px;}
+.chart-legend .d{width:10px; height:10px; border-radius:3px; flex-shrink:0;}
+.chart-legend b{margin-left:auto; font-family:"Space Grotesk"; color:var(--ink);}
+.bars-svg,.line-svg{width:100%; height:auto; display:block;}
+.bar-val{font-family:"Space Grotesk",sans-serif; font-size:11px; font-weight:600; fill:var(--ink);}
+.bar-lab{font-size:10px; fill:var(--muted);}
+.legend-row{display:flex; gap:14px; font-size:.7rem; color:var(--muted); margin-top:6px; justify-content:center;}
+.legend-row .lg{display:flex; align-items:center; gap:5px;} .legend-row .d{width:9px;height:9px;border-radius:2px;}
+
+/* gap bars */
+.gap-row{display:flex; align-items:center; gap:14px; padding:11px 0; border-bottom:1px solid var(--hair-2);}
+.gap-row:last-child{border-bottom:none;}
+.gap-role{width:150px; font-weight:700; font-size:.78rem; flex-shrink:0;}
+.gap-role small{display:block; font-weight:400; color:var(--muted); font-size:.68rem;}
+.gap-track{flex:1; position:relative; height:18px; background:var(--hair-2); border-radius:9px; overflow:hidden; min-width:110px;}
+.gap-track .tgt{position:absolute; left:0; top:0; bottom:0; background:var(--green-soft); border-right:2px dashed var(--green);}
+.gap-track .now{position:absolute; left:0; top:0; bottom:0; background:linear-gradient(90deg,#FCA5A5,var(--red)); border-radius:9px;}
+.gap-now{width:70px; text-align:right; font-weight:700; color:var(--red); flex-shrink:0;}
+.gap-mult{width:56px; text-align:right; font-weight:700; font-size:.78rem; color:var(--red); flex-shrink:0;}
+
+/* repo */
+.repo{width:100%; border-collapse:collapse; font-size:.76rem; min-width:500px;}
+.repo th{text-align:left; font-size:.65rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--faint); padding:9px 13px; border-bottom:1px solid var(--hair);}
+.repo td{padding:9px 13px; border-bottom:1px solid var(--hair-2); vertical-align:middle;}
+.repo tr:last-child td{border-bottom:none;}
+.repo tr:hover td{background:#FBFCFE;}
+.repo .k{font-weight:700; color:var(--ink); white-space:nowrap;}
+.repo .f{font-family:"Space Grotesk",monospace; color:var(--muted); background:var(--hair-2); border-radius:5px; padding:2px 7px; font-size:.72rem; white-space:nowrap;}
+.repo .cur{font-family:"Space Grotesk",sans-serif; font-weight:700; white-space:nowrap;}
+.repo .bm{color:var(--muted); font-size:.72rem;}
+.sdot{display:inline-block; width:9px; height:9px; border-radius:50%;}
+.sdot.r{background:var(--red);} .sdot.y{background:var(--amber);} .sdot.g{background:var(--green);}
+.cur.r{color:var(--red);} .cur.y{color:#D97706;} .cur.g{color:var(--green);}
+
+/* alerts */
+.alerts{display:flex; flex-direction:column;}
+.al{display:flex; gap:12px; padding:12px 16px; border-bottom:1px solid var(--hair-2);}
+.al:last-child{border-bottom:none;}
+.al .ai{width:30px; height:30px; border-radius:9px; display:grid; place-items:center; flex-shrink:0; font-size:.9rem;}
+.al.r .ai{background:var(--red-soft);} .al.y .ai{background:var(--amber-soft);}
+.al .at{font-size:.77rem; font-weight:700;} .al .as{font-size:.71rem; color:var(--muted); margin-top:1px; line-height:1.4;}
+
+/* lens */
+.lens-g{display:grid; grid-template-columns:repeat(3,1fr); gap:13px;}
+@media(max-width:900px){.lens-g{grid-template-columns:1fr;}}
+.lens{background:var(--card); border:1px solid var(--hair); border-radius:14px; padding:14px 15px; box-shadow:var(--shadow); border-top:3px solid var(--indigo); transition:transform .2s;}
+.lens:hover{transform:translateY(-2px);}
+.lens.c2{border-top-color:var(--blue);} .lens.c3{border-top-color:var(--green);}
+.lens.c4{border-top-color:var(--violet);} .lens.c5{border-top-color:var(--amber);} .lens.c6{border-top-color:var(--teal);}
+.lens .lh{font-size:.8rem; font-weight:800; margin-bottom:9px;}
+.chips{display:flex; flex-wrap:wrap; gap:6px;}
+.chip{font-size:.68rem; background:var(--hair-2); color:var(--ink-2); border-radius:7px; padding:3px 8px; font-weight:500;}
+
+/* progress */
+.prog{display:flex; flex-direction:column; gap:13px;}
+.prog .row .lab{display:flex; justify-content:space-between; font-size:.76rem; margin-bottom:5px;}
+.prog .lab b{font-weight:700;} .prog .lab .tg{color:var(--green); font-weight:600;}
+.bar{height:9px; background:var(--hair-2); border-radius:6px; position:relative; overflow:hidden;}
+.bar .fill{position:absolute; left:0; top:0; bottom:0; border-radius:6px; background:linear-gradient(90deg,#FCA5A5,var(--red));}
+.bar .mk{position:absolute; top:-3px; bottom:-3px; width:2px; background:var(--green);}
+
+.dist{display:flex; flex-direction:column; gap:11px;}
+.dist .d-row{display:flex; align-items:center; gap:11px; font-size:.76rem;}
+.dist .d-lab{width:135px; flex-shrink:0;} .dist .d-lab small{color:var(--muted);}
+.dist .d-bar{flex:1; height:14px; background:var(--hair-2); border-radius:7px; overflow:hidden;}
+.dist .d-bar i{display:block; height:100%; border-radius:7px;}
+.dist .d-pct{width:42px; text-align:right; font-weight:700; font-family:"Space Grotesk",sans-serif;}
+
+.note{background:#fff; border:1px solid var(--hair); border-left:3px solid var(--amber); border-radius:12px; padding:13px 17px; margin-top:24px; font-size:.74rem; color:var(--ink-2); line-height:1.65; box-shadow:var(--shadow);}
+.note b{color:#B45309;}
+.foot{margin-top:14px; font-size:.68rem; color:var(--faint); text-align:center; line-height:1.6;}
+/* ===== mobile tối ưu ===== */
+@media(max-width:600px){
+  body{font-size:13px;}
+  .hbar{padding:11px 14px;}
+  .tabs{flex-wrap:nowrap; overflow-x:auto; max-width:100%; -webkit-overflow-scrolling:touch;}
+  .tab{white-space:nowrap; padding:7px 12px;}
+  .eyebrow .hint, .panel-h .mini{display:none;}
+  .eyebrow{margin:20px 0 11px;}
+  .repo th,.repo td{padding:8px 10px;}
+  .gap-role{width:120px;}
+  .crumb{flex-wrap:wrap;}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hbar">
+    <div class="brand">
+      <div class="logo">SFE</div>
+      <div>
+        <h1>Salesforce Effectiveness — KPI Dashboard</h1>
+        <div class="sub">PVcomBank Retail Banking · deck Squad 1 (BCG × PVB) · 06/06/2026</div>
+      </div>
+    </div>
+    <span class="spacer"></span>
+    <nav class="tabs">
+      <button class="tab active" data-v="overview">Tổng quan</button>
+      <button class="tab" data-v="priority">Priority</button>
+      <button class="tab" data-v="eb">EB</button>
+      <button class="tab" data-v="msme">MSME</button>
+      <button class="tab" data-v="mass">Mass</button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ════ OVERVIEW ════ -->
+<section class="view active" id="overview">
+  <div class="eyebrow"><span class="dot"></span><h2>Tình trạng hiện tại — vì sao phải chuyển mô hình</h2><span class="hint">baseline as-is · sparkline minh hoạ</span></div>
+  <div class="kgrid">
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Coverage</span></div><div class="v num">1:935</div><div class="lab">Priority RM : khách</div><div class="delta">▲ quá tải ~4–6×</div><div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:82%"></i><i style="height:95%"></i><i style="height:100%"></i></div></div>
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Ownership</span></div><div class="v num">55%</div><div class="lab">khách Priority có ≥2 RM (không chủ E2E)</div><div class="delta">▲ tranh chấp credit</div><div class="spark"><i style="height:40%"></i><i style="height:45%"></i><i style="height:50%"></i><i style="height:52%"></i><i style="height:55%"></i><i style="height:55%"></i><i style="height:55%"></i></div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Activation</span></div><div class="v num">64%</div><div class="lab">khách dưới coverage inactive (≥12 th.)</div><div class="delta">mục tiêu &lt; 30%</div><div class="spark"><i style="height:70%"></i><i style="height:68%"></i><i style="height:66%"></i><i style="height:65%"></i><i style="height:64%"></i><i style="height:64%"></i><i style="height:64%"></i></div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Wallet</span></div><div class="v num">1.0</div><div class="lab">Product per Customer (PPC)</div><div class="delta">peer 2.7–4.0</div><div class="spark"><i style="height:25%"></i><i style="height:25%"></i><i style="height:28%"></i><i style="height:26%"></i><i style="height:27%"></i><i style="height:25%"></i><i style="height:26%"></i></div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Hiệu quả</span></div><div class="v num">48%</div><div class="lab">salesforce phục vụ tốt &lt;60% khách giao</div><div class="delta">Voice n=1.328</div><div class="spark"><i style="height:50%"></i><i style="height:48%"></i><i style="height:49%"></i><i style="height:47%"></i><i style="height:48%"></i><i style="height:48%"></i><i style="height:48%"></i></div></div>
+    <div class="kcard t-green"><div class="top"><span class="pin"></span><span class="cat">Cơ hội</span></div><div class="v num">3–6×</div><div class="lab">tiềm năng nâng năng suất (Q1 vs Q4)</div><div class="delta">▲ uplift 3.2–6.6×</div><div class="spark"><i style="height:30%"></i><i style="height:45%"></i><i style="height:55%"></i><i style="height:65%"></i><i style="height:80%"></i><i style="height:90%"></i><i style="height:100%"></i></div></div>
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span><h2>Biểu đồ tổng quan</h2><span class="hint">SVG thuần · số minh hoạ</span></div>
+  <div class="g3">
+    <div class="panel"><div class="panel-h"><span class="t">Cơ cấu khách theo segment</span></div><div class="panel-b"><div id="ovDonut"></div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Coverage hiện tại vs benchmark</span><span class="mini">RM : khách</span></div><div class="panel-b"><div id="ovBars"></div><div class="legend-row"><span class="lg"><span class="d" style="background:var(--red)"></span>Hiện tại</span><span class="lg"><span class="d" style="background:var(--green)"></span>Mục tiêu</span></div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Lộ trình active rate</span><span class="mini">mẫu — mục tiêu</span></div><div class="panel-b"><div id="ovLine"></div></div></div>
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span><h2>Khung KPI 3 tầng</h2><span class="hint">cùng dữ liệu, khác đối tượng — drill-down</span></div>
+  <div class="g3">
+    <div class="panel"><div class="panel-h"><span class="t">Chiến lược</span><span class="tier s">EXEC · quý</span></div><div class="panel-b"><div class="aud">Ban lãnh đạo RB — wallet share?</div><ul class="klist"><li><b>PPC</b> / wallet share theo segment</li><li><b>AUM/CIF</b> theo segment</li><li><b>Coverage compliance</b> vs benchmark</li><li><b>Active customer rate</b></li></ul></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Chiến thuật</span><span class="tier t">MANAGER · tháng</span></div><div class="panel-b"><div class="aud">Branch / Segment Lead — danh mục cân chưa?</div><ul class="klist"><li><b>Coverage ratio</b> (RM : CIF)</li><li><b>Customer load factor</b></li><li><b>Inactive % per FTE</b></li><li><b>Span of control</b> · Loan TAT</li></ul></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Vận hành</span><span class="tier o">RM · ngày/tuần</span></div><div class="panel-b"><div class="aud">RM cá nhân — hôm nay làm gì?</div><ul class="klist"><li><b>KPI achievement %</b></li><li>#call / meeting / sale</li><li><b>Conversion</b> theo phễu</li><li><b>Persistency</b> · reactivation</li></ul></div></div>
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span><h2>KPI Repository &amp; cảnh báo</h2><span class="hint">data dictionary — số mẫu + status</span></div>
+  <div class="g2">
+    <div class="panel"><div class="panel-b" style="padding:6px 8px">
+      <table class="repo">
+        <thead><tr><th style="width:24px"></th><th>KPI</th><th>Công thức</th><th>Hiện tại <span style="color:var(--amber)">(mẫu)</span></th><th>Benchmark</th></tr></thead>
+        <tbody>
+          <tr><td><span class="sdot r"></span></td><td class="k">Coverage ratio</td><td><span class="f">#CIF ÷ #FTE</span></td><td class="cur r num">1:935</td><td class="bm">1:150–250</td></tr>
+          <tr><td><span class="sdot y"></span></td><td class="k">Customer load factor</td><td><span class="f">#phục vụ tốt ÷ #giao</span></td><td class="cur y num">61%</td><td class="bm">≥ 80%</td></tr>
+          <tr><td><span class="sdot r"></span></td><td class="k">PPC</td><td><span class="f">#products ÷ #cust</span></td><td class="cur r num">1.0</td><td class="bm">2.7–4.0</td></tr>
+          <tr><td><span class="sdot y"></span></td><td class="k">KPI achievement %</td><td><span class="f">điểm thực ÷ target</span></td><td class="cur y num">82%</td><td class="bm">≥ 100%</td></tr>
+          <tr><td><span class="sdot r"></span></td><td class="k">Inactive %</td><td><span class="f">#inactive ÷ #covered</span></td><td class="cur r num">64%</td><td class="bm">&lt; 30%</td></tr>
+          <tr><td><span class="sdot g"></span></td><td class="k">AUM / CIF</td><td><span class="f">tổng AUM ÷ #CIF</span></td><td class="cur g num">1.8 tỷ</td><td class="bm">theo segment</td></tr>
+          <tr><td><span class="sdot y"></span></td><td class="k">Span of control</td><td><span class="f">#reports ÷ #mgr</span></td><td class="cur y num">1:14</td><td class="bm">1:10–12</td></tr>
+          <tr><td><span class="sdot y"></span></td><td class="k">Loan TAT</td><td><span class="f">t(giải ngân) − t(nộp)</span></td><td class="cur y num">5.2 ngày</td><td class="bm">≤ 3 ngày</td></tr>
+          <tr><td><span class="sdot g"></span></td><td class="k">Persistency</td><td><span class="f">#hiệu lực ÷ #đã bán</span></td><td class="cur g num">86%</td><td class="bm">≥ 85%</td></tr>
+          <tr><td><span class="sdot r"></span></td><td class="k">Q1–Q4 differential</td><td><span class="f">KPI Q1 ÷ Q4</span></td><td class="cur r num">4.8×</td><td class="bm">thu hẹp</td></tr>
+          <tr><td><span class="sdot r"></span></td><td class="k">Active customer</td><td><span class="f">≥1 holding / 12th</span></td><td class="cur r num">36%</td><td class="bm">≥ 70%</td></tr>
+        </tbody>
+      </table>
+    </div></div>
+    <div class="panel"><div class="panel-h"><span class="t">🚨 Cảnh báo &amp; nút thắt</span></div><div class="alerts">
+      <div class="al r"><div class="ai">🔴</div><div><div class="at">Coverage Priority 1:935 — quá tải ~4–6×</div><div class="as">Không chăm hết khách tagged → rò rỉ năng suất</div></div></div>
+      <div class="al r"><div class="ai">🔴</div><div><div class="at">55% Priority có ≥2 RM — không chủ E2E</div><div class="as">Cần single owner + tag theo CIF (nền gắn mã RMWB)</div></div></div>
+      <div class="al y"><div class="ai">🟡</div><div><div class="at">64% khách inactive · PPC 1.0</div><div class="as">Dư địa cross/up-sell &amp; reactivation rất lớn</div></div></div>
+      <div class="al y"><div class="ai">🟡</div><div><div class="at">Income chưa hợp nhất trong T24</div><div class="as">Segment tạm bằng AUM/CASA → tagging lệch · CDWH</div></div></div>
+    </div></div>
+  </div>
+
+  <div class="eyebrow"><span class="dot"></span><h2>KPI theo nhóm vận hành</h2><span class="hint">Sales Effectiveness Playbook</span></div>
+  <div class="lens-g">
+    <div class="lens c1"><div class="lh">Coverage &amp; Territory</div><div class="chips"><span class="chip">Coverage ratio</span><span class="chip">Load factor</span><span class="chip">% active/RM</span><span class="chip">AUM/CIF</span></div></div>
+    <div class="lens c2"><div class="lh">Sales Process</div><div class="chips"><span class="chip">PPC</span><span class="chip">Conversion phễu</span><span class="chip">Referral conv.</span><span class="chip">Persistency</span></div></div>
+    <div class="lens c3"><div class="lh">Productivity</div><div class="chips"><span class="chip">KPI achievement %</span><span class="chip">#call/meeting</span><span class="chip">Q1–Q4 diff</span></div></div>
+    <div class="lens c4"><div class="lh">Performance Mgmt</div><div class="chips"><span class="chip">%HT</span><span class="chip">Inactive %/FTE</span><span class="chip">Portfolio growth</span><span class="chip">TAT/SLA</span></div></div>
+    <div class="lens c5"><div class="lh">Commercial Exc.</div><div class="chips"><span class="chip">Wallet share</span><span class="chip">Activation</span><span class="chip">Next-best-product</span></div></div>
+    <div class="lens c6"><div class="lh">Capability</div><div class="chips"><span class="chip">Competency level</span><span class="chip">Coaching coverage</span><span class="chip">Tool usage</span></div></div>
+  </div>
+</section>
+
+<!-- ════ PRIORITY ════ -->
+<section class="view" id="priority">
+  <div class="crumb">Tổng quan <span>▸</span> <b>Priority</b> <span class="badge-sample">số minh hoạ</span></div>
+  <div class="seg-note"><b>Priority / KHUT</b> — STRICT: 1 chủ E2E, áp đủ rule gắn mã. Line bán: <b>RMUT</b>. Chia bậc HNWI · Premier.</div>
+  <div class="kgrid">
+    <div class="kcard t-indigo"><div class="top"><span class="pin"></span><span class="cat">Quy mô</span></div><div class="v num">28.500</div><div class="lab">khách Priority</div></div>
+    <div class="kcard t-indigo"><div class="top"><span class="pin"></span><span class="cat">Tài sản</span></div><div class="v num">142K tỷ</div><div class="lab">tổng AUM</div></div>
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Coverage</span></div><div class="v num">1:935</div><div class="lab">RM : khách — quá tải</div><div class="delta">target 1:250</div></div>
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Active</span></div><div class="v num">41%</div><div class="lab">giao dịch ≤12 tháng</div><div class="delta">target ≥ 70%</div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Wallet</span></div><div class="v num">1.3</div><div class="lab">PPC segment</div><div class="delta">target ≥ 3.0</div></div>
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Ownership</span></div><div class="v num">55%</div><div class="lab">có ≥2 RM (gắn chéo)</div><div class="delta">▲ single owner</div></div>
+  </div>
+  <div class="g2b" style="margin-top:14px">
+    <div class="panel"><div class="panel-h"><span class="t">Active vs Inactive</span></div><div class="panel-b"><div id="prDonut"></div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Phân bố tải RM</span><span class="mini">86% ở vùng nặng</span></div><div class="panel-b"><div class="dist">
+      <div class="d-row"><div class="d-lab">Quá tải <small>&gt;400 KH</small></div><div class="d-bar"><i style="width:62%; background:var(--red)"></i></div><div class="d-pct" style="color:var(--red)">62%</div></div>
+      <div class="d-row"><div class="d-lab">Nặng <small>250–400</small></div><div class="d-bar"><i style="width:24%; background:var(--amber)"></i></div><div class="d-pct" style="color:#D97706">24%</div></div>
+      <div class="d-row"><div class="d-lab">Chuẩn <small>&lt;250</small></div><div class="d-bar"><i style="width:14%; background:var(--green)"></i></div><div class="d-pct" style="color:var(--green)">14%</div></div>
+    </div></div></div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="panel"><div class="panel-h"><span class="t">Phân rã theo bậc</span></div><div class="panel-b" style="padding:6px 8px">
+      <table class="repo"><thead><tr><th>Bậc</th><th>#Khách</th><th>AUM</th><th>Coverage</th><th>Active</th><th>PPC</th></tr></thead><tbody>
+        <tr><td class="k">HNWI</td><td class="num">3.200</td><td class="num">78K tỷ</td><td class="cur y num">1:480</td><td class="cur y num">52%</td><td class="cur y num">1.8</td></tr>
+        <tr><td class="k">Premier</td><td class="num">25.300</td><td class="num">64K tỷ</td><td class="cur r num">1:980</td><td class="cur r num">39%</td><td class="cur r num">1.2</td></tr>
+      </tbody></table>
+      <div style="padding:9px 8px 2px; font-size:.7rem; color:var(--muted)">→ Premier kéo tụt cả segment — ưu tiên rebalance &amp; single-owner ở đây trước.</div>
+    </div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Hành động ưu tiên</span></div><div class="panel-b"><ul class="klist">
+      <li><b>Khoá single owner</b> + tag CIF cho Priority (đã có CASA/FD) <span style="color:var(--green);font-weight:600">· quick win</span></li>
+      <li><b>Rebalance</b> Premier về ≤1:250</li>
+      <li><b>Reactivation</b> 59% inactive — next-best-product</li>
+      <li><b>Grace period + handover</b> chuẩn khi đổi hạng</li>
+    </ul></div></div>
+  </div>
+</section>
+
+<!-- ════ EB ════ -->
+<section class="view" id="eb">
+  <div class="crumb">Tổng quan <span>▸</span> <b>Employee Banking</b> <span class="badge-sample">số minh hoạ</span></div>
+  <div class="seg-note"><b>EB / Employee Banking</b> — chưa có lực lượng riêng → cần xây <b>RMEB</b>. Flywheel: Payroll → CASA → cross-sell. H2H: SME/Corporate RM (hunting) → EB RM (farming/servicing).</div>
+  <div class="kgrid">
+    <div class="kcard t-indigo"><div class="top"><span class="pin"></span><span class="cat">Quy mô</span></div><div class="v num">120K</div><div class="lab">nhân sự (employee) qua payroll</div></div>
+    <div class="kcard t-indigo"><div class="top"><span class="pin"></span><span class="cat">Doanh nghiệp</span></div><div class="v num">85</div><div class="lab">employer ký payroll</div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Conversion</span></div><div class="v num">47%</div><div class="lab">payroll → CASA active</div><div class="delta">target ≥ 75%</div></div>
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Active</span></div><div class="v num">28%</div><div class="lab">employee có GD ≤12 th.</div><div class="delta">target ≥ 65%</div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Wallet</span></div><div class="v num">0.9</div><div class="lab">PPC employee</div><div class="delta">target ≥ 2.5</div></div>
+    <div class="kcard t-blue"><div class="top"><span class="pin"></span><span class="cat">Coverage</span></div><div class="v num">xây mới</div><div class="lab">RMEB target 1:165–300</div></div>
+  </div>
+  <div class="g2b" style="margin-top:14px">
+    <div class="panel"><div class="panel-h"><span class="t">Active vs Inactive</span></div><div class="panel-b"><div id="ebDonut"></div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Phễu Payroll → CASA → Cross-sell</span><span class="mini">% employee</span></div><div class="panel-b"><div id="ebFunnel"></div></div></div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="panel"><div class="panel-h"><span class="t">Khoảng cách tới mục tiêu</span></div><div class="panel-b"><div class="prog">
+      <div class="row"><div class="lab"><b>Payroll → CASA</b> <span>47% → <span class="tg">75%</span></span></div><div class="bar"><div class="fill" style="width:47%; background:linear-gradient(90deg,#FCD34D,var(--amber))"></div><div class="mk" style="left:75%"></div></div></div>
+      <div class="row"><div class="lab"><b>Active rate</b> <span>28% → <span class="tg">65%</span></span></div><div class="bar"><div class="fill" style="width:28%"></div><div class="mk" style="left:65%"></div></div></div>
+      <div class="row"><div class="lab"><b>PPC</b> <span>0.9 → <span class="tg">2.5</span></span></div><div class="bar"><div class="fill" style="width:36%; background:linear-gradient(90deg,#FCD34D,var(--amber))"></div><div class="mk" style="left:100%"></div></div></div>
+    </div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Hành động ưu tiên</span></div><div class="panel-b"><ul class="klist">
+      <li><b>Xây lực lượng RMEB</b> chuyên trách (hiện chưa có)</li>
+      <li><b>H2H</b>: Corporate RM bàn giao employer → EB RM farming</li>
+      <li><b>Kích hoạt CASA</b> từ payroll (flywheel) — 53% chưa active</li>
+      <li>Acquisition số hoá riêng cho NTB employee</li>
+    </ul></div></div>
+  </div>
+</section>
+
+<!-- ════ MSME ════ -->
+<section class="view" id="msme">
+  <div class="crumb">Tổng quan <span>▸</span> <b>MSME &amp; Household</b> <span class="badge-sample">số minh hoạ</span></div>
+  <div class="seg-note"><b>MSME</b> — STRICT, line riêng <b>RM MSME</b>. Nguyên tắc cứng: <b>KHÔNG bao giờ</b> do RM bán lẻ phục vụ. Primary branch = branch giữ lending.</div>
+  <div class="kgrid">
+    <div class="kcard t-indigo"><div class="top"><span class="pin"></span><span class="cat">Quy mô</span></div><div class="v num">46.000</div><div class="lab">khách MSME &amp; Household</div></div>
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Sai line</span></div><div class="v num">71%</div><div class="lab">đang do RM bán lẻ phục vụ</div><div class="delta">▲ phải chuyển RM MSME</div></div>
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Coverage</span></div><div class="v num">1:846</div><div class="lab">RM : khách</div><div class="delta">target 1:165</div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Active</span></div><div class="v num">38%</div><div class="lab">giao dịch ≤12 tháng</div><div class="delta">target ≥ 65%</div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Lending</span></div><div class="v num">31%</div><div class="lab">MSME có dư nợ</div><div class="delta">dư địa lớn</div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Wallet</span></div><div class="v num">1.1</div><div class="lab">PPC MSME</div><div class="delta">target ≥ 3.0</div></div>
+  </div>
+  <div class="g2b" style="margin-top:14px">
+    <div class="panel"><div class="panel-h"><span class="t">Active vs Inactive</span></div><div class="panel-b"><div id="msDonut"></div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Ai đang phục vụ MSME?</span><span class="mini">% khách</span></div><div class="panel-b"><div id="msBars"></div><div style="margin-top:8px; font-size:.7rem; color:var(--muted)">71% sai line (RM bán lẻ) — vi phạm nguyên tắc cứng của SFE.</div></div></div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="panel"><div class="panel-h"><span class="t">Khoảng cách tới mục tiêu</span></div><div class="panel-b"><div class="prog">
+      <div class="row"><div class="lab"><b>Coverage</b> <span>1:846 → <span class="tg">1:165</span></span></div><div class="bar"><div class="fill" style="width:100%"></div><div class="mk" style="left:20%"></div></div></div>
+      <div class="row"><div class="lab"><b>Đúng line (RM MSME)</b> <span>29% → <span class="tg">100%</span></span></div><div class="bar"><div class="fill" style="width:29%"></div><div class="mk" style="left:100%"></div></div></div>
+      <div class="row"><div class="lab"><b>Active rate</b> <span>38% → <span class="tg">65%</span></span></div><div class="bar"><div class="fill" style="width:38%; background:linear-gradient(90deg,#FCD34D,var(--amber))"></div><div class="mk" style="left:65%"></div></div></div>
+    </div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Hành động ưu tiên</span></div><div class="panel-b"><ul class="klist">
+      <li><b>Chuyển 71% sai line</b> sang RM MSME chuyên trách</li>
+      <li><b>Primary branch</b> = branch giữ lending (anchor quan hệ)</li>
+      <li>Khai thác <b>lending</b> (chỉ 31% có dư nợ)</li>
+      <li>Needs-based advisory cho nhu cầu tổ chức (≠ bán lẻ)</li>
+    </ul></div></div>
+  </div>
+</section>
+
+<!-- ════ MASS ════ -->
+<section class="view" id="mass">
+  <div class="crumb">Tổng quan <span>▸</span> <b>Mass &amp; Lower Affluent</b> <span class="badge-sample">số minh hoạ</span></div>
+  <div class="seg-note relax"><b>Mass — RELAXED</b>: <b>KHÔNG bắt buộc single owner</b>, nhiều người bán / farm tự do, credit theo người thực bán. ✅ Engine gắn mã STRICT <b>KHÔNG áp 3.3M Mass</b> (D01) → nhẹ hệ thống. Khớp SFE.</div>
+  <div class="kgrid">
+    <div class="kcard t-indigo"><div class="top"><span class="pin"></span><span class="cat">Quy mô</span></div><div class="v num">3.3M</div><div class="lab">khách Mass + Lower MAff</div></div>
+    <div class="kcard t-green"><div class="top"><span class="pin"></span><span class="cat">Mô hình</span></div><div class="v num" style="font-size:1.15rem; padding-top:6px">Relaxed</div><div class="lab">không single owner · product-credit</div></div>
+    <div class="kcard t-red"><div class="top"><span class="pin"></span><span class="cat">Active</span></div><div class="v num">22%</div><div class="lab">giao dịch ≤12 tháng</div><div class="delta">target ≥ 45%</div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Digital</span></div><div class="v num">34%</div><div class="lab">dùng kênh số (app/web)</div><div class="delta">target ≥ 70%</div></div>
+    <div class="kcard t-amber"><div class="top"><span class="pin"></span><span class="cat">Wallet</span></div><div class="v num">1.0</div><div class="lab">PPC Mass</div><div class="delta">target ≥ 2.0</div></div>
+    <div class="kcard t-blue"><div class="top"><span class="pin"></span><span class="cat">Phục vụ</span></div><div class="v num">Digital</div><div class="lab">virtual RM + Teller farm</div></div>
+  </div>
+  <div class="g2b" style="margin-top:14px">
+    <div class="panel"><div class="panel-h"><span class="t">Active vs Inactive</span><span class="mini">78% inactive</span></div><div class="panel-b"><div id="maDonut"></div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Kênh phục vụ</span><span class="mini">% khách</span></div><div class="panel-b"><div id="maBars"></div></div></div>
+  </div>
+  <div class="g2" style="margin-top:14px">
+    <div class="panel"><div class="panel-h"><span class="t">Khoảng cách tới mục tiêu</span></div><div class="panel-b"><div class="prog">
+      <div class="row"><div class="lab"><b>Active rate</b> <span>22% → <span class="tg">45%</span></span></div><div class="bar"><div class="fill" style="width:49%; background:linear-gradient(90deg,#FCA5A5,var(--red))"></div><div class="mk" style="left:100%"></div></div></div>
+      <div class="row"><div class="lab"><b>Digital adoption</b> <span>34% → <span class="tg">70%</span></span></div><div class="bar"><div class="fill" style="width:48%; background:linear-gradient(90deg,#FCD34D,var(--amber))"></div><div class="mk" style="left:100%"></div></div></div>
+      <div class="row"><div class="lab"><b>PPC</b> <span>1.0 → <span class="tg">2.0</span></span></div><div class="bar"><div class="fill" style="width:50%; background:linear-gradient(90deg,#FCD34D,var(--amber))"></div><div class="mk" style="left:100%"></div></div></div>
+    </div></div></div>
+    <div class="panel"><div class="panel-h"><span class="t">Hành động ưu tiên</span></div><div class="panel-b"><ul class="klist">
+      <li><b>Digital/virtual RM</b> cho mid-tier — kênh đúng-chi-phí</li>
+      <li><b>Reactivation số hoá</b> 78% inactive (chiến dịch automation)</li>
+      <li><b>Next-best-product</b> bằng analytics lead-gen</li>
+      <li>Credit theo <b>người thực bán</b> — không tranh chấp quan hệ</li>
+    </ul></div></div>
+  </div>
+</section>
+
+<div class="note">
+  <b>Phương pháp &amp; lưu ý:</b> Số ở Repository và các tab segment là <b>minh hoạ (mẫu)</b> để demo bố cục — 6 KPI baseline ở tab Tổng quan trích từ deck SFE. Segmentation OR-basis (AUM/Income/CASA), 6 bậc; ⚠️ income chưa có trong T24 → segment tạm bằng AUM/CASA. Recognition mặc định exclusive cho <b>Primary RM</b>; Mass theo mô hình RELAXED (không single owner).
+</div>
+<div class="foot">
+  Demo combine <b>kpi-dashboard-design</b> (khung 3 tầng · headline KPI · data dictionary · drill-down 4 segment) + <b>HTML design</b> (template modern, charts SVG thuần, zero-dependency).<br>
+  Nguồn: 2026.06.06_KB_PVB-SFE-Squad1_MASTER · PVcomBank Khối KHCN · 06/06/2026.
+</div>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* ---------- tabs ---------- */
+  const tabs=document.querySelectorAll('.tab');
+  const views=document.querySelectorAll('.view');
+  tabs.forEach(t=>t.addEventListener('click',()=>{
+    tabs.forEach(x=>x.classList.remove('active')); t.classList.add('active');
+    views.forEach(v=>v.classList.remove('active'));
+    document.getElementById(t.dataset.v).classList.add('active');
+    window.scrollTo({top:0,behavior:'smooth'});
+  }));
+
+  /* ---------- mini SVG chart lib (zero-dep, viewBox-based) ---------- */
+  const $=id=>document.getElementById(id);
+  function donut(id,data,opts){opts=opts||{};
+    const c=$(id); if(!c) return;
+    const total=data.reduce((s,d)=>s+d.value,0), R=48,CX=60,CY=60,SW=16, circ=2*Math.PI*R;
+    let off=0, arcs='';
+    data.forEach(d=>{const len=d.value/total*circ;
+      arcs+='<circle cx="'+CX+'" cy="'+CY+'" r="'+R+'" fill="none" stroke="'+d.color+'" stroke-width="'+SW+'" stroke-dasharray="'+len.toFixed(2)+' '+(circ-len).toFixed(2)+'" stroke-dashoffset="'+(-off).toFixed(2)+'" transform="rotate(-90 '+CX+' '+CY+')"/>'; off+=len;});
+    const ctr=opts.center!=null? '<text x="60" y="58" text-anchor="middle" class="dt-num">'+opts.center+'</text>'+(opts.sub?'<text x="60" y="72" text-anchor="middle" class="dt-sub">'+opts.sub+'</text>':'') : '';
+    const leg=data.map(d=>'<div class="lg"><span class="d" style="background:'+d.color+'"></span><span>'+d.label+'</span><b>'+(opts.raw?d.value:Math.round(d.value/total*100)+'%')+'</b></div>').join('');
+    c.className='chart-wrap';
+    c.innerHTML='<svg viewBox="0 0 120 120" class="donut">'+arcs+ctr+'</svg><div class="chart-legend">'+leg+'</div>';
+  }
+  function bars(id,data,opts){opts=opts||{};
+    const c=$(id); if(!c) return;
+    const W=320,H=168,padB=30,padT=20,padL=8,padR=8, grouped=data[0].target!=null;
+    const max=opts.max||Math.max.apply(null,data.flatMap(d=>[d.current,d.target||0]));
+    const gw=(W-padL-padR)/data.length, bw=grouped?gw*0.28:gw*0.42, fmt=opts.fmt||(v=>v);
+    let s='';
+    data.forEach((d,i)=>{const gx=padL+i*gw+gw/2;
+      const ch=(d.current/max)*(H-padB-padT), cx=grouped?gx-bw-3:gx-bw/2;
+      s+='<rect x="'+cx.toFixed(1)+'" y="'+(H-padB-ch).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+ch.toFixed(1)+'" rx="3" fill="'+(d.color||'#EF4444')+'"/>';
+      s+='<text x="'+(cx+bw/2).toFixed(1)+'" y="'+(H-padB-ch-5).toFixed(1)+'" text-anchor="middle" class="bar-val">'+fmt(d.current)+'</text>';
+      if(grouped){const th=(d.target/max)*(H-padB-padT), tx=gx+3;
+        s+='<rect x="'+tx.toFixed(1)+'" y="'+(H-padB-th).toFixed(1)+'" width="'+bw.toFixed(1)+'" height="'+th.toFixed(1)+'" rx="3" fill="#10B981"/>';
+        s+='<text x="'+(tx+bw/2).toFixed(1)+'" y="'+(H-padB-th-5).toFixed(1)+'" text-anchor="middle" class="bar-val" fill="#047857">'+fmt(d.target)+'</text>';}
+      s+='<text x="'+gx.toFixed(1)+'" y="'+(H-padB+15).toFixed(1)+'" text-anchor="middle" class="bar-lab">'+d.label+'</text>';});
+    c.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" class="bars-svg">'+s+'</svg>';
+  }
+  function line(id,pts,labels,opts){opts=opts||{};
+    const c=$(id); if(!c) return;
+    const W=320,H=132,padB=24,padT=18,padX=14, max=opts.max||Math.max.apply(null,pts), min=opts.min||0, fmt=opts.fmt||(v=>v);
+    const n=pts.length, dx=(W-2*padX)/(n-1), X=i=>padX+i*dx, Y=v=>padT+(1-(v-min)/(max-min))*(H-padB-padT);
+    const poly=pts.map((v,i)=>X(i).toFixed(1)+','+Y(v).toFixed(1)).join(' ');
+    const area=padX+','+(H-padB)+' '+poly+' '+(W-padX)+','+(H-padB);
+    const dots=pts.map((v,i)=>'<circle cx="'+X(i).toFixed(1)+'" cy="'+Y(v).toFixed(1)+'" r="3.4" fill="#4F46E5"/>').join('');
+    const labs=labels.map((l,i)=>'<text x="'+X(i).toFixed(1)+'" y="'+(H-7)+'" text-anchor="middle" class="bar-lab">'+l+'</text>').join('');
+    const vlabs=pts.map((v,i)=>'<text x="'+X(i).toFixed(1)+'" y="'+(Y(v)-7).toFixed(1)+'" text-anchor="middle" class="bar-val">'+fmt(v)+'</text>').join('');
+    c.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" class="line-svg"><defs><linearGradient id="lg_'+id+'" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4F46E5" stop-opacity="0.22"/><stop offset="1" stop-color="#4F46E5" stop-opacity="0"/></linearGradient></defs><polygon points="'+area+'" fill="url(#lg_'+id+')"/><polyline points="'+poly+'" fill="none" stroke="#4F46E5" stroke-width="2.4" stroke-linejoin="round"/>'+dots+labs+vlabs+'</svg>';
+  }
+  const GREY='#E2E8F0';
+  /* overview */
+  donut('ovDonut',[{label:'Mass',value:71,color:'#94A3B8'},{label:'Mass Affluent',value:15,color:'#3B82F6'},{label:'MSME',value:7,color:'#06B6D4'},{label:'Priority',value:5,color:'#4F46E5'},{label:'EB',value:2,color:'#A855F7'}],{center:'3.5M',sub:'CIF'});
+  bars('ovBars',[{label:'Priority',current:935,target:250,color:'#EF4444'},{label:'Branch',current:835,target:360,color:'#EF4444'},{label:'MSME',current:846,target:150,color:'#EF4444'}],{fmt:v=>'1:'+v});
+  line('ovLine',[36,42,49,57,64,70],['T1','T2','T3','T4','T5','MT'],{max:80,min:20,fmt:v=>v+'%'});
+  /* segments */
+  donut('prDonut',[{label:'Active',value:41,color:'#10B981'},{label:'Inactive',value:59,color:GREY}],{center:'41%',sub:'active'});
+  donut('ebDonut',[{label:'Active',value:28,color:'#10B981'},{label:'Inactive',value:72,color:GREY}],{center:'28%',sub:'active'});
+  bars('ebFunnel',[{label:'Payroll',current:100,color:'#4F46E5'},{label:'CASA',current:47,color:'#3B82F6'},{label:'Cross-sell',current:12,color:'#06B6D4'}],{max:100,fmt:v=>v+'%'});
+  donut('msDonut',[{label:'Active',value:38,color:'#10B981'},{label:'Inactive',value:62,color:GREY}],{center:'38%',sub:'active'});
+  bars('msBars',[{label:'RM bán lẻ',current:71,color:'#EF4444'},{label:'RM MSME',current:29,color:'#10B981'}],{max:100,fmt:v=>v+'%'});
+  donut('maDonut',[{label:'Active',value:22,color:'#10B981'},{label:'Inactive',value:78,color:GREY}],{center:'22%',sub:'active'});
+  bars('maBars',[{label:'Teller farm',current:48,color:'#94A3B8'},{label:'RMCN',current:18,color:'#3B82F6'},{label:'Digital',current:34,color:'#4F46E5'}],{max:100,fmt:v=>v+'%'});
+})();
+</script>
+</body>
+</html>
